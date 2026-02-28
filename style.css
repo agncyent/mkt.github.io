@@ -1,0 +1,100 @@
+:root {
+    --bg-color: #0a0a0c;
+    --accent-glow: linear-gradient(45deg, #ff00cc, #3333ff);
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Glow Background Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: -10%; left: -10%;
+    width: 40%; height: 40%;
+    background: radial-gradient(circle, rgba(255,0,204,0.15) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo span {
+    background: var(--accent-glow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.menu-dots {
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0 10px;
+}
+
+/* Dropdown Menu */
+.full-menu {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 250px; height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    transition: 0.5s;
+    z-index: 99;
+    padding-top: 80px;
+}
+
+.full-menu.active { right: 0; }
+
+.full-menu ul { list-style: none; padding: 0 40px; }
+.full-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Card Glow Style */
+.glow-card, .card {
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 5%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.btn-glow {
+    background: var(--accent-glow);
+    border: none;
+    padding: 10px 25px;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.4);
+    transition: 0.3s;
+}
+
+.btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(51, 51, 255, 0.6); }
+
+.video-container {
+    width: 90%;
+    margin: 20px auto;
+    aspect-ratio: 16/9;
+}
+
+iframe { width: 100%; height: 100%; border-radius: 15px; }
