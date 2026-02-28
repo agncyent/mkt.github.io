@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idol Connect | Premium Portal</title>
+    <title>MKT4X VIRTUAL | Official Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,7 +11,8 @@
     <div class="bg-glow"></div>
 
     <nav class="navbar">
-        <div class="logo">IDOL<span>PROJECT</span></div>
+        <div class="logo">MKT4X<span>VIRTUAL</span></div>
+        
         <div class="nav-right">
             <div class="lang-container">
                 <i class="fas fa-globe"></i>
@@ -32,11 +33,10 @@
     <div class="menu-overlay" id="menuOverlay">
         <div class="close-menu" onclick="toggleMenu()">&times;</div>
         <ul class="menu-links">
-            <li><a href="#"><i class="fas fa-newspaper"></i> News</a></li>
-            <li><a href="#"><i class="fas fa-calendar-alt"></i> Schedule</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Member List</a></li>
-            <li><a href="#"><i class="fas fa-microphone"></i> Setlist</a></li>
-            <li><a href="#"><i class="fas fa-music"></i> Songs</a></li>
+            <li><a href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+            <li><a href="#schedule"><i class="fas fa-calendar-alt"></i> Schedule</a></li>
+            <li><a href="#member"><i class="fas fa-users"></i> Member List</a></li>
+            <li><a href="#setlist"><i class="fas fa-microphone"></i> Setlist</a></li>
             <hr class="menu-divider">
             <li><a href="#" class="register-link"><i class="fas fa-user-plus"></i> DAFTAR MEMBER</a></li>
             <li><a href="#" class="login-link"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
@@ -44,7 +44,32 @@
     </div>
 
     <main class="container">
-        </main>
+        <section class="video-section">
+            <div class="video-glow-card">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <div class="main-grid">
+            <div class="card">
+                <div class="card-header">LATEST NEWS</div>
+                <div class="news-item">
+                    <span>2026.02.28</span>
+                    <p>MKT4X Virtual First Generation Audition is Open!</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">BIRTHDAY</div>
+                <div class="bday-box">
+                    <div class="glow-avatar">M</div>
+                    <div>
+                        <strong>Member Name</strong>
+                        <p>Coming Soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
