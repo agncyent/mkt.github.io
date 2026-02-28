@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idol Connect | Premium Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">IDOL<span>PROJECT</span></div>
+        <div class="nav-right">
+            <div class="lang-switch">
+                <select id="langSelect">
+                    <option value="id">ID</option>
+                    <option value="en">EN</option>
+                    <option value="jp">JP</option>
+                </select>
+            </div>
+            <div class="menu-dots" onclick="toggleMenu()">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="full-menu" id="fullMenu">
+        <ul>
+            <li><a href="#news">News</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#member">Member</a></li>
+            <li><a href="#setlist">Setlist</a></li>
+            <li><a href="#songs">Lagu</a></li>
+        </ul>
+    </div>
+
+    <header class="hero">
+        <div class="video-container">
+            <iframe id="mainVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </header>
+
+    <main>
+        <section class="member-area">
+            <h2>Member Area</h2>
+            <div class="glow-card">
+                <p>Welcome, Guest</p>
+                <div class="domain-info">
+                    Your Profile: <span id="userDomain">username.myself.web.id</span>
+                </div>
+                <button class="btn-glow">Login / Register</button>
+            </div>
+        </section>
+
+        <section class="info-grid">
+            <div class="card news-card">
+                <h3><i class="fas fa-newspaper"></i> Latest News</h3>
+                <ul id="newsList">
+                    <li>Loading news...</li>
+                </ul>
+            </div>
+            <div class="card bday-card">
+                <h3><i class="fas fa-birthday-cake"></i> Member Birthday</h3>
+                <div class="bday-item">Zee - 20 March</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+  </html>
