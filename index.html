@@ -3,69 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKT4X OFFICIAL WEBSITE</title>
+    <title>Idol Connect | Premium Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="bg-glow"></div>
 
     <nav class="navbar">
-        <div class="logo">MKT4X<span>VIRTUAL</span></div>
+        <div class="logo">IDOL<span>PROJECT</span></div>
         <div class="nav-right">
-            <div class="lang-switch">
-                <select id="langSelect">
-                    <option value="id">ID</option>
-                    <option value="en">EN</option>
-                    <option value="jp">JP</option>
+            <div class="lang-container">
+                <i class="fas fa-globe"></i>
+                <select id="langSelect" class="lang-dropdown">
+                    <option value="id">Indonesia</option>
+                    <option value="en">English</option>
+                    <option value="jp">Japanese</option>
                 </select>
             </div>
-            <div class="menu-dots" onclick="toggleMenu()">
-                <i class="fas fa-ellipsis-v"></i>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <div class="full-menu" id="fullMenu">
-        <ul>
-            <li><a href="#news">News</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#member">Member</a></li>
-            <li><a href="#setlist">Setlist</a></li>
-            <li><a href="#songs">Lagu</a></li>
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="close-menu" onclick="toggleMenu()">&times;</div>
+        <ul class="menu-links">
+            <li><a href="#"><i class="fas fa-newspaper"></i> News</a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> Schedule</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Member List</a></li>
+            <li><a href="#"><i class="fas fa-microphone"></i> Setlist</a></li>
+            <li><a href="#"><i class="fas fa-music"></i> Songs</a></li>
+            <hr class="menu-divider">
+            <li><a href="#" class="register-link"><i class="fas fa-user-plus"></i> DAFTAR MEMBER</a></li>
+            <li><a href="#" class="login-link"><i class="fas fa-sign-in-alt"></i> LOGIN</a></li>
         </ul>
     </div>
 
-    <header class="hero">
-        <div class="video-container">
-            <iframe id="mainVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </header>
-
-    <main>
-        <section class="member-area">
-            <h2>Member Area</h2>
-            <div class="glow-card">
-                <p>Welcome, Guest</p>
-                <div class="domain-info">
-                    Your Profile: <span id="userDomain">username.myself.web.id</span>
-                </div>
-                <button class="btn-glow">Login / Register</button>
-            </div>
-        </section>
-
-        <section class="info-grid">
-            <div class="card news-card">
-                <h3><i class="fas fa-newspaper"></i> Latest News</h3>
-                <ul id="newsList">
-                    <li>Loading news...</li>
-                </ul>
-            </div>
-            <div class="card bday-card">
-                <h3><i class="fas fa-birthday-cake"></i> Member Birthday</h3>
-                <div class="bday-item">Zee - 20 March</div>
-            </div>
-        </section>
-    </main>
+    <main class="container">
+        </main>
 
     <script src="script.js"></script>
 </body>
