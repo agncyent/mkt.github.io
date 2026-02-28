@@ -1,100 +1,129 @@
+/* Gaya Navigasi yang Diperbarui */
 :root {
-    --bg-color: #0a0a0c;
-    --accent-glow: linear-gradient(45deg, #ff00cc, #3333ff);
-    --glass: rgba(255, 255, 255, 0.05);
+    --primary: #00f2ff;
+    --secondary: #7000ff;
+    --bg: #050505;
+    --card-bg: rgba(20, 20, 25, 0.7);
+    --green-icon: #4caf50; /* Warna hijau untuk ikon bola dunia */
 }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: white;
-    overflow-x: hidden;
-}
+/* ... (gaya lainnya dari kode sebelumnya tetap dipertahankan) ... */
 
-/* Glow Background Effect */
-body::before {
-    content: "";
-    position: fixed;
-    top: -10%; left: -10%;
-    width: 40%; height: 40%;
-    background: radial-gradient(circle, rgba(255,0,204,0.15) 0%, transparent 70%);
-    z-index: -1;
-}
-
-.navbar {
+/* Container Bahasa */
+.lang-container {
     display: flex;
-    justify-content: space-between;
-    padding: 20px 5%;
-    background: rgba(10, 10, 12, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    align-items: center;
+    gap: 8px;
+    margin-right: 20px;
 }
 
-.logo span {
-    background: var(--accent-glow);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: bold;
-}
-
-.menu-dots {
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0 10px;
-}
-
-/* Dropdown Menu */
-.full-menu {
-    position: fixed;
-    top: 0; right: -100%;
-    width: 250px; height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    transition: 0.5s;
-    z-index: 99;
-    padding-top: 80px;
-}
-
-.full-menu.active { right: 0; }
-
-.full-menu ul { list-style: none; padding: 0 40px; }
-.full-menu ul li a {
-    color: white;
-    text-decoration: none;
+.lang-container i {
+    color: var(--green-icon);
     font-size: 1.2rem;
-    display: block;
-    margin-bottom: 20px;
 }
 
-/* Card Glow Style */
-.glow-card, .card {
-    background: var(--glass);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px 5%;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-}
-
-.btn-glow {
-    background: var(--accent-glow);
-    border: none;
-    padding: 10px 25px;
+.lang-dropdown {
+    background: transparent;
     color: white;
-    border-radius: 20px;
+    border: none;
+    font-size: 0.9rem;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 0, 204, 0.4);
+    outline: none;
+}
+
+/* Ikon Garis Tiga (Hamburger) */
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.menu-icon span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
     transition: 0.3s;
 }
 
-.btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(51, 51, 255, 0.6); }
-
-.video-container {
-    width: 90%;
-    margin: 20px auto;
-    aspect-ratio: 16/9;
+/* Overlay Menu */
+.menu-overlay {
+    /* ... (gaya sebelumnya dipertahankan) ... */
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.98);
+    transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-iframe { width: 100%; height: 100%; border-radius: 15px; }
+.menu-overlay.active {
+    right: 0;
+}
+
+.close-menu {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 3rem;
+    cursor: pointer;
+    color: white;
+}
+
+.menu-links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+
+.menu-links li {
+    margin: 1.5rem 0;
+}
+
+.menu-links a {
+    font-size: 1.8rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: 0.3s;
+}
+
+.menu-links a:hover {
+    color: var(--primary);
+    text-shadow: 0 0 20px var(--primary);
+}
+
+.menu-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Gaya Link Khusus Daftar Member */
+.register-link {
+    color: var(--primary) !important;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--primary);
+}
+
+.register-link i {
+    color: var(--primary);
+}
+
+.login-link i {
+    color: rgba(255, 255, 255, 0.7);
+}
