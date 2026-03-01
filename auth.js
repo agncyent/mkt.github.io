@@ -1,26 +1,33 @@
-import { auth, db, googleProvider } from "./firebase.js";
+// auth.js
+import { auth, db } from "./firebase.js";
 import {
+  GoogleAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 // ===== GOOGLE LOGIN =====
 window.googleLogin = async () => {
+  const provider = new GoogleAuthProvider();
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Simpan user ke Firestore kalau baru login
-    await setDoc(doc(db, "users", user.uid), {
-      name: user.displayName || "",
-      email: user.email,
-      photoURL: user.photoURL || "",
-      role: "member",
-      createdAt: new Date()
-    }, { merge: true });
+    // Simpan data user di Firestore jika belum ada
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      await setDoc(docRef, {
+        name: user.displayName || "User Google",
+        email: user.email,
+        photoURL: user.photoURL || "",
+        role: "member",
+        createdAt: new Date()
+      });
+    }
 
     alert("Login Google berhasil!");
   } catch (error) {
@@ -38,67 +45,71 @@ window.logoutUser = async () => {
   }
 };
 
-// ===== UI ELEMENTS =====
+// ===== UI CONTROL =====
 const authBtn = document.getElementById("authBtn");
 const authText = document.getElementById("authText");
-const profileContainer = document.getElementById("profileContainer");
-const profileName = document.getElementById("profileName");
-const profilePic = document.getElementById("profilePic");
-const overlay = document.getElementById("overlay");
-const authModal = document.getElementById("authModal");
+const userEmail = document.getElementById("userEmail");
 
-// Toggle auth modal
-authBtn.addEventListener("click", (e) => {
+// Profil bawah login (nama & foto)
+let userProfileContainer = document.getElementById("userProfile");
+if (!userProfileContainer) {
+  userProfileContainer = document.createElement("div");
+  userProfileContainer.id = "userProfile";
+  userProfileContainer.style.display = "none";
+  userProfileContainer.style.marginTop = "10px";
+  userProfileContainer.style.fontSize = "0.9rem";
+  userProfileContainer.style.color = "#5CD6C0";
+  document.querySelector(".sidebar ul").appendChild(userProfileContainer);
+}
+
+// Tombol Masuk / Logout
+authBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   const user = auth.currentUser;
   if (user) {
-    logoutUser();
+    await logoutUser();
   } else {
-    authModal.style.display = "flex";
+    await googleLogin();
   }
 });
 
-window.closeModal = () => {
-  authModal.style.display = "none";
-};
-
-// ===== EDIT PROFILE =====
-window.editProfile = async () => {
-  const newName = prompt("Masukkan nama baru:", auth.currentUser.displayName || profileName.innerText);
-  if (!newName) return;
-
-  try {
-    // Update nama di Firebase Auth
-    await updateProfile(auth.currentUser, { displayName: newName });
-
-    // Update Firestore
-    await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName }, { merge: true });
-
-    // Update UI
-    profileName.innerText = newName;
-    alert("Nama berhasil diperbarui!");
-  } catch (err) {
-    console.error(err);
-    alert("Gagal update nama: " + err.message);
-  }
-};
-
-// Tombol Google Login di modal
-const googleLoginBtn = document.querySelector("#authModal button.google");
-googleLoginBtn.addEventListener("click", async () => {
-  await googleLogin();
-  authModal.style.display = "none";
-});
-
-// ===== UPDATE UI SESUAI LOGIN STATE =====
-onAuthStateChanged(auth, (user) => {
+// Update tampilan login/logout
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     authText.innerText = "Logout";
-    profileContainer.style.display = "block";
-    profileName.innerText = user.displayName || "Google User";
-    profilePic.src = user.photoURL || "https://via.placeholder.com/60";
+    userEmail.style.display = "block";
+    userEmail.innerText = "Login sebagai: " + (user.email || "Google User");
+
+    // Tampilkan profil user
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      userProfileContainer.style.display = "block";
+      userProfileContainer.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img src="${data.photoURL || 'https://via.placeholder.com/32'}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+          <span>${data.name || 'User'}</span>
+          <button id="editProfileBtn" style="margin-left:auto; padding:2px 5px; font-size:0.8rem;">Edit</button>
+        </div>
+      `;
+
+      const editBtn = document.getElementById("editProfileBtn");
+      editBtn.addEventListener("click", async () => {
+        const newName = prompt("Masukkan nama baru:", data.name || "");
+        if (newName) {
+          // Update di Firebase Auth
+          await updateProfile(user, { displayName: newName });
+          // Update di Firestore
+          await setDoc(docRef, { name: newName }, { merge: true });
+          alert("Nama berhasil diperbarui!");
+          userProfileContainer.querySelector("span").innerText = newName;
+        }
+      });
+    }
   } else {
     authText.innerText = "Masuk";
-    profileContainer.style.display = "none";
+    userEmail.style.display = "none";
+    userProfileContainer.style.display = "none";
   }
 });
