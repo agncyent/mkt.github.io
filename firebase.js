@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/fireba
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-// Config dari Firebase kamu
+// Config Firebase kamu
 const firebaseConfig = {
   apiKey: "AIzaSyAxrKRuwslFf-W4IGuzMoUG9yKadA7KdeM",
   authDomain: "mkt4x-web.firebaseapp.com",
