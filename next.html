@@ -36,183 +36,54 @@ body{
     z-index:1000;
     height:70px;
 }
-.logo{
-    display:flex;
-    align-items:center;
-}
-.logo img{
-    height:32px;
-    width:auto;
-    object-fit:contain;
-    display:block;
-}
-@media (max-width:768px){
-    .navbar{ height:60px; }
-    .logo img{ height:24px; }
-}
+.logo img{ height:32px; width:auto; object-fit:contain; display:block;}
+@media (max-width:768px){ .navbar{ height:60px; } .logo img{ height:24px; } }
 /* RIGHT NAV */
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-.lang-container{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    cursor:pointer;
-}
-.lang-container i{
-    color:var(--mint-accent);
-}
-select{
-    background:transparent;
-    color:var(--mint-dark);
-    border:none;
-    outline:none;
-    font-size:0.85rem;
-    cursor:pointer;
-}
+.nav-right{ display:flex; align-items:center; gap:20px; }
+.lang-container{ display:flex; align-items:center; gap:5px; cursor:pointer; }
+.lang-container i{ color:var(--mint-accent); }
+select{ background:transparent; color:var(--mint-dark); border:none; outline:none; font-size:0.85rem; cursor:pointer; }
 /* MENU BUTTON */
-.menu-btn{
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    z-index:10001;
-}
-.menu-btn span{
-    width:22px;
-    height:2px;
-    background:var(--mint-dark);
-    transition:0.3s;
-}
+.menu-btn{ cursor:pointer; display:flex; flex-direction:column; gap:4px; z-index:10001; }
+.menu-btn span{ width:22px; height:2px; background:var(--mint-dark); transition:0.3s; }
 /* SIDEBAR */
 .sidebar{
-    position:fixed;
-    top:0;
-    right:-280px;
-    width:280px;
-    height:100vh;
-    background:var(--white);
-    border-left:2px solid var(--mint-primary);
-    transition:0.3s ease;
-    z-index:9999;
-    padding:80px 30px;
+    position:fixed; top:0; right:-280px; width:280px; height:100vh;
+    background:var(--white); border-left:2px solid var(--mint-primary);
+    transition:0.3s ease; z-index:9999; padding:80px 30px;
     box-shadow:-10px 0 30px var(--shadow);
 }
 .sidebar.active{ right:0; }
-.sidebar ul{
-    list-style:none;
-    padding:0;
-}
-.sidebar ul li{
-    margin-bottom:25px;
-}
+.sidebar ul{ list-style:none; padding:0; }
+.sidebar ul li{ margin-bottom:25px; }
 .sidebar ul li a{
-    color:var(--mint-dark);
-    text-decoration:none;
-    font-size:1rem;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    transition:0.2s;
+    color:var(--mint-dark); text-decoration:none; font-size:1rem;
+    display:flex; align-items:center; gap:15px; transition:0.2s;
 }
-.sidebar ul li a:hover{
-    color:var(--mint-accent);
-    transform:translateX(5px);
-}
-.reg-link{
-    color:var(--mint-accent) !important;
-    font-weight:bold;
-}
+.sidebar ul li a:hover{ color:var(--mint-accent); transform:translateX(5px); }
+.reg-link{ color:var(--mint-accent) !important; font-weight:bold; }
 /* SIDEBAR LOGO */
-.sidebar-logo{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-bottom:30px;
-}
-.sidebar-logo img{
-    width:130px;
-    height:auto;
-    object-fit:contain;
-}
+.sidebar-logo{ display:flex; justify-content:center; align-items:center; margin-bottom:30px; }
+.sidebar-logo img{ width:130px; height:auto; object-fit:contain; }
 /* OVERLAY */
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(168,230,207,0.4);
-    backdrop-filter:blur(4px);
-    display:none;
-    z-index:9998;
+.overlay{ position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(168,230,207,0.4); backdrop-filter:blur(4px); display:none; z-index:9998;
 }
 .overlay.active{ display:block; }
 /* CONTENT */
 .container{ padding:25px 5%; }
-.video-box{
-    width:100%;
-    border-radius:20px;
-    overflow:hidden;
-    border:2px solid var(--mint-primary);
-    margin-bottom:25px;
-    box-shadow:0 10px 25px var(--shadow);
-}
-iframe{
-    width:100%;
-    aspect-ratio:16/9;
-    display:block;
-    border:none;
-}
-.card{
-    background:var(--white);
-    border-radius:18px;
-    padding:18px;
-    border:2px solid var(--mint-primary);
-    margin-bottom:18px;
-    box-shadow:0 8px 20px var(--shadow);
-    transition:0.3s;
-}
+.video-box{ width:100%; border-radius:20px; overflow:hidden; border:2px solid var(--mint-primary); margin-bottom:25px; box-shadow:0 10px 25px var(--shadow); }
+iframe{ width:100%; aspect-ratio:16/9; display:block; border:none; }
+.card{ background:var(--white); border-radius:18px; padding:18px; border:2px solid var(--mint-primary); margin-bottom:18px; box-shadow:0 8px 20px var(--shadow); transition:0.3s; }
 .card:hover{ transform:translateY(-5px); }
-.card-title{
-    font-size:0.8rem;
-    font-weight:bold;
-    color:var(--mint-accent);
-    margin-bottom:10px;
-    border-left:4px solid var(--mint-primary);
-    padding-left:8px;
-    letter-spacing:1px;
-}
+.card-title{ font-size:0.8rem; font-weight:bold; color:var(--mint-accent); margin-bottom:10px; border-left:4px solid var(--mint-primary); padding-left:8px; letter-spacing:1px; }
 
 /* PROFILE DISPLAY */
-#profileContainer{
-    display:none;
-    margin-top:20px;
-    text-align:center;
-}
-#profileContainer img{
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:0 auto 5px auto;
-}
-#profileContainer p{
-    font-size:0.85rem;
-    color:#5CD6C0;
-}
-#profileContainer button{
-    padding:5px 10px;
-    border:none;
-    border-radius:5px;
-    background:#5CD6C0;
-    color:white;
-    cursor:pointer;
-}
+#profileContainer{ display:none; margin-top:20px; text-align:center; }
+#profileContainer img{ width:60px; height:60px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 5px auto; }
+#profileContainer p{ font-size:0.85rem; color:#5CD6C0; }
+#profileContainer button{ padding:5px 10px; border:none; border-radius:5px; background:#5CD6C0; color:white; cursor:pointer; }
+#profileUpload{ margin-bottom:5px; width:100%; }
 </style>
 </head>
 
@@ -221,9 +92,7 @@ iframe{
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <nav class="navbar">
-    <div class="logo">
-        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
-    </div>
+    <div class="logo"><img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo"></div>
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe"></i>
@@ -234,16 +103,12 @@ iframe{
                 <option value="my">Melayu</option>
             </select>
         </div>
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
 </nav>
 
 <div class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
-    </div>
+    <div class="sidebar-logo"><img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo"></div>
     <ul id="menuList">
         <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
         <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
@@ -251,26 +116,20 @@ iframe{
         <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
         <hr style="opacity:0.1; margin:20px 0;">
         <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
-        <li>
-            <a href="#" id="authBtn">
-                <i class="fas fa-sign-in-alt"></i>
-                <span id="authText">Masuk</span>
-            </a>
-        </li>
+        <li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a></li>
     </ul>
 
     <!-- PROFILE DISPLAY -->
     <div id="profileContainer">
+        <input type="file" id="profileUpload" accept="image/*">
         <img id="profilePic" src="" alt="Profil">
         <p id="profileName"></p>
-        <button onclick="editProfile()">Edit Profil</button>
+        <button onclick="editProfile()">Edit Nama</button>
     </div>
 </div>
 
 <main class="container">
-    <div class="video-box">
-        <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
-    </div>
+    <div class="video-box"><iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe></div>
     <div class="card">
         <div class="card-title" id="newsTitle">BERITA TERBARU</div>
         <div style="font-size:0.85rem;">
@@ -284,7 +143,8 @@ iframe{
     </div>
 </main>
 
-<script>
+<script type="module">
+// SIDEBAR TOGGLE
 function toggleMenu(){
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('overlay').classList.toggle('active');
@@ -303,17 +163,33 @@ document.getElementById('langSelect').addEventListener('change', function(){
     document.getElementById('newsTitle').innerText=dict[l].news;
     document.getElementById('bdayTitle').innerText=dict[l].bday;
     const spans=document.querySelectorAll('#menuList span');
-    dict[l].list.forEach((teks,i)=>{
-        if(spans[i]) spans[i].innerText=teks;
-    });
+    dict[l].list.forEach((teks,i)=>{ if(spans[i]) spans[i].innerText=teks; });
 });
 
-// EDIT PROFILE FUNCTION
+// PROFILE ELEMENTS
+const profilePic = document.getElementById('profilePic');
+const profileName = document.getElementById('profileName');
+const profileUpload = document.getElementById('profileUpload');
+
+// CHANGE PROFILE IMAGE
+profileUpload.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+        profilePic.src = ev.target.result;
+        alert("Foto profil berhasil diganti (preview).");
+        document.getElementById('profileContainer').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+});
+
+// EDIT NAME
 function editProfile(){
-    const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);
-    if(newName) {
-        document.getElementById('profileName').innerText = newName;
-        // nanti update ke Firestore
+    const newName = prompt("Masukkan nama baru:", profileName.innerText);
+    if(newName){
+        profileName.innerText = newName;
+        document.getElementById('profileContainer').style.display = 'block';
         alert("Nama berhasil diperbarui!");
     }
 }
