@@ -9,30 +9,31 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
 
         :root {
-            --primary: #ff00ff;
-            --secondary: #7000ff;
+            --primary-pink: #ff00ff;
+            --primary-purple: #7000ff;
+            --klp-green: #dcf1e0; /* Warna background mint sesuai foto 2 */
+            --klp-text: #2e7d32;
             --nav-bg: #ffffff;
-            --text-dark: #333;
         }
 
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { margin: 0; background: #000; color: white; overflow-x: hidden; }
 
-        /* Navbar Putih */
+        /* Navbar Putih Bersih */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 12px 5%; background: var(--nav-bg);
-            border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo { font-weight: 800; font-size: 1.2rem; color: #000; text-transform: uppercase; text-decoration: none; }
-        .logo span { background: linear-gradient(to right, #ff00ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo { font-weight: 800; font-size: 1.1rem; color: #000; text-transform: uppercase; text-decoration: none; cursor: pointer; }
+        .logo span { background: linear-gradient(to right, var(--primary-pink), var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .nav-right { display: flex; align-items: center; gap: 15px; color: #000; }
         .lang-container { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 0.85rem; }
-        .menu-btn { cursor: pointer; font-size: 1.2rem; }
+        .menu-btn { cursor: pointer; font-size: 1.3rem; }
 
-        /* Sidebar Minimalis */
+        /* Sidebar */
         .sidebar {
             position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
             background: #111; transition: 0.3s ease; z-index: 9999; padding: 80px 30px;
@@ -40,42 +41,54 @@
         .sidebar.active { right: 0; }
         .sidebar ul { list-style: none; padding: 0; }
         .sidebar ul li { margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .sidebar ul li a { color: #ccc; text-decoration: none; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
+        .sidebar ul li a { color: #ccc; text-decoration: none; display: flex; align-items: center; gap: 12px; }
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 9998; }
         .overlay.active { display: block; }
 
         /* Page System */
-        .page { display: none; padding: 20px 5%; animation: fadeIn 0.5s; }
+        .page { display: none; min-height: 100vh; animation: fadeIn 0.4s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Home Content */
-        .card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; margin-top: 20px; border: 1px solid #222; }
-        .card-title { color: var(--primary); font-weight: 800; border-left: 3px solid var(--primary); padding-left: 10px; margin-bottom: 10px; }
+        /* Home Style */
+        #home-page { padding: 20px 5%; }
+        .video-container { border-radius: 15px; overflow: hidden; border: 2px solid var(--primary-purple); margin-bottom: 20px; }
 
-        /* Member Page (Gaya KLP48/JKT48) */
-        .member-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        /* MEMBER PAGE STYLE (Sesuai Foto 2) */
+        #member-page { background: var(--klp-green); color: var(--klp-text); padding: 40px 5%; text-align: center; }
+        .section-header { font-weight: 800; font-size: 1.4rem; border-bottom: 2px solid var(--klp-text); display: inline-block; margin-bottom: 10px; padding-bottom: 5px; }
+        .sub-header { font-weight: 700; margin-bottom: 30px; opacity: 0.8; }
+
+        .member-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; 
+            max-width: 900px; margin: 0 auto; 
+        }
         @media (min-width: 768px) { .member-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .member-card { background: #fff; border-radius: 10px; overflow: hidden; cursor: pointer; text-align: center; border: 2px solid transparent; transition: 0.3s; }
-        .member-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .member-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
-        .member-name { padding: 10px; color: #000; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; }
+        .member-card { cursor: pointer; transition: 0.3s; }
+        .member-card:hover { transform: translateY(-8px); }
+        
+        .img-box { 
+            background: #fff; border: 2px solid var(--klp-text); border-radius: 12px; 
+            overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .m-name { margin-top: 10px; font-weight: 800; font-size: 0.9rem; text-transform: capitalize; }
 
         /* Modal Biodata */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 10001;
+            background: rgba(0,0,0,0.9); z-index: 10001;
             display: none; align-items: center; justify-content: center; padding: 20px;
         }
         .modal.active { display: flex; }
-        .modal-content { background: #fff; color: #000; width: 100%; max-width: 450px; border-radius: 20px; overflow: hidden; position: relative; text-align: center; }
-        .modal-body { padding: 25px; }
-        .modal-img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid var(--secondary); margin-bottom: 15px; }
-        .modal-info p { margin: 5px 0; font-size: 0.9rem; border-bottom: 1px solid #eee; padding: 5px 0; }
-        .jiko { font-style: italic; color: var(--secondary); margin-top: 15px; font-weight: 600; line-height: 1.4; }
-        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #333; }
+        .modal-content { background: #fff; color: #333; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; position: relative; }
+        .modal-body { padding: 30px; text-align: center; }
+        .modal-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--klp-text); margin-bottom: 20px; }
+        .modal-info p { margin: 8px 0; font-size: 0.9rem; border-bottom: 1px dotted #ccc; padding-bottom: 5px; text-align: left; }
+        .jiko-text { font-style: italic; color: var(--klp-text); font-weight: 600; margin-top: 20px; line-height: 1.4; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -83,66 +96,62 @@
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <nav class="navbar">
-    <a href="#" class="logo" onclick="showPage('home-page')">MKT4X<span>VIRTUAL</span></a>
+    <div class="logo" onclick="showPage('home-page')">MKT4X<span>VIRTUAL</span></div>
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe" style="color:#4caf50;"></i>
-            <select id="langSelect" style="border:none; font-weight:700; outline:none; background:transparent; cursor:pointer;">
-                <option value="id">Indonesia</option>
-                <option value="my">Malaysia</option>
-                <option value="en">English</option>
-            </select>
+            <span id="currentLang">Indonesia</span> <i class="fas fa-chevron-down" style="font-size:0.7rem;"></i>
         </div>
         <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </div>
 </nav>
 
 <div class="sidebar" id="sidebar">
-    <ul id="menuList">
-        <li><a href="#" onclick="showPage('home-page'); toggleMenu()"><i class="fas fa-home"></i> <span>Berita</span></a></li>
+    <ul>
+        <li><a href="#" onclick="showPage('home-page'); toggleMenu()"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
         <li><a href="#" onclick="showPage('member-page'); toggleMenu()"><i class="fas fa-users"></i> <span>Member</span></a></li>
         <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
         <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
-        <hr style="opacity: 0.1; margin: 20px 0;">
-        <li><a href="#" style="color:var(--primary); font-weight:bold;"><i class="fas fa-user-plus"></i> <span>Daftar Member</span></a></li>
     </ul>
 </div>
 
 <div id="home-page" class="page active">
-    <div style="width: 100%; border-radius: 15px; overflow: hidden; border: 2px solid var(--secondary);">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" style="aspect-ratio: 16/9; border:none; display:block;"></iframe>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" style="aspect-ratio:16/9; border:none; display:block;"></iframe>
     </div>
-    <div class="card">
-        <div class="card-title" id="newsTitle">BERITA TERBARU</div>
-        <p style="font-size: 0.85rem; color: #aaa;">2026.03.01 - Audisi Generasi 1 Dibuka!</p>
+    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px;">
+        <p style="color:var(--primary-pink); font-weight:800; margin:0;">BERITA TERBARU</p>
+        <p style="font-size:0.8rem; margin-top:5px;">2026.03.01 - Portal MKT4X Virtual Resmi Diperbarui!</p>
     </div>
 </div>
 
 <div id="member-page" class="page">
-    <h2 style="text-align: center; color: var(--primary); letter-spacing: 2px;">MEMBER LIST</h2>
+    <div class="section-header">MEMBER</div>
+    <div class="sub-header">MKT4X 1st Generation Members</div>
+    
     <div class="member-grid">
-        <div class="member-card" onclick="openBio('Yurina', 'https://i.imgur.com/8N69vY0.png', 'Jakarta, 12 Juni 2005', 'Gemini', 'O', 'Seperti bunga yang mekar di pagi hari, aku akan menyinari harimu! Halo, aku Yurina!')">
-            <img src="https://i.imgur.com/8N69vY0.png">
-            <div class="member-name">Yurina</div>
+        <div class="member-card" onclick="openBio('Yurina', 'https://i.imgur.com/8N69vY0.png', 'Jakarta, 12 Juni 2005', 'Gemini', 'O', 'Seperti cahaya bintang, aku akan menerangi harimu!')">
+            <div class="img-box"><img src="https://i.imgur.com/8N69vY0.png"></div>
+            <div class="m-name">Yurina</div>
         </div>
-        <div class="member-card" onclick="openBio('Suzuha', 'https://i.imgur.com/8N69vY0.png', 'Kuala Lumpur, 3 April 2006', 'Aries', 'A', 'Dingin di luar, hangat di dalam. Siap mencuri hatimu! Aku Suzuha!')">
-            <img src="https://i.imgur.com/8N69vY0.png">
-            <div class="member-name">Suzuha</div>
+        <div class="member-card" onclick="openBio('Suzuha', 'https://i.imgur.com/8N69vY0.png', 'Kuala Lumpur, 3 April 2006', 'Aries', 'A', 'Dingin tapi peduli, itulah aku! Siap berjuang bersama!')">
+            <div class="img-box"><img src="https://i.imgur.com/8N69vY0.png"></div>
+            <div class="m-name">Suzuha</div>
         </div>
     </div>
 </div>
 
-<div class="modal" id="bioModal">
-    <div class="modal-content">
+<div class="modal" id="bioModal" onclick="closeBio()">
+    <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeBio()">&times;</span>
         <div class="modal-body">
             <img src="" id="bImg" class="modal-img">
-            <h2 id="bName" style="margin:0; color: var(--secondary);"></h2>
-            <div class="modal-info">
+            <h2 id="bName" style="margin:0; color:var(--klp-text);"></h2>
+            <div class="modal-info" style="margin-top:20px;">
                 <p><strong>Tanggal Lahir:</strong> <span id="bDate"></span></p>
                 <p><strong>Zodiak:</strong> <span id="bZodiac"></span></p>
                 <p><strong>Gol. Darah:</strong> <span id="bBlood"></span></p>
-                <p class="jiko" id="bJiko"></p>
+                <p class="jiko-text" id="bJiko"></p>
             </div>
         </div>
     </div>
@@ -154,14 +163,12 @@
         document.getElementById('overlay').classList.toggle('active');
     }
 
-    // Fungsi Pindah Halaman
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         window.scrollTo(0,0);
     }
 
-    // Fungsi Pop-up Biodata
     function openBio(name, img, date, zodiac, blood, jiko) {
         document.getElementById('bName').innerText = name;
         document.getElementById('bImg').src = img;
@@ -175,20 +182,6 @@
     function closeBio() {
         document.getElementById('bioModal').classList.remove('active');
     }
-
-    // Ganti Bahasa
-    const dict = {
-        id: { news: "BERITA TERBARU", list: ["Berita", "Member", "Jadwal", "Setlist", "Daftar Member"] },
-        my: { news: "BERITA TERKINI", list: ["Berita", "Ahli", "Jadual", "Senarai Set", "Daftar Ahli"] },
-        en: { news: "LATEST NEWS", list: ["News", "Member", "Schedule", "Setlist", "Register"] }
-    };
-
-    document.getElementById('langSelect').addEventListener('change', function() {
-        const l = this.value;
-        document.getElementById('newsTitle').innerText = dict[l].news;
-        const spans = document.querySelectorAll('#menuList span');
-        dict[l].list.forEach((t, i) => { if(spans[i]) spans[i].innerText = t; });
-    });
 </script>
 
 </body>
