@@ -2,88 +2,91 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKT4X VIRTUAL | Official Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MKT4X VIRTUAL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap');
 
         :root {
-            --primary-pink: #ff00ff;
-            --primary-purple: #7000ff;
-            --klp-green-bg: #dcf1e0; /* Warna Hijau Mint Foto 2 */
-            --klp-green-dark: #2e7d32;
-            --nav-bg: #000000;
+            --klp-mint: #dcf1e0;
+            --klp-dark: #2e7d32;
+            --nav-black: #000000;
         }
 
-        * { box-sizing: border-box; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: #000; color: white; overflow-x: hidden; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #000; color: white; }
 
-        /* Navbar & Logo */
+        /* NAVBAR KECIL & TIPIS */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 5%; background: var(--nav-bg);
-            border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 1000;
+            padding: 8px 4%; background: var(--nav-black);
+            border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
+            height: 50px;
         }
-        .logo { font-weight: 900; font-size: 1.1rem; color: #fff; text-transform: uppercase; text-decoration: none; cursor: pointer; }
-        .logo span { background: linear-gradient(to right, var(--primary-pink), var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo { font-weight: 800; font-size: 0.9rem; letter-spacing: -0.5px; cursor: pointer; }
+        .logo span { color: #ff00ff; }
 
-        .nav-right { display: flex; align-items: center; gap: 15px; }
-        .lang-selector { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 20px; border: 1px solid #444; }
-        .lang-selector i { color: #4caf50; font-size: 0.9rem; }
-        select { background: transparent; color: #fff; border: none; font-weight: 700; outline: none; cursor: pointer; font-size: 0.75rem; }
-        .menu-icon { font-size: 1.3rem; cursor: pointer; color: #fff; }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+        .lang-box { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 600; color: #ccc; }
+        .lang-box i { color: #4caf50; font-size: 0.8rem; }
+        select { background: transparent; color: #fff; border: none; font-size: 0.7rem; font-weight: 600; outline: none; cursor: pointer; }
 
-        /* Page System */
-        .page { display: none; min-height: 100vh; animation: fadeIn 0.3s; }
+        /* SIDEBAR PUTIH BERSIH */
+        .sidebar {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: #fff; z-index: 9999; transition: 0.3s ease-out;
+        }
+        .sidebar.active { right: 0; }
+        .sidebar-header { background: #000; height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 4%; }
+        .sidebar-links a { 
+            display: block; padding: 15px 6%; color: #333; text-decoration: none; 
+            font-weight: 700; font-size: 0.8rem; text-transform: uppercase; border-bottom: 1px solid #f0f0f0; 
+        }
+
+        /* PAGE SYSTEM */
+        .page { display: none; min-height: calc(100vh - 50px); }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- HALAMAN MEMBER (MINT STYLE) --- */
-        #member-page { background: var(--klp-green-bg); color: var(--klp-green-dark); padding: 40px 5%; text-align: center; }
-        .member-header { font-weight: 900; font-size: 1.5rem; border-bottom: 2px solid var(--klp-green-dark); display: inline-block; margin-bottom: 5px; padding-bottom: 2px; }
-        .member-sub { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 40px; opacity: 0.9; }
+        /* MEMBER PAGE (HIJAU MINT - PERSIS FOTO 2) */
+        #member-page { background: var(--klp-mint); color: var(--klp-dark); padding: 25px 4%; text-align: center; }
+        
+        .m-header { 
+            font-weight: 800; font-size: 1.1rem; color: var(--klp-dark); 
+            display: inline-block; border-bottom: 2px solid var(--klp-dark);
+            margin-bottom: 4px; padding-bottom: 2px;
+        }
+        .m-sub { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 30px; opacity: 0.8; }
 
+        /* GRID KECIL RAPI */
         .member-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; 
-            max-width: 900px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; 
+            max-width: 800px; margin: 0 auto; 
         }
-        @media (min-width: 768px) { .member-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 600px) { .member-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .member-card { cursor: pointer; transition: 0.3s ease; }
-        .member-card:hover { transform: translateY(-5px); }
-        .img-container { 
-            background: #fff; border: 2px solid var(--klp-green-dark); border-radius: 12px; 
-            overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            display: flex; align-items: center; justify-content: center;
+        .member-card { text-align: center; }
+        .img-box { 
+            background: #fff; border: 1.5px solid var(--klp-dark); border-radius: 8px; 
+            overflow: hidden; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .member-name { margin-top: 10px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; color: var(--klp-green-dark); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .m-name { margin-top: 8px; font-weight: 700; font-size: 0.7rem; color: var(--klp-dark); text-transform: capitalize; }
 
-        /* Modal Biodata */
+        /* MODAL BIODATA KECIL */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 2000;
+            background: rgba(0,0,0,0.8); z-index: 10000;
             display: none; align-items: center; justify-content: center; padding: 20px;
         }
         .modal.active { display: flex; }
-        .modal-content { background: #fff; color: #333; width: 100%; max-width: 380px; border-radius: 15px; position: relative; overflow: hidden; }
-        .modal-body { padding: 30px; text-align: center; }
-        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #999; }
-        .modal-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--klp-green-dark); margin-bottom: 15px; }
-        .modal-info { text-align: left; font-size: 0.85rem; margin-top: 15px; }
-        .modal-info div { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; }
-        .jiko-text { margin-top: 20px; font-style: italic; color: #555; font-weight: 600; font-size: 0.9rem; line-height: 1.4; }
-
-        /* Sidebar Putih */
-        .sidebar {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: #fff; z-index: 1500; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .sidebar.active { right: 0; }
-        .sidebar-header { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; }
-        .sidebar-links { padding: 20px 0; }
-        .sidebar-links a { display: block; padding: 18px 5%; color: #333; text-decoration: none; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #f0f0f0; }
+        .modal-box { background: #fff; color: #333; width: 100%; max-width: 320px; border-radius: 12px; padding: 25px; text-align: center; position: relative; }
+        .modal-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--klp-dark); object-fit: cover; margin-bottom: 15px; }
+        .modal-name { font-weight: 800; font-size: 1.1rem; color: var(--klp-dark); margin-bottom: 15px; }
+        .modal-info { text-align: left; font-size: 0.75rem; }
+        .modal-info div { display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 6px 0; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.2rem; color: #999; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -91,23 +94,23 @@
 <nav class="navbar">
     <div class="logo" onclick="showPage('home-page')">MKT4X<span>VIRTUAL</span></div>
     <div class="nav-right">
-        <div class="lang-selector">
+        <div class="lang-box">
             <i class="fas fa-globe"></i>
             <select id="langSelect">
                 <option value="id">Indonesia</option>
-                <option value="my">Malaysia</option>
+                <option value="my">Melayu</option>
                 <option value="en">English</option>
                 <option value="jp">日本語</option>
             </select>
         </div>
-        <div class="menu-icon" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+        <i class="fas fa-bars" style="font-size: 1.1rem;" onclick="toggleSidebar()"></i>
     </div>
 </nav>
 
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
-        <div class="logo">MKT4X<span>VIRTUAL</span></div>
-        <div class="menu-icon" onclick="toggleSidebar()">&times;</div>
+        <div class="logo" style="color:#fff">MKT4X<span style="color:#ff00ff">VIRTUAL</span></div>
+        <i class="fas fa-times" style="color:#fff; font-size: 1.2rem;" onclick="toggleSidebar()"></i>
     </div>
     <div class="sidebar-links" id="menuItems">
         <a href="#" onclick="showPage('home-page'); toggleSidebar()">Berita</a>
@@ -117,46 +120,43 @@
     </div>
 </div>
 
-<div id="home-page" class="page active" style="padding: 20px 5%;">
-    <div style="border-radius: 12px; overflow: hidden; border: 2px solid var(--primary-purple); margin-bottom: 20px; background: #000;">
+<div id="home-page" class="page active" style="padding: 15px 4%;">
+    <div style="border-radius: 10px; overflow: hidden; border: 1.5px solid #7000ff; margin-bottom: 15px;">
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" style="aspect-ratio:16/9; border:none; display:block;"></iframe>
     </div>
-    <div style="background:#111; padding:20px; border-radius:10px; border-left: 4px solid var(--primary-pink);">
-        <h4 id="newsTitle" style="color:var(--primary-pink); margin:0 0 5px 0;">BERITA TERBARU</h4>
-        <p style="font-size:0.8rem; color:#888;">2026.03.01</p>
-        <p id="newsContent" style="font-size:0.9rem; color:#ddd; margin: 10px 0 0 0;">Portal Resmi MKT4X Virtual Generasi Pertama telah diluncurkan!</p>
+    <div style="background:#111; padding:15px; border-radius:8px;">
+        <h5 id="newsTitle" style="color:#ff00ff; margin:0 0 5px 0; font-size:0.8rem;">BERITA TERBARU</h5>
+        <p style="font-size:0.75rem; color:#ccc; margin:0;">Portal Resmi MKT4X Virtual Generasi Pertama.</p>
     </div>
 </div>
 
 <div id="member-page" class="page">
-    <div class="member-header" id="pageMTitle">MEMBER</div>
-    <span class="member-sub" id="pageMSub">MKT4X 1st Generation Members</span>
+    <div class="m-header" id="pageMTitle">MEMBER</div>
+    <span class="m-sub" id="pageMSub">MKT4X 1st Generation Members</span>
     
     <div class="member-grid">
-        <div class="member-card" onclick="openBio('Yurina', 'https://www.klp48.my/assets/member/yurina.png', '2005.06.12', 'Gemini', 'O', 'Seperti cahaya bintang, aku akan menerangi harimu!')">
-            <div class="img-container"><img src="https://www.klp48.my/assets/member/yurina.png" onerror="this.src='https://via.placeholder.com/300x400?text=Yurina'"></div>
-            <div class="member-name">Yurina</div>
+        <div class="member-card" onclick="openBio('Yurina', 'https://www.klp48.my/assets/member/yurina.png', '12 Juni 2005', 'Gemini', 'O', 'Cahaya bintangmu!')">
+            <div class="img-box"><img src="https://www.klp48.my/assets/member/yurina.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
+            <div class="m-name">Yurina</div>
         </div>
-        <div class="member-card" onclick="openBio('Suzuha', 'https://www.klp48.my/assets/member/suzuha.png', '2006.04.03', 'Aries', 'A', 'Dingin tapi peduli, itulah aku! Siap berjuang bersama!')">
-            <div class="img-container"><img src="https://www.klp48.my/assets/member/suzuha.png" onerror="this.src='https://via.placeholder.com/300x400?text=Suzuha'"></div>
-            <div class="member-name">Suzuha</div>
+        <div class="member-card" onclick="openBio('Suzuha', 'https://www.klp48.my/assets/member/suzuha.png', '3 April 2006', 'Aries', 'A', 'Dingin tapi peduli!')">
+            <div class="img-box"><img src="https://www.klp48.my/assets/member/suzuha.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
+            <div class="m-name">Suzuha</div>
         </div>
     </div>
 </div>
 
 <div class="modal" id="bioModal" onclick="closeBio()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="modal-close" onclick="closeBio()">&times;</span>
-        <div class="modal-body">
-            <img src="" id="bImg" class="modal-img">
-            <h2 id="bName" style="color:var(--klp-green-dark); margin:0 0 10px 0; font-weight:900;"></h2>
-            <div class="modal-info">
-                <div><strong class="t-birth">Tgl Lahir</strong> <span id="bDate"></span></div>
-                <div><strong class="t-zodiac">Zodiak</strong> <span id="bZodiac"></span></div>
-                <div><strong class="t-blood">Gol. Darah</strong> <span id="bBlood"></span></div>
-            </div>
-            <div class="jiko-box" id="bJiko" class="jiko-text"></div>
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <span class="close-btn" onclick="closeBio()">&times;</span>
+        <img src="" id="bImg" class="modal-img">
+        <div id="bName" class="modal-name"></div>
+        <div class="modal-info">
+            <div><strong class="t-birth">Tgl Lahir</strong> <span id="bDate"></span></div>
+            <div><strong class="t-zodiac">Zodiak</strong> <span id="bZodiac"></span></div>
+            <div><strong class="t-blood">Gol. Darah</strong> <span id="bBlood"></span></div>
         </div>
+        <p id="bJiko" style="font-size:0.75rem; margin-top:15px; font-style:italic; color:#666;"></p>
     </div>
 </div>
 
@@ -178,19 +178,16 @@
     }
     function closeBio() { document.getElementById('bioModal').classList.remove('active'); }
 
-    // SISTEM BAHASA LENGKAP + JEPANG
     const dict = {
-        id: { news: "BERITA TERBARU", nDesc: "Portal Resmi MKT4X Virtual telah diluncurkan!", member: "MEMBER", sub: "MKT4X Generasi ke-1", menu: ["Berita", "Member", "Jadwal", "Setlist"], labels: ["Tgl Lahir", "Zodiak", "Gol. Darah"] },
-        my: { news: "BERITA TERKINI", nDesc: "Portal Rasmi MKT4X Virtual telah dilancarkan!", member: "AHLI", sub: "Ahli Generasi ke-1 MKT4X", menu: ["Berita", "Ahli", "Jadual", "Senarai Set"], labels: ["Tarikh Lahir", "Zodiak", "Kump. Darah"] },
-        en: { news: "LATEST NEWS", nDesc: "The Official MKT4X Virtual Portal has been launched!", member: "MEMBER", sub: "MKT4X 1st Generation Members", menu: ["News", "Member", "Schedule", "Setlist"], labels: ["Birthdate", "Zodiac", "Blood Type"] },
-        jp: { news: "最新ニュース", nDesc: "MKT4Xバーチャル公式サイトがオープンしました！", member: "メンバー", sub: "MKT4X 1期生メンバー", menu: ["ニュース", "メンバー", "スケジュール", "セットリスト"], labels: ["生年月日", "星座", "血液型"] }
+        id: { news: "BERITA TERBARU", member: "MEMBER", sub: "MKT4X Generasi ke-1", menu: ["Berita", "Member", "Jadwal", "Setlist"], labels: ["Tgl Lahir", "Zodiak", "Gol. Darah"] },
+        my: { news: "BERITA TERKINI", member: "AHLI", sub: "Ahli Generasi ke-1 MKT4X", menu: ["Berita", "Ahli", "Jadual", "Senarai Set"], labels: ["Tarikh Lahir", "Zodiak", "Kump. Darah"] },
+        en: { news: "LATEST NEWS", member: "MEMBER", sub: "MKT4X 1st Generation", menu: ["News", "Member", "Schedule", "Setlist"], labels: ["Birthdate", "Zodiac", "Blood Type"] },
+        jp: { news: "最新ニュース", member: "メンバー", sub: "MKT4X 1期生メンバー", menu: ["ニュース", "メンバー", "スケジュール", "セットリスト"], labels: ["生年月日", "星座", "血液型"] }
     };
 
     document.getElementById('langSelect').addEventListener('change', function() {
-        const l = this.value;
-        const d = dict[l];
+        const d = dict[this.value];
         document.getElementById('newsTitle').innerText = d.news;
-        document.getElementById('newsContent').innerText = d.nDesc;
         document.getElementById('pageMTitle').innerText = d.member;
         document.getElementById('pageMSub').innerText = d.sub;
         const menuLinks = document.querySelectorAll('#menuItems a');
