@@ -6,148 +6,147 @@
     <title>MKT4X VIRTUAL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+JP:wght@400;700&display=swap');
 
         :root {
-            --klp-mint: #dcf1e0;
-            --klp-dark: #2e7d32;
-            --nav-black: #000000;
+            --mint: #dcf1e0;
+            --dark-green: #2e7d32;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #000; color: white; }
+        /* RESET TOTAL */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #000; color: white; line-height: 1.2; }
 
-        /* NAVBAR KECIL & TIPIS */
-        .navbar {
+        /* NAVBAR SUPER TIPIS */
+        .nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 4%; background: var(--nav-black);
-            border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
-            height: 50px;
+            padding: 0 4%; background: #000; height: 45px; border-bottom: 1px solid #222;
+            position: sticky; top: 0; z-index: 999;
         }
-        .logo { font-weight: 800; font-size: 0.9rem; letter-spacing: -0.5px; cursor: pointer; }
+        .logo { font-weight: 800; font-size: 0.85rem; }
         .logo span { color: #ff00ff; }
 
-        .nav-right { display: flex; align-items: center; gap: 12px; }
-        .lang-box { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 600; color: #ccc; }
-        .lang-box i { color: #4caf50; font-size: 0.8rem; }
-        select { background: transparent; color: #fff; border: none; font-size: 0.7rem; font-weight: 600; outline: none; cursor: pointer; }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+        .lang-select { background: none; color: #fff; border: none; font-size: 0.7rem; font-weight: 700; outline: none; }
+        .menu-toggle { font-size: 1rem; cursor: pointer; }
 
-        /* SIDEBAR PUTIH BERSIH */
+        /* SIDEBAR PUTIH (Gaya JKT48/KLP48) */
         .sidebar {
             position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: #fff; z-index: 9999; transition: 0.3s ease-out;
+            background: #fff; z-index: 1000; transition: 0.3s;
         }
         .sidebar.active { right: 0; }
-        .sidebar-header { background: #000; height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 4%; }
-        .sidebar-links a { 
-            display: block; padding: 15px 6%; color: #333; text-decoration: none; 
-            font-weight: 700; font-size: 0.8rem; text-transform: uppercase; border-bottom: 1px solid #f0f0f0; 
+        .sb-header { background: #000; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 4%; }
+        .sb-links a { 
+            display: block; padding: 14px 6%; color: #333; text-decoration: none; 
+            font-weight: 700; font-size: 0.75rem; border-bottom: 1px solid #f0f0f0; text-transform: uppercase;
         }
 
-        /* PAGE SYSTEM */
-        .page { display: none; min-height: calc(100vh - 50px); }
+        /* PAGE ENGINE */
+        .page { display: none; }
         .page.active { display: block; }
 
-        /* MEMBER PAGE (HIJAU MINT - PERSIS FOTO 2) */
-        #member-page { background: var(--klp-mint); color: var(--klp-dark); padding: 25px 4%; text-align: center; }
+        /* MEMBER PAGE (HIJAU MINT - KECIL & MEWAH) */
+        #member-page { background: var(--mint); color: var(--dark-green); min-height: 100vh; padding: 20px 4% 50px; text-align: center; }
         
-        .m-header { 
-            font-weight: 800; font-size: 1.1rem; color: var(--klp-dark); 
-            display: inline-block; border-bottom: 2px solid var(--klp-dark);
-            margin-bottom: 4px; padding-bottom: 2px;
-        }
-        .m-sub { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 30px; opacity: 0.8; }
+        /* Zoom out dikit biar mungil di HP */
+        @media (max-width: 600px) { #member-page { zoom: 0.92; } }
 
-        /* GRID KECIL RAPI */
-        .member-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; 
+        .m-title { 
+            font-weight: 800; font-size: 1rem; color: var(--dark-green); 
+            border-bottom: 1.5px solid var(--dark-green); display: inline-block;
+            margin-bottom: 3px; padding-bottom: 2px;
+        }
+        .m-sub { display: block; font-size: 0.7rem; font-weight: 700; margin-bottom: 25px; opacity: 0.8; }
+
+        /* GRID KECIL PRESISI */
+        .m-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; 
             max-width: 800px; margin: 0 auto; 
         }
-        @media (min-width: 600px) { .member-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 768px) { .m-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; } }
 
-        .member-card { text-align: center; }
-        .img-box { 
-            background: #fff; border: 1.5px solid var(--klp-dark); border-radius: 8px; 
+        .m-card { cursor: pointer; }
+        .m-img-wrap { 
+            background: #fff; border: 1.2px solid var(--dark-green); border-radius: 6px; 
             overflow: hidden; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .m-name { margin-top: 8px; font-weight: 700; font-size: 0.7rem; color: var(--klp-dark); text-transform: capitalize; }
+        .m-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .m-name { margin-top: 6px; font-weight: 700; font-size: 0.65rem; color: var(--dark-green); text-transform: capitalize; }
 
-        /* MODAL BIODATA KECIL */
+        /* MODAL BIODATA */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 10000;
-            display: none; align-items: center; justify-content: center; padding: 20px;
+            background: rgba(0,0,0,0.85); z-index: 1001;
+            display: none; align-items: center; justify-content: center; padding: 15px;
         }
         .modal.active { display: flex; }
-        .modal-box { background: #fff; color: #333; width: 100%; max-width: 320px; border-radius: 12px; padding: 25px; text-align: center; position: relative; }
-        .modal-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--klp-dark); object-fit: cover; margin-bottom: 15px; }
-        .modal-name { font-weight: 800; font-size: 1.1rem; color: var(--klp-dark); margin-bottom: 15px; }
-        .modal-info { text-align: left; font-size: 0.75rem; }
-        .modal-info div { display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 6px 0; }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.2rem; color: #999; cursor: pointer; }
+        .modal-inner { background: #fff; color: #333; width: 100%; max-width: 300px; border-radius: 10px; padding: 20px; text-align: center; position: relative; }
+        .modal-img { width: 80px; height: 80px; border-radius: 50%; border: 2.5px solid var(--dark-green); object-fit: cover; margin-bottom: 12px; }
+        .modal-name { font-weight: 800; font-size: 1rem; color: var(--dark-green); margin-bottom: 12px; }
+        .modal-info { text-align: left; font-size: 0.7rem; }
+        .modal-info div { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 5px 0; }
+        .close-btn { position: absolute; top: 8px; right: 12px; font-size: 1.2rem; color: #bbb; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<nav class="navbar">
+<nav class="nav">
     <div class="logo" onclick="showPage('home-page')">MKT4X<span>VIRTUAL</span></div>
     <div class="nav-right">
-        <div class="lang-box">
-            <i class="fas fa-globe"></i>
-            <select id="langSelect">
-                <option value="id">Indonesia</option>
-                <option value="my">Melayu</option>
-                <option value="en">English</option>
-                <option value="jp">日本語</option>
-            </select>
-        </div>
-        <i class="fas fa-bars" style="font-size: 1.1rem;" onclick="toggleSidebar()"></i>
+        <i class="fas fa-globe" style="font-size: 0.7rem; color: #4caf50;"></i>
+        <select id="langSelect" class="lang-select">
+            <option value="id">ID</option>
+            <option value="my">MY</option>
+            <option value="en">EN</option>
+            <option value="jp">JP</option>
+        </select>
+        <i class="fas fa-bars menu-toggle" onclick="toggleSb()"></i>
     </div>
 </nav>
 
 <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+    <div class="sb-header">
         <div class="logo" style="color:#fff">MKT4X<span style="color:#ff00ff">VIRTUAL</span></div>
-        <i class="fas fa-times" style="color:#fff; font-size: 1.2rem;" onclick="toggleSidebar()"></i>
+        <i class="fas fa-times" style="color:#fff" onclick="toggleSb()"></i>
     </div>
-    <div class="sidebar-links" id="menuItems">
-        <a href="#" onclick="showPage('home-page'); toggleSidebar()">Berita</a>
-        <a href="#" onclick="showPage('member-page'); toggleSidebar()">Member</a>
+    <div class="sb-links" id="menuItems">
+        <a href="#" onclick="showPage('home-page'); toggleSb()">Berita</a>
+        <a href="#" onclick="showPage('member-page'); toggleSb()">Member</a>
         <a href="#">Jadwal</a>
         <a href="#">Setlist</a>
     </div>
 </div>
 
 <div id="home-page" class="page active" style="padding: 15px 4%;">
-    <div style="border-radius: 10px; overflow: hidden; border: 1.5px solid #7000ff; margin-bottom: 15px;">
+    <div style="border-radius: 8px; overflow: hidden; border: 1.2px solid #7000ff; margin-bottom: 12px;">
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" style="aspect-ratio:16/9; border:none; display:block;"></iframe>
     </div>
-    <div style="background:#111; padding:15px; border-radius:8px;">
-        <h5 id="newsTitle" style="color:#ff00ff; margin:0 0 5px 0; font-size:0.8rem;">BERITA TERBARU</h5>
-        <p style="font-size:0.75rem; color:#ccc; margin:0;">Portal Resmi MKT4X Virtual Generasi Pertama.</p>
+    <div style="background:#111; padding:12px; border-radius:6px; border-left: 3px solid #ff00ff;">
+        <h6 id="newsTitle" style="color:#ff00ff; margin-bottom:3px; font-size:0.75rem;">BERITA TERBARU</h6>
+        <p style="font-size:0.65rem; color:#999; margin:0;">2026.03.01 - Welcome to MKT4X Portal.</p>
     </div>
 </div>
 
 <div id="member-page" class="page">
-    <div class="m-header" id="pageMTitle">MEMBER</div>
+    <div class="m-title" id="pageMTitle">MEMBER</div>
     <span class="m-sub" id="pageMSub">MKT4X 1st Generation Members</span>
     
-    <div class="member-grid">
-        <div class="member-card" onclick="openBio('Yurina', 'https://www.klp48.my/assets/member/yurina.png', '12 Juni 2005', 'Gemini', 'O', 'Cahaya bintangmu!')">
-            <div class="img-box"><img src="https://www.klp48.my/assets/member/yurina.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
+    <div class="m-grid">
+        <div class="m-card" onclick="openBio('Yurina', 'https://www.klp48.my/assets/member/yurina.png', '12 Jun 2005', 'Gemini', 'O', 'Cahaya bintangmu!')">
+            <div class="m-img-wrap"><img src="https://www.klp48.my/assets/member/yurina.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
             <div class="m-name">Yurina</div>
         </div>
-        <div class="member-card" onclick="openBio('Suzuha', 'https://www.klp48.my/assets/member/suzuha.png', '3 April 2006', 'Aries', 'A', 'Dingin tapi peduli!')">
-            <div class="img-box"><img src="https://www.klp48.my/assets/member/suzuha.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
+        <div class="m-card" onclick="openBio('Suzuha', 'https://www.klp48.my/assets/member/suzuha.png', '3 Apr 2006', 'Aries', 'A', 'Siap berjuang!')">
+            <div class="m-img-wrap"><img src="https://www.klp48.my/assets/member/suzuha.png" onerror="this.src='https://via.placeholder.com/150x200?text=Member'"></div>
             <div class="m-name">Suzuha</div>
         </div>
     </div>
 </div>
 
 <div class="modal" id="bioModal" onclick="closeBio()">
-    <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-inner" onclick="event.stopPropagation()">
         <span class="close-btn" onclick="closeBio()">&times;</span>
         <img src="" id="bImg" class="modal-img">
         <div id="bName" class="modal-name"></div>
@@ -156,12 +155,12 @@
             <div><strong class="t-zodiac">Zodiak</strong> <span id="bZodiac"></span></div>
             <div><strong class="t-blood">Gol. Darah</strong> <span id="bBlood"></span></div>
         </div>
-        <p id="bJiko" style="font-size:0.75rem; margin-top:15px; font-style:italic; color:#666;"></p>
+        <p id="bJiko" style="font-size:0.65rem; margin-top:12px; font-style:italic; color:#777;"></p>
     </div>
 </div>
 
 <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    function toggleSb() { document.getElementById('sidebar').classList.toggle('active'); }
     function showPage(p) {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById(p).classList.add('active');
