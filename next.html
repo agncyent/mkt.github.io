@@ -37,20 +37,55 @@ body{
     position:sticky;
     top:0;
     z-index:1000;
+    height:70px;
 }
 
+/* LOGO CONTAINER */
 .logo{
-    font-weight:900;
-    font-size:1.1rem;
-    letter-spacing:1px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+/* LOGO IMAGE */
+.logo img{
+    height:28px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+}
+
+/* TEXT SEBELAH LOGO */
+.logo .text{
+    font-weight:700;
+    font-size:1rem;
     color:var(--mint-dark);
+    letter-spacing:1px;
 }
 
-.logo span{
+.logo span:last-child{
+    font-weight:600;
+    font-size:1rem;
     color:var(--mint-accent);
+    margin-left:4px;
 }
 
-.nav-right{
+/* MOBILE FIX */
+@media (max-width:768px){
+    .navbar{
+        height:60px;
+    }
+
+    .logo img{
+        height:22px;
+    }
+
+    .logo .text,
+    .logo span:last-child{
+        font-size:0.9rem;
+    }
+}
+    .nav-right{
     display:flex;
     align-items:center;
     gap:20px;
