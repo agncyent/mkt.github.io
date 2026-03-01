@@ -40,19 +40,28 @@ body{
     height:70px;
 }
 
-/* LOGO CONTAINER */
+/* LOGO */
 .logo{
     display:flex;
     align-items:center;
-    gap:8px;
 }
 
-/* LOGO IMAGE */
 .logo img{
-    height:28px;
+    height:32px;
     width:auto;
     object-fit:contain;
     display:block;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+    .navbar{
+        height:60px;
+    }
+
+    .logo img{
+        height:24px;
+    }
 }
 
 /* TEXT SEBELAH LOGO */
@@ -243,11 +252,9 @@ iframe{
 <body>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
 <nav class="navbar">
     <div class="logo">
-    <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
-    <span class="text">MKT4X</span><span>VIRTUAL</span>
+        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
     </div>
     <div class="nav-right">
         <div class="lang-container">
