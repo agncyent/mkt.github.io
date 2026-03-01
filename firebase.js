@@ -1,8 +1,8 @@
-// firebase.js
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-
+// Config dari Firebase kamu
 const firebaseConfig = {
   apiKey: "AIzaSyAxrKRuwslFf-W4IGuzMoUG9yKadA7KdeM",
   authDomain: "mkt4x-web.firebaseapp.com",
@@ -13,5 +13,8 @@ const firebaseConfig = {
   measurementId: "G-YD4EZCHKFX"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Export Auth
 export const auth = getAuth(app);
