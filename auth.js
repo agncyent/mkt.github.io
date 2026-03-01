@@ -1,6 +1,8 @@
 // auth.js
 
-import { 
+// ================= IMPORT =================
+import { auth, db } from "./firebase.js";
+import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
@@ -9,14 +11,17 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-import { auth } from "./firebase.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-// REGISTER
-window.registerUser = async (email, password) => {
+// ================= REGISTER =================
+window.registerUser = async (name, username, email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
 
-    await setDoc(doc(db, "users", userCredential.user.uid), {
+    await setDoc(doc(db, "users", uid), {
+      name: name,
+      username: username,
       email: email,
       role: "member",
       createdAt: new Date()
@@ -28,7 +33,7 @@ window.registerUser = async (email, password) => {
   }
 };
 
-// LOGIN
+// ================= LOGIN EMAIL/PASSWORD =================
 window.loginUser = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -38,7 +43,7 @@ window.loginUser = async (email, password) => {
   }
 };
 
-// GOOGLE LOGIN
+// ================= GOOGLE LOGIN =================
 window.googleLogin = async () => {
   const provider = new GoogleAuthProvider();
   try {
@@ -49,41 +54,49 @@ window.googleLogin = async () => {
   }
 };
 
-// LOGOUT
+// ================= LOGOUT =================
 window.logoutUser = async () => {
-  await signOut(auth);
-  alert("Logout berhasil!");
+  try {
+    await signOut(auth);
+    alert("Logout berhasil!");
+  } catch (error) {
+    alert(error.message);
+  }
 };
 
-// AUTO CHECK LOGIN
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Login:", user.email);
-  }
-  import { db } from "./firebase.js";
-  import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-});
-// ===== UI CONTROL =====
-
+// ================= UI CONTROL =================
 const authBtn = document.getElementById("authBtn");
 const authText = document.getElementById("authText");
 const userEmail = document.getElementById("userEmail");
 
+// Klik tombol sidebar
 authBtn.addEventListener("click", async () => {
   const user = auth.currentUser;
 
   if (user) {
+    // Logout
     await logoutUser();
   } else {
-    const email = prompt("Masukkan Email:");
-    const password = prompt("Masukkan Password:");
-    if (email && password) {
-      await loginUser(email, password);
+    // Login / Register prompt sederhana
+    const action = prompt("Ketik 'login' untuk masuk atau 'register' untuk buat akun:").toLowerCase();
+
+    if (action === "login") {
+      const email = prompt("Masukkan Email:");
+      const password = prompt("Masukkan Password:");
+      if (email && password) await loginUser(email, password);
+    } else if (action === "register") {
+      const name = prompt("Masukkan Nama:");
+      const username = prompt("Masukkan Username:");
+      const email = prompt("Masukkan Email:");
+      const password = prompt("Masukkan Password:");
+      if (name && username && email && password) await registerUser(name, username, email, password);
+    } else {
+      alert("Aksi tidak valid!");
     }
   }
 });
 
-// Update tampilan saat login/logout
+// ================= AUTO UPDATE UI =================
 onAuthStateChanged(auth, (user) => {
   if (user) {
     authText.innerText = "Logout";
