@@ -6,82 +6,203 @@
     <title>MKT4X VIRTUAL | Official Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #00f2ff;
-            --secondary: #7000ff;
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --green-globe: #4caf50;
-        }
+:root{
+    --mint-primary:#A8E6CF;
+    --mint-soft:#E8FFF8;
+    --mint-accent:#5CD6C0;
+    --mint-dark:#2F4F4F;
+    --mint-deep:#1F3A3A;
+    --white:#ffffff;
+    --shadow:rgba(92,214,192,0.3);
+}
 
-        * { box-sizing: border-box; }
-        body { 
-            margin: 0; background: var(--bg); color: white; 
-            font-family: 'Inter', sans-serif; overflow-x: hidden; 
-        }
+*{box-sizing:border-box;}
 
-        /* Navbar */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky; top: 0; z-index: 1000;
-        }
+body{
+    margin:0;
+    background:linear-gradient(180deg,#E8FFF8 0%,#ffffff 100%);
+    color:var(--mint-dark);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
 
-        .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 1px; }
-        .logo span { color: #ff00ff; }
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:var(--white);
+    box-shadow:0 5px 20px var(--shadow);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
 
-        .nav-right { display: flex; align-items: center; gap: 20px; }
-        .lang-container { display: flex; align-items: center; gap: 5px; cursor: pointer; }
-        .lang-container i { color: var(--green-globe); }
-        select { background: transparent; color: white; border: none; outline: none; font-size: 0.85rem; cursor: pointer; }
+.logo{
+    font-weight:900;
+    font-size:1.1rem;
+    letter-spacing:1px;
+    color:var(--mint-dark);
+}
 
-        /* Menu Garis Tiga */
-        .menu-btn { cursor: pointer; display: flex; flex-direction: column; gap: 4px; z-index: 10001; }
-        .menu-btn span { width: 22px; height: 2px; background: white; transition: 0.3s; }
+.logo span{
+    color:var(--mint-accent);
+}
 
-        /* Sidebar Menu */
-        .sidebar {
-            position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
-            background: #111; border-left: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s ease; z-index: 9999; padding: 80px 30px;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        }
-        .sidebar.active { right: 0; }
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
 
-        .sidebar ul { list-style: none; padding: 0; }
-        .sidebar ul li { margin-bottom: 25px; }
-        .sidebar ul li a { 
-            color: #ccc; text-decoration: none; font-size: 1rem; 
-            display: flex; align-items: center; gap: 15px; transition: 0.2s;
-        }
-        .sidebar ul li a:hover { color: var(--primary); transform: translateX(5px); }
-        .reg-link { color: var(--primary) !important; font-weight: bold; }
+.lang-container{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
 
-        /* Overlay gelap saat menu buka */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); display: none; z-index: 9998;
-        }
-        .overlay.active { display: block; }
+.lang-container i{
+    color:var(--mint-accent);
+}
 
-        /* Content */
-        .container { padding: 20px 5%; }
-        .video-box { 
-            width: 100%; border-radius: 15px; overflow: hidden; 
-            border: 2px solid var(--secondary); margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(112, 0, 255, 0.3);
-        }
-        iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+select{
+    background:transparent;
+    color:var(--mint-dark);
+    border:none;
+    outline:none;
+    font-size:0.85rem;
+    cursor:pointer;
+}
 
-        .card { 
-            background: var(--card-bg); border-radius: 12px; padding: 15px; 
-            border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;
-        }
-        .card-title { 
-            font-size: 0.8rem; font-weight: bold; color: var(--primary); 
-            margin-bottom: 10px; border-left: 3px solid var(--primary); padding-left: 8px;
-        }
+/* MENU BUTTON */
+.menu-btn{
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    z-index:10001;
+}
+
+.menu-btn span{
+    width:22px;
+    height:2px;
+    background:var(--mint-dark);
+    transition:0.3s;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-280px;
+    width:280px;
+    height:100vh;
+    background:var(--white);
+    border-left:2px solid var(--mint-primary);
+    transition:0.3s ease;
+    z-index:9999;
+    padding:80px 30px;
+    box-shadow:-10px 0 30px var(--shadow);
+}
+
+.sidebar.active{
+    right:0;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    margin-bottom:25px;
+}
+
+.sidebar ul li a{
+    color:var(--mint-dark);
+    text-decoration:none;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    transition:0.2s;
+}
+
+.sidebar ul li a:hover{
+    color:var(--mint-accent);
+    transform:translateX(5px);
+}
+
+.reg-link{
+    color:var(--mint-accent) !important;
+    font-weight:bold;
+}
+
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(168,230,207,0.4);
+    backdrop-filter:blur(4px);
+    display:none;
+    z-index:9998;
+}
+
+.overlay.active{
+    display:block;
+}
+
+/* CONTENT */
+.container{
+    padding:25px 5%;
+}
+
+/* VIDEO BOX */
+.video-box{
+    width:100%;
+    border-radius:20px;
+    overflow:hidden;
+    border:2px solid var(--mint-primary);
+    margin-bottom:25px;
+    box-shadow:0 10px 25px var(--shadow);
+}
+
+iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    display:block;
+    border:none;
+}
+
+/* CARD */
+.card{
+    background:var(--white);
+    border-radius:18px;
+    padding:18px;
+    border:2px solid var(--mint-primary);
+    margin-bottom:18px;
+    box-shadow:0 8px 20px var(--shadow);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card-title{
+    font-size:0.8rem;
+    font-weight:bold;
+    color:var(--mint-accent);
+    margin-bottom:10px;
+    border-left:4px solid var(--mint-primary);
+    padding-left:8px;
+    letter-spacing:1px;
+}
     </style>
 </head>
 <body>
@@ -89,7 +210,10 @@
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <nav class="navbar">
-    <div class="logo">MKT4X<span>VIRTUAL</span></div>
+    <div class="logo">
+    <img src="https://i.imgur.com/xxxxx.png" alt="MKT4X Logo">
+    <span class="text">MKT4X</span><span>VIRTUAL</span>
+    </div>
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe"></i>
