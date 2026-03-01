@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKT4X VIRTUAL | Official Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT4X VIRTUAL | Official Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
 :root{
     --mint-primary:#A8E6CF;
     --mint-soft:#E8FFF8;
@@ -55,46 +56,12 @@ body{
 
 /* MOBILE */
 @media (max-width:768px){
-    .navbar{
-        height:60px;
-    }
-
-    .logo img{
-        height:24px;
-    }
+    .navbar{ height:60px; }
+    .logo img{ height:24px; }
 }
 
-/* TEXT SEBELAH LOGO */
-.logo .text{
-    font-weight:700;
-    font-size:1rem;
-    color:var(--mint-dark);
-    letter-spacing:1px;
-}
-
-.logo span:last-child{
-    font-weight:600;
-    font-size:1rem;
-    color:var(--mint-accent);
-    margin-left:4px;
-}
-
-/* MOBILE FIX */
-@media (max-width:768px){
-    .navbar{
-        height:60px;
-    }
-
-    .logo img{
-        height:22px;
-    }
-
-    .logo .text,
-    .logo span:last-child{
-        font-size:0.9rem;
-    }
-}
-    .nav-right{
+/* RIGHT NAV */
+.nav-right{
     display:flex;
     align-items:center;
     gap:20px;
@@ -151,9 +118,7 @@ select{
     box-shadow:-10px 0 30px var(--shadow);
 }
 
-.sidebar.active{
-    right:0;
-}
+.sidebar.active{ right:0; }
 
 .sidebar ul{
     list-style:none;
@@ -197,16 +162,11 @@ select{
     z-index:9998;
 }
 
-.overlay.active{
-    display:block;
-}
+.overlay.active{ display:block; }
 
 /* CONTENT */
-.container{
-    padding:25px 5%;
-}
+.container{ padding:25px 5%; }
 
-/* VIDEO BOX */
 .video-box{
     width:100%;
     border-radius:20px;
@@ -223,7 +183,6 @@ iframe{
     border:none;
 }
 
-/* CARD */
 .card{
     background:var(--white);
     border-radius:18px;
@@ -234,9 +193,7 @@ iframe{
     transition:0.3s;
 }
 
-.card:hover{
-    transform:translateY(-5px);
-}
+.card:hover{ transform:translateY(-5px); }
 
 .card-title{
     font-size:0.8rem;
@@ -247,15 +204,18 @@ iframe{
     padding-left:8px;
     letter-spacing:1px;
 }
-    </style>
+</style>
 </head>
+
 <body>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
 <nav class="navbar">
     <div class="logo">
         <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
     </div>
+
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe"></i>
@@ -263,9 +223,10 @@ iframe{
                 <option value="id">Indonesia</option>
                 <option value="en">English</option>
                 <option value="jp">Japanese</option>
-                <option value="ms">Melayu</option>
+                <option value="my">Melayu</option>
             </select>
         </div>
+
         <div class="menu-btn" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -273,59 +234,66 @@ iframe{
 </nav>
 
 <div class="sidebar" id="sidebar">
-    <ul id="menuList">
-        <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
-        <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
-        <li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
-        <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
-        <hr style="opacity: 0.1; margin: 20px 0;">
-        <li><a href="#" class="reg-link"><i class="fas fa-user-plus"></i> <span>Daftar Member</span></a></li>
-        <li><a href="#"><i class="fas fa-sign-in-alt"></i> <span>Masuk</span></a></li>
-    </ul>
+<ul id="menuList">
+    <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
+    <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
+    <li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
+    <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
+    <hr style="opacity:0.1; margin:20px 0;">
+    <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
+    <li><a href="#"><i class="fas fa-sign-in-alt"></i> <span>Masuk</span></a></li>
+</ul>
 </div>
 
 <main class="container">
-    <div class="video-box">
-        <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
-    </div>
+<div class="video-box">
+    <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
+</div>
 
-    <div class="card">
-        <div class="card-title" id="newsTitle">BERITA TERBARU</div>
-        <div style="font-size: 0.85rem;">
-            <span style="color: #666;">2026.02.28</span>
-            <p style="margin: 5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
-        </div>
+<div class="card">
+    <div class="card-title" id="newsTitle">BERITA TERBARU</div>
+    <div style="font-size:0.85rem;">
+        <span style="color:#666;">2026.02.28</span>
+        <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
     </div>
+</div>
 
-    <div class="card">
-        <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-        <p style="font-size: 0.85rem; color: #888;">Coming Soon</p>
-    </div>
+<div class="card">
+    <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
+    <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+</div>
 </main>
 
 <script>
-    function toggleMenu() {
-        document.getElementById('sidebar').classList.toggle('active');
-        document.getElementById('overlay').classList.toggle('active');
-    }
+function toggleMenu(){
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+}
 
-    const dict = {
-        id: { news: "BERITA TERBARU", bday: "ULANG TAHUN", list: ["Berita", "Jadwal", "Member", "Setlist", "Daftar Member", "Masuk"] },
-        en: { news: "LATEST NEWS", bday: "BIRTHDAY", list: ["News", "Schedule", "Member", "Setlist", "Register", "Login"] },
-        jp: { news: "最新ニュース", bday: "誕生日", list: ["ニュース", "スケジュール", "メンバー", "セットリスト", "会員登録", "ログイン"] },
-        my: { news: "BERITA TERKINI", bday: "HARI JADI", list: ["Berita", "Jadual", "Ahli", "Senarai Lagu", "Daftar Ahli", "Log Masuk"] }
-    };
+const dict = {
+id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN",
+list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
 
-    document.getElementById('langSelect').addEventListener('change', function() {
-        const l = this.value;
-        document.getElementById('newsTitle').innerText = dict[l].news;
-        document.getElementById('bdayTitle').innerText = dict[l].bday;
-        
-        const spans = document.querySelectorAll('#menuList span');
-        dict[l].list.forEach((teks, i) => {
-            if(spans[i]) spans[i].innerText = teks;
-        });
-    });
+en:{ news:"LATEST NEWS", bday:"BIRTHDAY",
+list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
+
+jp:{ news:"最新ニュース", bday:"誕生日",
+list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
+
+my:{ news:"BERITA TERKINI", bday:"HARI JADI",
+list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
+};
+
+document.getElementById('langSelect').addEventListener('change', function(){
+const l=this.value;
+document.getElementById('newsTitle').innerText=dict[l].news;
+document.getElementById('bdayTitle').innerText=dict[l].bday;
+
+const spans=document.querySelectorAll('#menuList span');
+dict[l].list.forEach((teks,i)=>{
+if(spans[i]) spans[i].innerText=teks;
+});
+});
 </script>
 
 </body>
