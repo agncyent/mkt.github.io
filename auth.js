@@ -1,42 +1,34 @@
-import { auth, db } from "./firebase.js";
+import { auth, db, googleProvider } from "./firebase.js";
 import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-// REGISTER FUNCTION
-window.registerUser = async (name, username, email, password) => {
+// ===== GOOGLE LOGIN =====
+window.googleLogin = async () => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    await setDoc(doc(db, "users", userCredential.user.uid), {
-      name: name,
-      username: username,
-      email: email,
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Simpan user ke Firestore kalau baru login
+    await setDoc(doc(db, "users", user.uid), {
+      name: user.displayName || "",
+      email: user.email,
+      photoURL: user.photoURL || "",
       role: "member",
       createdAt: new Date()
-    });
-    alert("Akun berhasil dibuat!");
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-};
+    }, { merge: true });
 
-// GOOGLE LOGIN FUNCTION
-window.googleLogin = async () => {
-  const provider = new GoogleAuthProvider();
-  try {
-    await signInWithPopup(auth, provider);
     alert("Login Google berhasil!");
   } catch (error) {
     alert("Error: " + error.message);
   }
 };
 
-// LOGOUT FUNCTION
+// ===== LOGOUT =====
 window.logoutUser = async () => {
   try {
     await signOut(auth);
@@ -46,51 +38,67 @@ window.logoutUser = async () => {
   }
 };
 
-// ===== UI CONTROL =====
+// ===== UI ELEMENTS =====
 const authBtn = document.getElementById("authBtn");
 const authText = document.getElementById("authText");
-const userEmail = document.getElementById("userEmail");
-const registerModal = document.getElementById("registerModal");
-const registerBtn = document.getElementById("registerBtn");
-const googleLoginBtn = document.getElementById("googleLoginBtn");
-const closeModal = document.getElementById("closeModal");
+const profileContainer = document.getElementById("profileContainer");
+const profileName = document.getElementById("profileName");
+const profilePic = document.getElementById("profilePic");
+const overlay = document.getElementById("overlay");
+const authModal = document.getElementById("authModal");
 
-authBtn.addEventListener("click", () => {
+// Toggle auth modal
+authBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   const user = auth.currentUser;
-  if (user) logoutUser();
-  else registerModal.style.display = "flex";
+  if (user) {
+    logoutUser();
+  } else {
+    authModal.style.display = "flex";
+  }
 });
 
-closeModal.addEventListener("click", () => {
-  registerModal.style.display = "none";
-});
+window.closeModal = () => {
+  authModal.style.display = "none";
+};
 
-// Tombol Register
-registerBtn.addEventListener("click", async () => {
-  const name = document.getElementById("regName").value;
-  const username = document.getElementById("regUsername").value;
-  const email = document.getElementById("regEmail").value;
-  const password = document.getElementById("regPassword").value;
+// ===== EDIT PROFILE =====
+window.editProfile = async () => {
+  const newName = prompt("Masukkan nama baru:", auth.currentUser.displayName || profileName.innerText);
+  if (!newName) return;
 
-  if (!name || !username || !email || !password) return alert("Isi semua field!");
-  await registerUser(name, username, email, password);
-  registerModal.style.display = "none";
-});
+  try {
+    // Update nama di Firebase Auth
+    await updateProfile(auth.currentUser, { displayName: newName });
 
-// Tombol Google Login
+    // Update Firestore
+    await setDoc(doc(db, "users", auth.currentUser.uid), { name: newName }, { merge: true });
+
+    // Update UI
+    profileName.innerText = newName;
+    alert("Nama berhasil diperbarui!");
+  } catch (err) {
+    console.error(err);
+    alert("Gagal update nama: " + err.message);
+  }
+};
+
+// Tombol Google Login di modal
+const googleLoginBtn = document.querySelector("#authModal button.google");
 googleLoginBtn.addEventListener("click", async () => {
   await googleLogin();
-  registerModal.style.display = "none";
+  authModal.style.display = "none";
 });
 
-// Update tampilan login/logout
+// ===== UPDATE UI SESUAI LOGIN STATE =====
 onAuthStateChanged(auth, (user) => {
   if (user) {
     authText.innerText = "Logout";
-    userEmail.style.display = "block";
-    userEmail.innerText = "Login sebagai: " + (user.email || "Google User");
+    profileContainer.style.display = "block";
+    profileName.innerText = user.displayName || "Google User";
+    profilePic.src = user.photoURL || "https://via.placeholder.com/60";
   } else {
-    authText.innerText = "Masuk / Daftar";
-    userEmail.style.display = "none";
+    authText.innerText = "Masuk";
+    profileContainer.style.display = "none";
   }
 });
