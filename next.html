@@ -6,8 +6,8 @@
     <title>MKT4X VIRTUAL | Official Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Impor font yang lebih tegas mirip di gambar */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Inter:wght@400;700&display=swap');
+        /* Pakai Inter yang lebih modern & nggak selebay Montserrat */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
         :root {
             --primary: #00f2ff;
@@ -15,7 +15,6 @@
             --bg: #050505;
             --card-bg: rgba(255, 255, 255, 0.05);
             --nav-bg: #ffffff;
-            --nav-text: #000000;
         }
 
         * { box-sizing: border-box; }
@@ -27,18 +26,17 @@
         /* Navbar Putih */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 5%; background: var(--nav-bg);
+            padding: 12px 5%; background: var(--nav-bg);
             border-bottom: 1px solid #eee;
             position: sticky; top: 0; z-index: 1000;
         }
 
-        /* LOGO CUSTOM: MKT4X (Putih/Hitam di nav) VIRTUAL (Gradasi) */
+        /* LOGO: MKT4X (Hitam Sleek) VIRTUAL (Gradasi) */
         .logo { 
-            font-family: 'Montserrat', sans-serif; 
-            font-weight: 900; 
-            font-size: 1.3rem; 
-            letter-spacing: -0.5px;
-            color: #000; /* MKT4X warna hitam karena navbar putih */
+            font-weight: 800; /* Tebel tapi nggak "kocak" */
+            font-size: 1.15rem; 
+            letter-spacing: -0.3px;
+            color: #000;
             text-transform: uppercase;
         }
         
@@ -46,21 +44,14 @@
             background: linear-gradient(to right, #ff00ff, #7000ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-left: 2px;
+            margin-left: 1px;
         }
 
         .nav-right { display: flex; align-items: center; gap: 15px; }
         
-        /* Icon Globe & Dropdown */
+        /* Icon Globe Hitam & Menu */
         .lang-container { display: flex; align-items: center; gap: 5px; color: #000; }
-        .lang-container i { font-size: 1.1rem; }
-        
-        select { 
-            background: transparent; color: #000; 
-            border: none; outline: none; font-size: 0.85rem; font-weight: 700; cursor: pointer; 
-        }
-
-        /* Menu Bar Hitam */
+        select { background: transparent; color: #000; border: none; outline: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
         .menu-btn { cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
         .menu-btn span { width: 22px; height: 3px; background: #000; border-radius: 2px; }
 
@@ -75,10 +66,7 @@
         .sidebar ul li { margin-bottom: 25px; }
         .sidebar ul li a { color: #ccc; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 15px; }
         
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: none; z-index: 9998;
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 9998; }
         .overlay.active { display: block; }
 
         .container { padding: 25px 5%; }
@@ -95,7 +83,6 @@
 
 <nav class="navbar">
     <div class="logo">MKT4X<span>VIRTUAL</span></div>
-    
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe"></i>
@@ -132,14 +119,9 @@
     <div class="card">
         <div class="card-title" id="newsTitle">BERITA TERBARU</div>
         <div style="font-size: 0.85rem;">
-            <span style="color: #666;">2026.02.28</span>
-            <p style="margin: 5px 0;">MKT4X Virtual Generasi Pertama Telah Hadir!</p>
+            <span style="color: #666;">2026.03.01</span>
+            <p style="margin: 5px 0;">Sistem navigasi dan bahasa MKT4X telah diperbarui.</p>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-        <p style="font-size: 0.85rem; color: #888;">Coming Soon</p>
     </div>
 </main>
 
@@ -159,7 +141,6 @@
     document.getElementById('langSelect').addEventListener('change', function() {
         const l = this.value;
         document.getElementById('newsTitle').innerText = dict[l].news;
-        document.getElementById('bdayTitle').innerText = dict[l].bday;
         const spans = document.querySelectorAll('#menuList span');
         dict[l].list.forEach((teks, i) => { if(spans[i]) spans[i].innerText = teks; });
     });
