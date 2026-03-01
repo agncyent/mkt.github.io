@@ -12,13 +12,10 @@
     --mint-soft:#E8FFF8;
     --mint-accent:#5CD6C0;
     --mint-dark:#2F4F4F;
-    --mint-deep:#1F3A3A;
     --white:#ffffff;
     --shadow:rgba(92,214,192,0.3);
 }
-
 *{box-sizing:border-box;}
-
 body{
     margin:0;
     background:linear-gradient(180deg,#E8FFF8 0%,#ffffff 100%);
@@ -26,7 +23,6 @@ body{
     font-family:'Inter',sans-serif;
     overflow-x:hidden;
 }
-
 /* NAVBAR */
 .navbar{
     display:flex;
@@ -40,44 +36,35 @@ body{
     z-index:1000;
     height:70px;
 }
-
-/* LOGO */
 .logo{
     display:flex;
     align-items:center;
 }
-
 .logo img{
     height:32px;
     width:auto;
     object-fit:contain;
     display:block;
 }
-
-/* MOBILE */
 @media (max-width:768px){
     .navbar{ height:60px; }
     .logo img{ height:24px; }
 }
-
 /* RIGHT NAV */
 .nav-right{
     display:flex;
     align-items:center;
     gap:20px;
 }
-
 .lang-container{
     display:flex;
     align-items:center;
     gap:5px;
     cursor:pointer;
 }
-
 .lang-container i{
     color:var(--mint-accent);
 }
-
 select{
     background:transparent;
     color:var(--mint-dark);
@@ -86,7 +73,6 @@ select{
     font-size:0.85rem;
     cursor:pointer;
 }
-
 /* MENU BUTTON */
 .menu-btn{
     cursor:pointer;
@@ -95,14 +81,12 @@ select{
     gap:4px;
     z-index:10001;
 }
-
 .menu-btn span{
     width:22px;
     height:2px;
     background:var(--mint-dark);
     transition:0.3s;
 }
-
 /* SIDEBAR */
 .sidebar{
     position:fixed;
@@ -117,18 +101,14 @@ select{
     padding:80px 30px;
     box-shadow:-10px 0 30px var(--shadow);
 }
-
 .sidebar.active{ right:0; }
-
 .sidebar ul{
     list-style:none;
     padding:0;
 }
-
 .sidebar ul li{
     margin-bottom:25px;
 }
-
 .sidebar ul li a{
     color:var(--mint-dark);
     text-decoration:none;
@@ -138,34 +118,26 @@ select{
     gap:15px;
     transition:0.2s;
 }
-
 .sidebar ul li a:hover{
     color:var(--mint-accent);
     transform:translateX(5px);
 }
-
 .reg-link{
     color:var(--mint-accent) !important;
     font-weight:bold;
 }
-
-/* ===================== */
-/* SIDEBAR LOGO TAMBAHAN */
-/* ===================== */
-
+/* SIDEBAR LOGO */
 .sidebar-logo{
     display:flex;
     justify-content:center;
     align-items:center;
     margin-bottom:30px;
 }
-
 .sidebar-logo img{
     width:130px;
     height:auto;
     object-fit:contain;
 }
-
 /* OVERLAY */
 .overlay{
     position:fixed;
@@ -178,12 +150,9 @@ select{
     display:none;
     z-index:9998;
 }
-
 .overlay.active{ display:block; }
-
 /* CONTENT */
 .container{ padding:25px 5%; }
-
 .video-box{
     width:100%;
     border-radius:20px;
@@ -192,14 +161,12 @@ select{
     margin-bottom:25px;
     box-shadow:0 10px 25px var(--shadow);
 }
-
 iframe{
     width:100%;
     aspect-ratio:16/9;
     display:block;
     border:none;
 }
-
 .card{
     background:var(--white);
     border-radius:18px;
@@ -209,9 +176,7 @@ iframe{
     box-shadow:0 8px 20px var(--shadow);
     transition:0.3s;
 }
-
 .card:hover{ transform:translateY(-5px); }
-
 .card-title{
     font-size:0.8rem;
     font-weight:bold;
@@ -220,6 +185,33 @@ iframe{
     border-left:4px solid var(--mint-primary);
     padding-left:8px;
     letter-spacing:1px;
+}
+
+/* PROFILE DISPLAY */
+#profileContainer{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+}
+#profileContainer img{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:0 auto 5px auto;
+}
+#profileContainer p{
+    font-size:0.85rem;
+    color:#5CD6C0;
+}
+#profileContainer button{
+    padding:5px 10px;
+    border:none;
+    border-radius:5px;
+    background:#5CD6C0;
+    color:white;
+    cursor:pointer;
 }
 </style>
 </head>
@@ -232,7 +224,6 @@ iframe{
     <div class="logo">
         <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
     </div>
-
     <div class="nav-right">
         <div class="lang-container">
             <i class="fas fa-globe"></i>
@@ -243,7 +234,6 @@ iframe{
                 <option value="my">Melayu</option>
             </select>
         </div>
-
         <div class="menu-btn" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -251,40 +241,47 @@ iframe{
 </nav>
 
 <div class="sidebar" id="sidebar">
-
-    <!-- LOGO SIDEBAR -->
     <div class="sidebar-logo">
         <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
     </div>
-
     <ul id="menuList">
-    <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
-    <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
-    <li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
-    <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
-    <hr style="opacity:0.1; margin:20px 0;">
-    <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
-    <li><a href="#"><i class="fas fa-sign-in-alt"></i> <span>Masuk</span></a></li>
-</ul>
-</div>
+        <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
+        <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
+        <li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
+        <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
+        <hr style="opacity:0.1; margin:20px 0;">
+        <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
+        <li>
+            <a href="#" id="authBtn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span id="authText">Masuk</span>
+            </a>
+        </li>
+    </ul>
 
-<main class="container">
-<div class="video-box">
-    <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
-</div>
-
-<div class="card">
-    <div class="card-title" id="newsTitle">BERITA TERBARU</div>
-    <div style="font-size:0.85rem;">
-        <span style="color:#666;">2026.02.28</span>
-        <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
+    <!-- PROFILE DISPLAY -->
+    <div id="profileContainer">
+        <img id="profilePic" src="" alt="Profil">
+        <p id="profileName"></p>
+        <button onclick="editProfile()">Edit Profil</button>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-    <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
-</div>
+<main class="container">
+    <div class="video-box">
+        <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
+    </div>
+    <div class="card">
+        <div class="card-title" id="newsTitle">BERITA TERBARU</div>
+        <div style="font-size:0.85rem;">
+            <span style="color:#666;">2026.02.28</span>
+            <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
+        <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+    </div>
 </main>
 
 <script>
@@ -293,31 +290,38 @@ function toggleMenu(){
     document.getElementById('overlay').classList.toggle('active');
 }
 
+// LANGUAGE SWITCH
 const dict = {
-id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN",
-list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
-
-en:{ news:"LATEST NEWS", bday:"BIRTHDAY",
-list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
-
-jp:{ news:"最新ニュース", bday:"誕生日",
-list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
-
-my:{ news:"BERITA TERKINI", bday:"HARI JADI",
-list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
+id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN", list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
+en:{ news:"LATEST NEWS", bday:"BIRTHDAY", list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
+jp:{ news:"最新ニュース", bday:"誕生日", list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
+my:{ news:"BERITA TERKINI", bday:"HARI JADI", list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
 };
 
 document.getElementById('langSelect').addEventListener('change', function(){
-const l=this.value;
-document.getElementById('newsTitle').innerText=dict[l].news;
-document.getElementById('bdayTitle').innerText=dict[l].bday;
+    const l=this.value;
+    document.getElementById('newsTitle').innerText=dict[l].news;
+    document.getElementById('bdayTitle').innerText=dict[l].bday;
+    const spans=document.querySelectorAll('#menuList span');
+    dict[l].list.forEach((teks,i)=>{
+        if(spans[i]) spans[i].innerText=teks;
+    });
+});
 
-const spans=document.querySelectorAll('#menuList span');
-dict[l].list.forEach((teks,i)=>{
-if(spans[i]) spans[i].innerText=teks;
-});
-});
+// EDIT PROFILE FUNCTION
+function editProfile(){
+    const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);
+    if(newName) {
+        document.getElementById('profileName').innerText = newName;
+        // nanti update ke Firestore
+        alert("Nama berhasil diperbarui!");
+    }
+}
 </script>
+
+<!-- FIREBASE MODULE -->
+<script type="module" src="firebase.js"></script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
