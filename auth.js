@@ -1,0 +1,56 @@
+// auth.js
+
+import { 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+import { auth } from "./firebase.js";
+
+// REGISTER
+window.registerUser = async (email, password) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Akun berhasil dibuat!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+// LOGIN
+window.loginUser = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Login berhasil!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+// GOOGLE LOGIN
+window.googleLogin = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    await signInWithPopup(auth, provider);
+    alert("Login Google berhasil!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+// LOGOUT
+window.logoutUser = async () => {
+  await signOut(auth);
+  alert("Logout berhasil!");
+};
+
+// AUTO CHECK LOGIN
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("Login:", user.email);
+  }
+});
