@@ -18,209 +18,54 @@
 }
 
 *{box-sizing:border-box;}
-
-body{
-    margin:0;
-    background:linear-gradient(180deg,#E8FFF8 0%,#ffffff 100%);
-    color:var(--mint-dark);
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
-}
+body{margin:0; font-family:'Inter',sans-serif; background:linear-gradient(180deg,#E8FFF8 0%,#ffffff 100%); color:var(--mint-dark); overflow-x:hidden;}
 
 /* NAVBAR */
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 5%;
-    background:var(--white);
-    box-shadow:0 5px 20px var(--shadow);
-    position:sticky;
-    top:0;
-    z-index:1000;
-    height:70px;
-}
-
-/* LOGO */
-.logo{
-    display:flex;
-    align-items:center;
-}
-
-.logo img{
-    height:32px;
-    width:auto;
-    object-fit:contain;
-    display:block;
-}
-
-/* MOBILE */
-@media (max-width:768px){
-    .navbar{ height:60px; }
-    .logo img{ height:24px; }
-}
-
-/* RIGHT NAV */
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.lang-container{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    cursor:pointer;
-}
-
-.lang-container i{
-    color:var(--mint-accent);
-}
-
-select{
-    background:transparent;
-    color:var(--mint-dark);
-    border:none;
-    outline:none;
-    font-size:0.85rem;
-    cursor:pointer;
-}
-
-/* MENU BUTTON */
-.menu-btn{
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    z-index:10001;
-}
-
-.menu-btn span{
-    width:22px;
-    height:2px;
-    background:var(--mint-dark);
-    transition:0.3s;
-}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:var(--white);box-shadow:0 5px 20px var(--shadow);position:sticky;top:0;z-index:1000;height:70px;}
+.logo{display:flex;align-items:center;}
+.logo img{height:32px;width:auto;display:block;object-fit:contain;}
+@media(max-width:768px){.navbar{height:60px;}.logo img{height:24px;}}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.lang-container{display:flex;align-items:center;gap:5px;cursor:pointer;}
+.lang-container i{color:var(--mint-accent);}
+select{background:transparent;color:var(--mint-dark);border:none;outline:none;font-size:0.85rem;cursor:pointer;}
+.menu-btn{cursor:pointer;display:flex;flex-direction:column;gap:4px;z-index:10001;}
+.menu-btn span{width:22px;height:2px;background:var(--mint-dark);transition:0.3s;}
 
 /* SIDEBAR */
-.sidebar{
-    position:fixed;
-    top:0;
-    right:-280px;
-    width:280px;
-    height:100vh;
-    background:var(--white);
-    border-left:2px solid var(--mint-primary);
-    transition:0.3s ease;
-    z-index:9999;
-    padding:80px 30px;
-    box-shadow:-10px 0 30px var(--shadow);
-}
+.sidebar{position:fixed;top:0;right:-280px;width:280px;height:100vh;background:var(--white);border-left:2px solid var(--mint-primary);transition:0.3s ease;z-index:9999;padding:80px 30px;box-shadow:-10px 0 30px var(--shadow);}
+.sidebar.active{right:0;}
+.sidebar ul{list-style:none;padding:0;}
+.sidebar ul li{margin-bottom:25px;}
+.sidebar ul li a{color:var(--mint-dark);text-decoration:none;font-size:1rem;display:flex;align-items:center;gap:15px;transition:0.2s;}
+.sidebar ul li a:hover{color:var(--mint-accent);transform:translateX(5px);}
+.reg-link{color:var(--mint-accent)!important;font-weight:bold;}
 
-.sidebar.active{ right:0; }
-
-.sidebar ul{
-    list-style:none;
-    padding:0;
-}
-
-.sidebar ul li{
-    margin-bottom:25px;
-}
-
-.sidebar ul li a{
-    color:var(--mint-dark);
-    text-decoration:none;
-    font-size:1rem;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    transition:0.2s;
-}
-
-.sidebar ul li a:hover{
-    color:var(--mint-accent);
-    transform:translateX(5px);
-}
-
-.reg-link{
-    color:var(--mint-accent) !important;
-    font-weight:bold;
-}
-
-/* ===================== */
-/* SIDEBAR LOGO TAMBAHAN */
-/* ===================== */
-
-.sidebar-logo{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-bottom:30px;
-}
-
-.sidebar-logo img{
-    width:130px;
-    height:auto;
-    object-fit:contain;
-}
+/* SIDEBAR LOGO */
+.sidebar-logo{display:flex;justify-content:center;align-items:center;margin-bottom:30px;}
+.sidebar-logo img{width:130px;height:auto;object-fit:contain;}
 
 /* OVERLAY */
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(168,230,207,0.4);
-    backdrop-filter:blur(4px);
-    display:none;
-    z-index:9998;
-}
-
-.overlay.active{ display:block; }
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(168,230,207,0.4);backdrop-filter:blur(4px);display:none;z-index:9998;}
+.overlay.active{display:block;}
 
 /* CONTENT */
-.container{ padding:25px 5%; }
+.container{padding:25px 5%;}
+.video-box{width:100%;border-radius:20px;overflow:hidden;border:2px solid var(--mint-primary);margin-bottom:25px;box-shadow:0 10px 25px var(--shadow);}
+iframe{width:100%;aspect-ratio:16/9;display:block;border:none;}
+.card{background:var(--white);border-radius:18px;padding:18px;border:2px solid var(--mint-primary);margin-bottom:18px;box-shadow:0 8px 20px var(--shadow);transition:0.3s;}
+.card:hover{transform:translateY(-5px);}
+.card-title{font-size:0.8rem;font-weight:bold;color:var(--mint-accent);margin-bottom:10px;border-left:4px solid var(--mint-primary);padding-left:8px;letter-spacing:1px;}
 
-.video-box{
-    width:100%;
-    border-radius:20px;
-    overflow:hidden;
-    border:2px solid var(--mint-primary);
-    margin-bottom:25px;
-    box-shadow:0 10px 25px var(--shadow);
-}
-
-iframe{
-    width:100%;
-    aspect-ratio:16/9;
-    display:block;
-    border:none;
-}
-
-.card{
-    background:var(--white);
-    border-radius:18px;
-    padding:18px;
-    border:2px solid var(--mint-primary);
-    margin-bottom:18px;
-    box-shadow:0 8px 20px var(--shadow);
-    transition:0.3s;
-}
-
-.card:hover{ transform:translateY(-5px); }
-
-.card-title{
-    font-size:0.8rem;
-    font-weight:bold;
-    color:var(--mint-accent);
-    margin-bottom:10px;
-    border-left:4px solid var(--mint-primary);
-    padding-left:8px;
-    letter-spacing:1px;
-}
+/* FORM REGISTER */
+.form-card{max-width:400px;margin:20px auto;padding:20px;border:2px solid var(--mint-primary);border-radius:15px;background:var(--white);box-shadow:0 8px 20px var(--shadow);}
+.form-card h2{text-align:center;color:var(--mint-accent);margin-bottom:15px;}
+.form-card label{display:block;margin:10px 0 5px;font-size:0.85rem;}
+.form-card input{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;font-size:0.9rem;}
+.form-card button{width:100%;padding:10px;border:none;background:var(--mint-accent);color:var(--white);font-weight:bold;border-radius:8px;font-size:1rem;cursor:pointer;transition:0.3s;}
+.form-card button:hover{background:var(--mint-primary);}
+.form-card .google-btn{background:#4285F4;margin-top:10px;}
+.form-card .google-btn:hover{background:#3367D6;}
 </style>
 </head>
 
@@ -229,100 +74,84 @@ iframe{
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <nav class="navbar">
-    <div class="logo">
-        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
-    </div>
-
-    <div class="nav-right">
-        <div class="lang-container">
-            <i class="fas fa-globe"></i>
-            <select id="langSelect">
-                <option value="id">Indonesia</option>
-                <option value="en">English</option>
-                <option value="jp">Japanese</option>
-                <option value="my">Melayu</option>
-            </select>
-        </div>
-
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
+<div class="logo"><img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo"></div>
+<div class="nav-right">
+<div class="lang-container"><i class="fas fa-globe"></i>
+<select id="langSelect">
+<option value="id">Indonesia</option>
+<option value="en">English</option>
+<option value="jp">Japanese</option>
+<option value="my">Melayu</option>
+</select>
+</div>
+<div class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</div>
 </nav>
 
 <div class="sidebar" id="sidebar">
-
-    <!-- LOGO SIDEBAR -->
-    <div class="sidebar-logo">
-        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
-    </div>
-
-    <ul id="menuList">
-    <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
-    <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
-    <li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
-    <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
-    <hr style="opacity:0.1; margin:20px 0;">
-    <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
-    <li>
-  <a href="#" id="authBtn">
-    <i class="fas fa-sign-in-alt"></i> 
-    <span id="authText">Masuk</span>
-  </a>
+<div class="sidebar-logo"><img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo"></div>
+<ul id="menuList">
+<li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
+<li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
+<li><a href="#"><i class="fas fa-users"></i> <span>Member</span></a></li>
+<li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
+<hr style="opacity:0.1; margin:20px 0;">
+<li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
+<li>
+<a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a>
 </li>
-
-<li id="userEmail" style="display:none; font-size:0.8rem; color:#5CD6C0;"></li>
+<li id="userEmail" style="display:none;font-size:0.8rem;color:#5CD6C0;"></li>
 </ul>
 </div>
 
 <main class="container">
 <div class="video-box">
-    <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
+<iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
 </div>
 
 <div class="card">
-    <div class="card-title" id="newsTitle">BERITA TERBARU</div>
-    <div style="font-size:0.85rem;">
-        <span style="color:#666;">2026.02.28</span>
-        <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
-    </div>
+<div class="card-title" id="newsTitle">BERITA TERBARU</div>
+<div style="font-size:0.85rem;"><span style="color:#666;">2026.02.28</span>
+<p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p></div>
 </div>
 
 <div class="card">
-    <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-    <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+<div class="card-title" id="bdayTitle">ULANG TAHUN</div>
+<p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+</div>
+
+<!-- FORM REGISTER / LOGIN -->
+<div class="form-card">
+<h2>Buat Akun</h2>
+<label for="name">Nama</label>
+<input type="text" id="name" placeholder="Nama Lengkap" required>
+<label for="username">Username</label>
+<input type="text" id="username" placeholder="Username" required>
+<label for="email">Email</label>
+<input type="email" id="email" placeholder="Email" required>
+<label for="password">Password</label>
+<input type="password" id="password" placeholder="Password" required>
+<button onclick="registerUser()">Register</button>
+<button class="google-btn" onclick="googleLogin()">Login dengan Google</button>
 </div>
 </main>
 
 <script>
-function toggleMenu(){
-    document.getElementById('sidebar').classList.toggle('active');
-    document.getElementById('overlay').classList.toggle('active');
-}
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('overlay').classList.toggle('active');}
 
-const dict = {
-id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN",
-list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
-
-en:{ news:"LATEST NEWS", bday:"BIRTHDAY",
-list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
-
-jp:{ news:"最新ニュース", bday:"誕生日",
-list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
-
-my:{ news:"BERITA TERKINI", bday:"HARI JADI",
-list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
+const dict={
+id:{news:"BERITA TERBARU",bday:"ULANG TAHUN",list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"]},
+en:{news:"LATEST NEWS",bday:"BIRTHDAY",list:["News","Schedule","Member","Setlist","Fanclub","Login"]},
+jp:{news:"最新ニュース",bday:"誕生日",list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"]},
+my:{news:"BERITA TERKINI",bday:"HARI JADI",list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"]}
 };
 
-document.getElementById('langSelect').addEventListener('change', function(){
+document.getElementById('langSelect').addEventListener('change',function(){
 const l=this.value;
 document.getElementById('newsTitle').innerText=dict[l].news;
 document.getElementById('bdayTitle').innerText=dict[l].bday;
-
 const spans=document.querySelectorAll('#menuList span');
-dict[l].list.forEach((teks,i)=>{
-if(spans[i]) spans[i].innerText=teks;
-});
+dict[l].list.forEach((teks,i)=>{if(spans[i])spans[i].innerText=teks;});
 });
 </script>
 
