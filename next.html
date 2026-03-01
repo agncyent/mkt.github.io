@@ -12,7 +12,6 @@
     --mint-soft:#E8FFF8;
     --mint-accent:#5CD6C0;
     --mint-dark:#2F4F4F;
-    --mint-deep:#1F3A3A;
     --white:#ffffff;
     --shadow:rgba(92,214,192,0.3);
 }
@@ -187,53 +186,11 @@ iframe{
     padding-left:8px;
     letter-spacing:1px;
 }
-/* ===================== */
-/* AUTH MODAL */
-#authModal{
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.5);
-    z-index:10000;
-    justify-content:center;
-    align-items:center;
-}
-#authModal div{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    max-width:400px;
-    width:90%;
-    display:flex;
-    flex-direction:column;
-}
-#authModal input{
-    margin-bottom:10px;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:0.9rem;
-}
-#authModal button{
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    font-size:0.9rem;
-    cursor:pointer;
-}
-#authModal button.google{
-    background:#4285F4; color:white;
-}
-#authModal button.close{
-    background:#ccc;
-    margin-top:10px;
-}
 
 /* PROFILE DISPLAY */
 #profileContainer{
     display:none;
-    margin-top:10px;
+    margin-top:20px;
     text-align:center;
 }
 #profileContainer img{
@@ -247,6 +204,14 @@ iframe{
 #profileContainer p{
     font-size:0.85rem;
     color:#5CD6C0;
+}
+#profileContainer button{
+    padding:5px 10px;
+    border:none;
+    border-radius:5px;
+    background:#5CD6C0;
+    color:white;
+    cursor:pointer;
 }
 </style>
 </head>
@@ -298,25 +263,25 @@ iframe{
     <div id="profileContainer">
         <img id="profilePic" src="" alt="Profil">
         <p id="profileName"></p>
-        <button onclick="editProfile()" style="padding:5px; border:none; border-radius:5px; background:#5CD6C0; color:white;">Edit Profil</button>
+        <button onclick="editProfile()">Edit Profil</button>
     </div>
 </div>
 
 <main class="container">
-<div class="video-box">
-    <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
-</div>
-<div class="card">
-    <div class="card-title" id="newsTitle">BERITA TERBARU</div>
-    <div style="font-size:0.85rem;">
-        <span style="color:#666;">2026.02.28</span>
-        <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
+    <div class="video-box">
+        <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
     </div>
-</div>
-<div class="card">
-    <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-    <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
-</div>
+    <div class="card">
+        <div class="card-title" id="newsTitle">BERITA TERBARU</div>
+        <div style="font-size:0.85rem;">
+            <span style="color:#666;">2026.02.28</span>
+            <p style="margin:5px 0;">MKT4X Virtual First Gen Audition is Open!</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
+        <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+    </div>
 </main>
 
 <script>
@@ -325,53 +290,38 @@ function toggleMenu(){
     document.getElementById('overlay').classList.toggle('active');
 }
 
+// LANGUAGE SWITCH
 const dict = {
-id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN",
-list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
-en:{ news:"LATEST NEWS", bday:"BIRTHDAY",
-list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
-jp:{ news:"最新ニュース", bday:"誕生日",
-list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
-my:{ news:"BERITA TERKINI", bday:"HARI JADI",
-list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
+id:{ news:"BERITA TERBARU", bday:"ULANG TAHUN", list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
+en:{ news:"LATEST NEWS", bday:"BIRTHDAY", list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
+jp:{ news:"最新ニュース", bday:"誕生日", list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
+my:{ news:"BERITA TERKINI", bday:"HARI JADI", list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
 };
 
 document.getElementById('langSelect').addEventListener('change', function(){
-const l=this.value;
-document.getElementById('newsTitle').innerText=dict[l].news;
-document.getElementById('bdayTitle').innerText=dict[l].bday;
-const spans=document.querySelectorAll('#menuList span');
-dict[l].list.forEach((teks,i)=>{
-if(spans[i]) spans[i].innerText=teks;
+    const l=this.value;
+    document.getElementById('newsTitle').innerText=dict[l].news;
+    document.getElementById('bdayTitle').innerText=dict[l].bday;
+    const spans=document.querySelectorAll('#menuList span');
+    dict[l].list.forEach((teks,i)=>{
+        if(spans[i]) spans[i].innerText=teks;
+    });
 });
-});
-
-// AUTH MODAL
-const authBtn = document.getElementById('authBtn');
-const authModal = document.getElementById('authModal');
-authBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    authModal.style.display = 'flex';
-});
-function closeModal(){
-    authModal.style.display = 'none';
-}
 
 // EDIT PROFILE FUNCTION
 function editProfile(){
-    const newName = prompt("Masukkan nama baru:");
+    const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);
     if(newName) {
         document.getElementById('profileName').innerText = newName;
-        // bisa tambahkan update ke Firestore nanti
+        // nanti update ke Firestore
         alert("Nama berhasil diperbarui!");
     }
 }
 </script>
 
-<!-- ================= FIREBASE MODULE ================= -->
+<!-- FIREBASE MODULE -->
 <script type="module" src="firebase.js"></script>
 <script type="module" src="auth.js"></script>
-<!-- =================================================== -->
 
 </body>
 </html>
