@@ -1,11 +1,8 @@
 // auth.js
-
-// ================= IMPORT =================
-import { auth, db } from "./firebase.js";
-import {
+import { auth, db, googleProvider } from "./firebase.js";
+import { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged
@@ -13,13 +10,12 @@ import {
 
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-// ================= REGISTER =================
+// ===== REGISTER =====
 window.registerUser = async (name, username, email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const uid = userCredential.user.uid;
 
-    await setDoc(doc(db, "users", uid), {
+    await setDoc(doc(db, "users", userCredential.user.uid), {
       name: name,
       username: username,
       email: email,
@@ -33,7 +29,7 @@ window.registerUser = async (name, username, email, password) => {
   }
 };
 
-// ================= LOGIN EMAIL/PASSWORD =================
+// ===== LOGIN EMAIL/PASSWORD =====
 window.loginUser = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -43,60 +39,56 @@ window.loginUser = async (email, password) => {
   }
 };
 
-// ================= GOOGLE LOGIN =================
+// ===== LOGIN GOOGLE =====
 window.googleLogin = async () => {
-  const provider = new GoogleAuthProvider();
   try {
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Simpan data user Google ke Firestore jika belum ada
+    const userDoc = doc(db, "users", user.uid);
+    await setDoc(userDoc, {
+      name: user.displayName,
+      email: user.email,
+      role: "member",
+      createdAt: new Date()
+    }, { merge: true });
+
     alert("Login Google berhasil!");
   } catch (error) {
     alert(error.message);
   }
 };
 
-// ================= LOGOUT =================
+// ===== LOGOUT =====
 window.logoutUser = async () => {
-  try {
-    await signOut(auth);
-    alert("Logout berhasil!");
-  } catch (error) {
-    alert(error.message);
-  }
+  await signOut(auth);
+  alert("Logout berhasil!");
 };
 
-// ================= UI CONTROL =================
+// ===== UPDATE UI =====
 const authBtn = document.getElementById("authBtn");
 const authText = document.getElementById("authText");
 const userEmail = document.getElementById("userEmail");
 
-// Klik tombol sidebar
 authBtn.addEventListener("click", async () => {
   const user = auth.currentUser;
 
   if (user) {
-    // Logout
     await logoutUser();
   } else {
-    // Login / Register prompt sederhana
-    const action = prompt("Ketik 'login' untuk masuk atau 'register' untuk buat akun:").toLowerCase();
-
-    if (action === "login") {
+    const method = prompt("Pilih login:\n1 = Email/Password\n2 = Google");
+    if (method === "1") {
       const email = prompt("Masukkan Email:");
       const password = prompt("Masukkan Password:");
       if (email && password) await loginUser(email, password);
-    } else if (action === "register") {
-      const name = prompt("Masukkan Nama:");
-      const username = prompt("Masukkan Username:");
-      const email = prompt("Masukkan Email:");
-      const password = prompt("Masukkan Password:");
-      if (name && username && email && password) await registerUser(name, username, email, password);
-    } else {
-      alert("Aksi tidak valid!");
+    } else if (method === "2") {
+      await googleLogin();
     }
   }
 });
 
-// ================= AUTO UPDATE UI =================
+// Update tampilan saat login/logout
 onAuthStateChanged(auth, (user) => {
   if (user) {
     authText.innerText = "Logout";
