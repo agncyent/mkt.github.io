@@ -6,7 +6,7 @@
     <title>MKT4X VIRTUAL | Official Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap');
 
         :root {
             --primary-pink: #ff00ff;
@@ -16,49 +16,45 @@
             --nav-bg: #000000;
         }
 
-        * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; background: #000; color: white; overflow-x: hidden; }
 
-        /* Navbar Hitam Sleek */
+        /* Navbar */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: var(--nav-bg);
             border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo { font-weight: 900; font-size: 1.1rem; color: #fff; text-transform: uppercase; text-decoration: none; cursor: pointer; letter-spacing: 0.5px; }
+        .logo { font-weight: 900; font-size: 1.1rem; color: #fff; text-transform: uppercase; text-decoration: none; cursor: pointer; }
         .logo span { background: linear-gradient(to right, var(--primary-pink), var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .nav-right { display: flex; align-items: center; gap: 15px; }
-        .lang-container { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; color: #fff; }
-        .lang-container i { color: #4caf50; font-size: 1.1rem; }
+        .lang-container { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.8rem; color: #fff; border: 1px solid #444; padding: 5px 10px; border-radius: 20px; }
+        .lang-container i { color: #4caf50; }
         
-        select { background: transparent; color: #fff; border: none; font-weight: 700; outline: none; cursor: pointer; appearance: none; }
+        select { background: transparent; color: #fff; border: none; font-weight: 700; outline: none; cursor: pointer; font-size: 0.8rem; }
+        option { background: #000; color: #fff; }
 
         .menu-btn { cursor: pointer; font-size: 1.4rem; color: #fff; }
 
-        /* Sidebar Putih (Gaya JKT48) */
+        /* Sidebar Putih */
         .sidebar {
             position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
             background: #fff; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 9999;
         }
         .sidebar.active { right: 0; }
         .sidebar-header { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .sidebar-content { padding: 20px 0; }
         .sidebar-content ul { list-style: none; padding: 0; margin: 0; }
         .sidebar-content ul li { border-bottom: 1px solid #eee; }
-        .sidebar-content ul li a { color: #333; text-decoration: none; display: block; padding: 18px 5%; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; }
+        .sidebar-content ul li a { color: #333; text-decoration: none; display: block; padding: 18px 5%; font-weight: 800; text-transform: uppercase; }
 
         /* Page Management */
         .page { display: none; min-height: 100vh; animation: fadeIn 0.3s ease-in; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Halaman Berita */
-        #home-page { padding: 20px 5%; background: #000; }
-        .video-box { border-radius: 12px; overflow: hidden; border: 2px solid var(--primary-purple); margin-bottom: 20px; box-shadow: 0 10px 30px rgba(112, 0, 255, 0.2); }
-
-        /* HALAMAN MEMBER (HIJAU MINT) */
+        /* Halaman Member (Hijau Mint Rapi) */
         #member-page { background: var(--klp-green); color: var(--klp-dark); padding: 40px 5%; text-align: center; }
         .m-title { font-weight: 900; font-size: 1.6rem; border-bottom: 3px solid var(--klp-dark); display: inline-block; margin-bottom: 8px; padding-bottom: 4px; }
         .m-sub { font-weight: 700; font-size: 0.9rem; margin-bottom: 35px; opacity: 0.8; display: block; }
@@ -69,14 +65,13 @@
         }
         @media (min-width: 768px) { .member-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; } }
 
-        .member-card { cursor: pointer; transition: 0.3s; }
-        .member-card:hover { transform: scale(1.03); }
+        .member-card { cursor: pointer; }
         .img-wrap { 
-            background: #fff; border: 2px solid var(--klp-dark); border-radius: 10px; 
+            background: #fff; border: 2px solid var(--klp-dark); border-radius: 12px; 
             overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-        .m-label { margin-top: 10px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; color: var(--klp-dark); }
+        .m-label { margin-top: 10px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; }
 
         /* Modal Bio */
         .modal {
@@ -88,10 +83,9 @@
         .modal-box { background: #fff; color: #333; width: 100%; max-width: 400px; border-radius: 15px; overflow: hidden; position: relative; }
         .modal-inner { padding: 30px; text-align: center; }
         .modal-photo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid var(--klp-dark); margin-bottom: 15px; }
-        .modal-name { font-weight: 900; color: var(--klp-dark); margin: 0 0 20px 0; font-size: 1.4rem; }
-        .modal-data { text-align: left; font-size: 0.85rem; }
-        .modal-data div { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; }
-        .jiko-box { margin-top: 20px; font-style: italic; color: #666; font-weight: 600; line-height: 1.4; font-size: 0.9rem; }
+        .modal-name { font-weight: 900; color: var(--klp-dark); margin: 0 0 20px 0; }
+        .modal-data div { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; font-size: 0.85rem; }
+        .jiko-box { margin-top: 20px; font-style: italic; color: #666; font-weight: 600; font-size: 0.9rem; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #999; }
     </style>
 </head>
@@ -106,6 +100,7 @@
                 <option value="id">Indonesia</option>
                 <option value="my">Malaysia</option>
                 <option value="en">English</option>
+                <option value="jp">日本語</option>
             </select>
         </div>
         <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
@@ -123,31 +118,30 @@
             <li><a href="#" onclick="showPage('member-page'); toggleMenu()">Member</a></li>
             <li><a href="#">Jadwal</a></li>
             <li><a href="#">Setlist</a></li>
-            <li><a href="#" style="color:var(--primary-pink)">Daftar</a></li>
         </ul>
     </div>
 </div>
 
-<div id="home-page" class="page active">
-    <div class="video-box">
+<div id="home-page" class="page active" style="padding: 20px 5%;">
+    <div style="border-radius: 12px; overflow: hidden; border: 2px solid var(--primary-purple); margin-bottom: 20px;">
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" style="aspect-ratio:16/9; border:none; display:block;"></iframe>
     </div>
     <div style="background:#111; padding:20px; border-radius:10px;">
         <h4 id="newsTitle" style="color:var(--primary-pink); margin:0 0 10px 0;">BERITA TERBARU</h4>
-        <p style="font-size:0.85rem; color:#ccc;">2026.03.01 - Generasi pertama telah resmi diperkenalkan.</p>
+        <p style="font-size:0.85rem; color:#ccc;">2026.03.01 - Welcome to MKT4X Virtual Official Portal.</p>
     </div>
 </div>
 
 <div id="member-page" class="page">
     <div class="m-title" id="pageMTitle">MEMBER</div>
-    <span class="m-sub">MKT4X 1st Generation Members</span>
+    <span class="m-sub" id="pageMSub">MKT4X 1st Generation Members</span>
     
     <div class="member-grid">
-        <div class="member-card" onclick="openBio('Yurina', 'https://i.imgur.com/8N69vY0.png', 'Jakarta, 12 Juni 2005', 'Gemini', 'O', 'Seperti cahaya bintang, aku akan menerangi harimu!')">
+        <div class="member-card" onclick="openBio('Yurina', 'https://i.imgur.com/8N69vY0.png', '2005.06.12', 'Gemini', 'O', 'Seperti cahaya bintang, aku akan menerangi harimu!')">
             <div class="img-wrap"><img src="https://i.imgur.com/8N69vY0.png"></div>
             <div class="m-label">Yurina</div>
         </div>
-        <div class="member-card" onclick="openBio('Suzuha', 'https://i.imgur.com/8N69vY0.png', 'Kuala Lumpur, 3 April 2006', 'Aries', 'A', 'Dingin tapi peduli, itulah aku! Siap berjuang bersama!')">
+        <div class="member-card" onclick="openBio('Suzuha', 'https://i.imgur.com/8N69vY0.png', '2006.04.03', 'Aries', 'A', 'Dingin tapi peduli, itulah aku!')">
             <div class="img-wrap"><img src="https://i.imgur.com/8N69vY0.png"></div>
             <div class="m-label">Suzuha</div>
         </div>
@@ -172,13 +166,11 @@
 
 <script>
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-
     function showPage(p) {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById(p).classList.add('active');
         window.scrollTo(0,0);
     }
-
     function openBio(n, i, d, z, b, j) {
         document.getElementById('bName').innerText = n;
         document.getElementById('bImg').src = i;
@@ -188,33 +180,28 @@
         document.getElementById('bJiko').innerText = `"${j}"`;
         document.getElementById('bioModal').classList.add('active');
     }
-
     function closeBio() { document.getElementById('bioModal').classList.remove('active'); }
 
-    // SISTEM BAHASA LENGKAP
+    // DICTIONARY LENGKAP (Termasuk Jepang)
     const dict = {
-        id: { news: "BERITA TERBARU", member: "MEMBER", menu: ["Berita", "Member", "Jadwal", "Setlist", "Daftar"], labels: ["Tgl Lahir", "Zodiak", "Gol. Darah"] },
-        my: { news: "BERITA TERKINI", member: "AHLI", menu: ["Berita", "Ahli", "Jadual", "Senarai Set", "Daftar"], labels: ["Tarikh Lahir", "Zodiak", "Kump. Darah"] },
-        en: { news: "LATEST NEWS", member: "MEMBER", menu: ["News", "Member", "Schedule", "Setlist", "Register"], labels: ["Birthdate", "Zodiac", "Blood Type"] }
+        id: { news: "BERITA TERBARU", member: "MEMBER", sub: "MKT4X Generasi ke-1", menu: ["Berita", "Member", "Jadwal", "Setlist"], labels: ["Tgl Lahir", "Zodiak", "Gol. Darah"] },
+        my: { news: "BERITA TERKINI", member: "AHLI", sub: "Ahli Generasi ke-1 MKT4X", menu: ["Berita", "Ahli", "Jadual", "Senarai Set"], labels: ["Tarikh Lahir", "Zodiak", "Kump. Darah"] },
+        en: { news: "LATEST NEWS", member: "MEMBER", sub: "MKT4X 1st Generation Members", menu: ["News", "Member", "Schedule", "Setlist"], labels: ["Birthdate", "Zodiac", "Blood Type"] },
+        jp: { news: "最新ニュース", member: "メンバー", sub: "MKT4X 1期生メンバー", menu: ["ニュース", "メンバー", "スケジュール", "セットリスト"], labels: ["生年月日", "星座", "血液型"] }
     };
 
     document.getElementById('langSelect').addEventListener('change', function() {
         const l = this.value;
         const d = dict[l];
-        
         document.getElementById('newsTitle').innerText = d.news;
         document.getElementById('pageMTitle').innerText = d.member;
-        
-        // Ganti Menu Sidebar
+        document.getElementById('pageMSub').innerText = d.sub;
         const menuLinks = document.querySelectorAll('#menuItems a');
         d.menu.forEach((txt, i) => { if(menuLinks[i]) menuLinks[i].innerText = txt; });
-
-        // Ganti Label Modal
         document.querySelector('.t-birth').innerText = d.labels[0];
         document.querySelector('.t-zodiac').innerText = d.labels[1];
         document.querySelector('.t-blood').innerText = d.labels[2];
     });
 </script>
-
 </body>
 </html>
