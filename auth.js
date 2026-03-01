@@ -14,8 +14,15 @@ import { auth } from "./firebase.js";
 // REGISTER
 window.registerUser = async (email, password) => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert("Akun berhasil dibuat!");
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      email: email,
+      role: "member",
+      createdAt: new Date()
+    });
+
+    alert("Akun berhasil dibuat dan data tersimpan!");
   } catch (error) {
     alert(error.message);
   }
@@ -53,6 +60,8 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("Login:", user.email);
   }
+  import { db } from "./firebase.js";
+  import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 });
 // ===== UI CONTROL =====
 
