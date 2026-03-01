@@ -54,3 +54,34 @@ onAuthStateChanged(auth, (user) => {
     console.log("Login:", user.email);
   }
 });
+// ===== UI CONTROL =====
+
+const authBtn = document.getElementById("authBtn");
+const authText = document.getElementById("authText");
+const userEmail = document.getElementById("userEmail");
+
+authBtn.addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (user) {
+    await logoutUser();
+  } else {
+    const email = prompt("Masukkan Email:");
+    const password = prompt("Masukkan Password:");
+    if (email && password) {
+      await loginUser(email, password);
+    }
+  }
+});
+
+// Update tampilan saat login/logout
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    authText.innerText = "Logout";
+    userEmail.style.display = "block";
+    userEmail.innerText = "Login sebagai: " + (user.email || "Google User");
+  } else {
+    authText.innerText = "Masuk";
+    userEmail.style.display = "none";
+  }
+});
