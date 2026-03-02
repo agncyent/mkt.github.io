@@ -4,183 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MKT4X - Member Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><style>
-    :root {
-        --mint-primary: #A8E6CF;  
-        --mint-soft: #E8FFF8;  
-        --mint-accent: #5CD6C0;  
-        --mint-dark: #2F4F4F;  
-        --shadow: rgba(92, 214, 192, 0.3);  
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            /* Warna Peppermint Baru */
+            --mint-primary: #A8E6CF;  
+            --mint-soft: #E8FFF8;  
+            --mint-accent: #5CD6C0;  
+            --mint-dark: #2F4F4F;  
+            --shadow: rgba(92, 214, 192, 0.3);
+            
+            /* Mapping ke variabel lama supaya struktur tidak rusak */
+            --primary-green: var(--mint-accent);
+            --dark-green: var(--mint-dark);
+            --light-bg: var(--mint-soft);
+        }
 
-    body {
-        font-family: 'Arial', sans-serif;
-        /* Ganti ke mint-soft agar latar belakang segar */
-        background-color: var(--mint-soft);
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-    /* --- NAVBAR --- */
-    .navbar {
-        width: 100%;
-        height: 60px;
-        background: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        box-sizing: border-box;
-        /* Shadow menggunakan warna mint-accent */
-        box-shadow: 0 2px 10px var(--shadow);
-        position: fixed;
-        top: 0;
-        z-index: 1000;
-    }
+        /* --- NAVBAR --- */
+        .navbar {
+            width: 100%;
+            height: 60px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px var(--shadow);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
 
-    .logo img { height: 40px; }
+        .logo img { height: 40px; }
 
-    .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
 
-    .lang-container {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        color: var(--mint-accent);
-    }
+        .lang-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-green);
+        }
 
-    #langSelect {
-        border: 2px solid var(--mint-primary);
-        border-radius: 5px;
-        padding: 3px;
-        color: var(--mint-dark);
-        font-weight: bold;
-        outline: none;
-        background: white;
-    }
+        #langSelect {
+            border: 2px solid var(--mint-primary);
+            border-radius: 5px;
+            padding: 3px;
+            color: var(--dark-green);
+            font-weight: bold;
+            outline: none;
+            background: #fff;
+        }
 
-    .menu-btn {
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
+        .menu-btn {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
 
-    .menu-btn span {
-        width: 25px;
-        height: 3px;
-        background: var(--mint-accent);
-        border-radius: 2px;
-    }
+        .menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
 
-    /* --- SIDEBAR --- */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -280px; 
-        width: 280px;
-        height: 100%;
-        background: #fff;
-        box-shadow: -2px 0 15px var(--shadow);
-        transition: 0.3s ease-in-out;
-        z-index: 1001;
-        padding: 20px;
-        box-sizing: border-box;
-        overflow-y: auto;
-    }
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px; 
+            width: 280px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            z-index: 1001;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
 
-    .sidebar.active { right: 0; }
+        .sidebar.active { right: 0; }
 
-    .sidebar ul li a:hover { 
-        color: var(--mint-accent); 
-        padding-left: 5px; /* Sedikit animasi geser */
-    }
+        .sidebar-logo { text-align: center; margin-bottom: 20px; }
+        .sidebar-logo img { height: 50px; }
 
-    /* PROFILE DISPLAY */
-    #profileContainer {
-        margin-top: 20px;
-        padding: 15px;
-        background: white;
-        border-radius: 12px;
-        text-align: center;
-        border: 2px dashed var(--mint-primary);
-    }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar ul li { margin: 15px 0; }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+        }
 
-    #profileContainer button {
-        background: var(--mint-accent);
-        color: white;
-        border: none;
-        padding: 7px 15px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.2s;
-    }
+        .sidebar ul li a:hover { color: var(--primary-green); }
 
-    #profileContainer button:hover {
-        background: var(--mint-dark);
-    }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
 
-    /* --- MEMBER GRID SECTION --- */
-    .main-content {
-        margin-top: 100px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        .overlay.active { display: block; }
 
-    .main-title { 
-        color: var(--mint-dark); 
-        letter-spacing: 3px; 
-        font-weight: 800;
-    }
+        /* PROFILE DISPLAY */
+        #profileContainer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px dashed var(--mint-primary);
+        }
+        #profilePic { 
+            width: 60px; height: 60px; 
+            border-radius: 50%; 
+            background: #ddd;
+            margin: 0 auto 10px;
+            display: block;
+            object-fit: cover;
+        }
+        #profileName { font-weight: bold; margin: 5px 0; color: var(--dark-green); }
+        #profileContainer button {
+            background: var(--mint-accent);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
 
-    .underline { 
-        width: 50px; 
-        height: 4px; 
-        background: var(--mint-primary); 
-        margin: 10px auto; 
-        border-radius: 2px;
-    }
+        /* --- MEMBER GRID SECTION --- */
+        .main-content {
+            margin-top: 100px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .gen-title { 
-        color: var(--mint-dark); 
-        opacity: 0.7;
-    }
+        .title-group { text-align: center; margin-bottom: 40px; }
+        .main-title { color: var(--dark-green); letter-spacing: 2px; margin: 0; font-weight: bold; }
+        .underline { width: 50px; height: 4px; background: var(--mint-primary); margin: 10px auto; border-radius: 2px; }
+        .gen-title { color: var(--dark-green); font-size: 1rem; opacity: 0.8; }
 
-    .member-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-        width: 100%;
-        max-width: 900px;
-    }
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 900px;
+        }
 
-    .img-box {
-        border: 3px solid var(--mint-primary);
-        border-radius: 20px; /* Lebih bulat agar terlihat soft */
-        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+        .member-link { text-decoration: none; color: inherit; text-align: center; }
 
-    .member-link:hover .img-box {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 15px 30px var(--shadow);
-        border-color: var(--mint-accent);
-    }
+        .img-box {
+            border: 3px solid var(--mint-primary);
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: #fff;
+            transition: 0.3s;
+        }
 
-    .member-name { 
-        margin-top: 12px; 
-        font-weight: bold; 
-        color: var(--mint-dark); 
-        font-size: 1.1rem;
-    }
+        .member-link:hover .img-box {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px var(--shadow);
+            border-color: var(--mint-accent);
+        }
 
-    @media (min-width: 768px) {
-        .member-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-</style>
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .member-name { margin-top: 12px; font-weight: bold; color: var(--dark-green); font-size: 1.1rem; }
+
+        @media (min-width: 768px) {
+            .member-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
 </head>
 <body>
 
@@ -211,7 +230,7 @@
             <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">  
         </div>  
         <ul id="menuList">  
-            <li><a href="next.html"><i class="fas fa-home"></i> <span>Home</span></a></li>  
+            <li><a href="#"><i class="fas fa-home"></i> <span>Home</span></a></li>  
             <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>  
             <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>  
             <li><a href="member.html"><i class="fas fa-users"></i> <span>Member</span></a></li>
@@ -282,12 +301,10 @@
             document.getElementById('txt-gen').innerText = translations[lang].gen;
         }
 
-        // EDIT PROFILE FUNCTION  
         function editProfile(){  
             const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);  
             if(newName) {  
                 document.getElementById('profileName').innerText = newName;  
-                // nanti update ke Firestore  
                 alert("Nama berhasil diperbarui!");  
             }  
         }  
