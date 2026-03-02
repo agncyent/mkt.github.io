@@ -213,6 +213,41 @@ iframe{
     color:white;
     cursor:pointer;
 }
+    /* HERO SLIDER */
+.hero-slider{
+    width:100%;
+    height:400px;
+    overflow:hidden;
+    border-radius:25px;
+    border:2px solid var(--mint-primary);
+    margin-bottom:30px;
+    box-shadow:0 15px 40px var(--shadow);
+    position:relative;
+}
+
+.hero-slides{
+    display:flex;
+    width:300%;
+    height:100%;
+    animation:heroSlide 15s infinite;
+}
+
+.hero-slides img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+@keyframes heroSlide{
+    0%{ transform:translateX(0); }
+    30%{ transform:translateX(0); }
+
+    35%{ transform:translateX(-100%); }
+    65%{ transform:translateX(-100%); }
+
+    70%{ transform:translateX(-200%); }
+    100%{ transform:translateX(-200%); }
+}
 </style>
 </head>
 
@@ -269,8 +304,11 @@ iframe{
 </div>
 
 <main class="container">
-    <div class="video-box">
-        <iframe src="https://www.youtube.com/embed/8TSaCD7UynE"></iframe>
+    <div class="hero-slider">
+    <div class="hero-slides">
+        <img src="https://picsum.photos/1200/500?random=1">
+        <img src="https://picsum.photos/1200/500?random=2">
+        <img src="https://picsum.photos/1200/500?random=3">
     </div>
     <div class="card">
         <div class="card-title" id="newsTitle">BERITA TERBARU</div>
