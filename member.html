@@ -74,7 +74,7 @@
         .sidebar {
             position: fixed;
             top: 0;
-            right: -280px; /* Sembunyi di kanan */
+            right: -280px; 
             width: 280px;
             height: 100%;
             background: #fff;
@@ -116,9 +116,37 @@
 
         .overlay.active { display: block; }
 
+        /* PROFILE DISPLAY */
+        #profileContainer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px dashed var(--primary-green);
+        }
+        #profilePic { 
+            width: 60px; height: 60px; 
+            border-radius: 50%; 
+            background: #ddd;
+            margin: 0 auto 10px;
+            display: block;
+            object-fit: cover;
+        }
+        #profileName { font-weight: bold; margin: 5px 0; color: #333; }
+        #profileContainer button {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
         /* --- MEMBER GRID SECTION --- */
         .main-content {
-            margin-top: 80px; /* Jarak agar tidak tertutup navbar */
+            margin-top: 100px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -151,26 +179,15 @@
 
         .member-link:hover .img-box {
             transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(40,167,69,0.3);
+            box-shadow: 0 8px 20px rgba(40,167,69,0.4);
         }
 
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .member-name { margin-top: 10px; font-weight: bold; color: var(--dark-green); }
+        .member-name { margin-top: 12px; font-weight: bold; color: var(--dark-green); font-size: 1.1rem; }
 
-        /* Responsive Desktop: 3 Kolom */
         @media (min-width: 768px) {
             .member-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
-        /* Profile Display Style */
-        #profileContainer {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            text-align: center;
-        }
-        #profilePic { width: 60px; height: 60px; border-radius: 50%; display: none; margin: 0 auto; }
     </style>
 </head>
 <body>
@@ -213,8 +230,8 @@
         </ul>  
       
         <div id="profileContainer">  
-            <img id="profilePic" src="" alt="Profil">  
-            <p id="profileName"></p>  
+            <img id="profilePic" src="https://via.placeholder.com/60" alt="Profil">  
+            <p id="profileName">User MKT4X</p>  
             <button onclick="editProfile()">Edit Profil</button>  
         </div>  
     </div>
@@ -273,9 +290,19 @@
             document.getElementById('txt-gen').innerText = translations[lang].gen;
         }
 
-        function editProfile() {
-            alert("Fitur Edit Profil segera hadir!");
-        }
+        // EDIT PROFILE FUNCTION  
+        function editProfile(){  
+            const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);  
+            if(newName) {  
+                document.getElementById('profileName').innerText = newName;  
+                // nanti update ke Firestore  
+                alert("Nama berhasil diperbarui!");  
+            }  
+        }  
     </script>
+
+    <script type="module" src="firebase.js"></script>  
+    <script type="module" src="auth.js"></script>  
+
 </body>
 </html>
