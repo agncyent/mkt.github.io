@@ -30,81 +30,86 @@
         }
 
         select {
-            padding: 5px;
+            padding: 5px 10px;
             border-radius: 5px;
-            border: 1px solid #28a745;
+            border: 2px solid #28a745;
             color: #28a745;
             font-weight: bold;
             cursor: pointer;
             outline: none;
+            background: white;
         }
 
         .container {
-            max-width: 800px;
-            width: 90%;
+            max-width: 900px; /* Diperlebar sedikit agar muat 3 foto dengan lega */
+            width: 95%;
             text-align: center;
             padding: 40px 0;
         }
 
         .main-title {
             color: #28a745;
-            font-size: 20px;
-            letter-spacing: 2px;
+            font-size: 22px;
+            letter-spacing: 3px;
             margin: 0;
             text-transform: uppercase;
         }
 
         .underline {
-            width: 60px;
-            height: 2px;
+            width: 50px;
+            height: 3px;
             background-color: #28a745;
-            margin: 8px auto 30px;
+            margin: 10px auto 30px;
         }
 
         .gen-title {
             color: #1b5e20;
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        /* Grid Member */
+        /* --- GRID MEMBER (Kunci Kerapihan) --- */
         .member-grid {
             display: grid;
+            /* Default Mobile: 2 kolom */
             grid-template-columns: repeat(2, 1fr); 
-            gap: 20px;
+            gap: 30px 20px; /* Jarak antar baris 30px, antar kolom 20px */
             justify-items: center;
         }
 
-        /* Menghilangkan dekorasi link */
+        /* Responsive Desktop: 3 kolom (Atas 3, Bawah 3) */
+        @media (min-width: 768px) {
+            .member-grid {
+                grid-template-columns: repeat(3, 1fr); 
+                padding: 0 50px;
+            }
+        }
+
         .member-link {
             text-decoration: none;
             color: inherit;
             display: block;
             width: 100%;
-            max-width: 160px;
-        }
-
-        .member-card {
-            width: 100%;
+            max-width: 180px; /* Ukuran kotak diperbesar dikit agar lebih jelas */
         }
 
         .img-box {
-            border: 2px solid #28a745;
-            border-radius: 12px;
+            border: 2.5px solid #28a745;
+            border-radius: 15px;
             overflow: hidden;
             background-color: #fff;
             aspect-ratio: 3 / 4;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        /* Efek saat foto disentuh/diarahkan kursor */
         .member-link:hover .img-box {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            transform: translateY(-10px); /* Efek melayang saat di-hover */
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+            border-color: #218838;
         }
 
         .img-box img {
@@ -114,17 +119,11 @@
         }
 
         .member-name {
-            margin-top: 10px;
+            margin-top: 15px;
             color: #1b5e20;
             font-weight: bold;
-            font-size: 14px;
-        }
-
-        /* Responsif untuk layar lebih besar */
-        @media (min-width: 768px) {
-            .member-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            font-size: 16px;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -148,45 +147,33 @@
         <div class="member-grid">
             
             <a href="https://yurina.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_yurina.jpg" alt="Yurina"></div>
-                    <p class="member-name">Yurina</p>
-                </div>
+                <div class="img-box"><img src="yurina.jpg" alt="Yurina"></div>
+                <p class="member-name">Yurina</p>
             </a>
 
             <a href="https://suzuha.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_suzuha.jpg" alt="Suzuha"></div>
-                    <p class="member-name">Suzuha</p>
-                </div>
+                <div class="img-box"><img src="suzuha.jpg" alt="Suzuha"></div>
+                <p class="member-name">Suzuha</p>
             </a>
 
             <a href="https://devi.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_devi.jpg" alt="Devi"></div>
-                    <p class="member-name">Devi</p>
-                </div>
+                <div class="img-box"><img src="devi.jpg" alt="Devi"></div>
+                <p class="member-name">Devi</p>
             </a>
 
             <a href="https://haruka.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_haruka.jpg" alt="Haruka"></div>
-                    <p class="member-name">Haruka</p>
-                </div>
+                <div class="img-box"><img src="haruka.jpg" alt="Haruka"></div>
+                <p class="member-name">Haruka</p>
             </a>
 
             <a href="https://cocoa.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_cocoa.jpg" alt="Cocoa"></div>
-                    <p class="member-name">Cocoa</p>
-                </div>
+                <div class="img-box"><img src="cocoa.jpg" alt="Cocoa"></div>
+                <p class="member-name">Cocoa</p>
             </a>
 
             <a href="https://yishyan.github.io" class="member-link">
-                <div class="member-card">
-                    <div class="img-box"><img src="path_ke_foto_yishyan.jpg" alt="Yi Shyan"></div>
-                    <p class="member-name">Yi Shyan</p>
-                </div>
+                <div class="img-box"><img src="yishyan.jpg" alt="Yi Shyan"></div>
+                <p class="member-name">Yi Shyan</p>
             </a>
 
         </div>
