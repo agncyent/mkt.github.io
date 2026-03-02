@@ -213,40 +213,34 @@ iframe{
     color:white;
     cursor:pointer;
 }
-    /* HERO SLIDER */
+/* HERO SLIDER SWIPE */
 .hero-slider{
     width:100%;
-    height:400px;
     overflow:hidden;
     border-radius:25px;
     border:2px solid var(--mint-primary);
     margin-bottom:30px;
     box-shadow:0 15px 40px var(--shadow);
-    position:relative;
 }
 
-.hero-slides{
+.hero-track{
     display:flex;
-    width:300%;
-    height:100%;
-    animation:heroSlide 15s infinite;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
 }
 
-.hero-slides img{
+.hero-track::-webkit-scrollbar{
+    display:none;
+}
+
+.hero-track img{
     width:100%;
-    height:100%;
+    flex-shrink:0;
+    scroll-snap-align:start;
     object-fit:cover;
-}
-
-@keyframes heroSlide{
-    0%{ transform:translateX(0); }
-    30%{ transform:translateX(0); }
-
-    35%{ transform:translateX(-100%); }
-    65%{ transform:translateX(-100%); }
-
-    70%{ transform:translateX(-200%); }
-    100%{ transform:translateX(-200%); }
+    height:400px;
 }
 </style>
 </head>
@@ -304,12 +298,7 @@ iframe{
 </div>
 
 <main class="container">
-    <div class="hero-slider">
-    <div class="hero-slides">
-        <img src="https://picsum.photos/1200/500?random=1">
-        <img src="https://picsum.photos/1200/500?random=2">
-        <img src="https://picsum.photos/1200/500?random=3">
-    </div>
+    
     <div class="card">
         <div class="card-title" id="newsTitle">BERITA TERBARU</div>
         <div style="font-size:0.85rem;">
@@ -319,7 +308,13 @@ iframe{
     </div>
     <div class="card">
         <div class="card-title" id="bdayTitle">ULANG TAHUN</div>
-        <p style="font-size:0.85rem; color:#888;">Coming Soon</p>
+        <p sty<div class="hero-slider">
+    <div class="hero-track">
+        <img src="images/banner1.jpg">
+        <img src="images/banner2.jpg">
+        <img src="images/banner3.jpg">
+    </div>
+    </div>le="font-size:0.85rem; color:#888;">Coming Soon</p>
     </div>
 </main>
 
@@ -356,6 +351,27 @@ function editProfile(){
         alert("Nama berhasil diperbarui!");
     }
 }
+//<!-- HERO SLIDER SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".hero-track");
+
+    if (!slider) return; // kalau halaman tidak punya slider, stop biar gak error
+
+    let index = 0;
+
+    setInterval(() => {
+        index++;
+        if (index >= slider.children.length) {
+            index = 0;
+        }
+
+        slider.scrollTo({
+            left: slider.clientWidth * index,
+            behavior: "smooth"
+        });
+    }, 4000);
+});
 </script>
 
 <!-- FIREBASE MODULE -->
