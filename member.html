@@ -8,14 +8,150 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
+:root{
+    --white:#fff;
+    --mint-primary:#baf5e3;
+    --mint-accent:#5CD6C0;
+    --mint-dark:#1f4f46;
+    --shadow: rgba(0,0,0,0.1);
+}
 
 /* ===== BODY ===== */
 body{
     font-family: 'Segoe UI', sans-serif;
     margin:0;
     background: linear-gradient(to bottom, #e8fdf5, #baf5e3);
-    color:#1f4f46;
+    color: var(--mint-dark);
 }
+
+/* ===== NAVBAR ===== */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:var(--white);
+    box-shadow:0 5px 20px var(--shadow);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    height:70px;
+}
+.logo{
+    display:flex;
+    align-items:center;
+}
+.logo img{
+    height:32px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+}
+@media (max-width:768px){
+    .navbar{ height:60px; }
+    .logo img{ height:24px; }
+}
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+.lang-container{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
+.lang-container i{
+    color:var(--mint-accent);
+}
+select{
+    background:transparent;
+    color:var(--mint-dark);
+    border:none;
+    outline:none;
+    font-size:0.85rem;
+    cursor:pointer;
+}
+/* MENU BUTTON */
+.menu-btn{
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    z-index:10001;
+}
+.menu-btn span{
+    width:22px;
+    height:2px;
+    background:var(--mint-dark);
+    transition:0.3s;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-280px;
+    width:280px;
+    height:100vh;
+    background:var(--white);
+    border-left:2px solid var(--mint-primary);
+    transition:0.3s ease;
+    z-index:9999;
+    padding:80px 30px;
+    box-shadow:-10px 0 30px var(--shadow);
+}
+.sidebar.active{ right:0; }
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+.sidebar ul li{
+    margin-bottom:25px;
+}
+.sidebar ul li a{
+    color:var(--mint-dark);
+    text-decoration:none;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    transition:0.2s;
+}
+.sidebar ul li a:hover{
+    color:var(--mint-accent);
+    transform:translateX(5px);
+}
+.reg-link{
+    color:var(--mint-accent) !important;
+    font-weight:bold;
+}
+/* SIDEBAR LOGO */
+.sidebar-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:30px;
+}
+.sidebar-logo img{
+    width:130px;
+    height:auto;
+    object-fit:contain;
+}
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(168,230,207,0.4);
+    backdrop-filter:blur(4px);
+    display:none;
+    z-index:9998;
+}
+.overlay.active{ display:block; }
 
 /* ===== CONTAINER ===== */
 .container{
@@ -36,12 +172,11 @@ body{
 .gen-section{
     margin-bottom:80px;
 }
-
 .gen-title{
     font-size:1.5rem;
     font-weight:600;
     margin-bottom:30px;
-    border-left:6px solid #1f4f46;
+    border-left:6px solid var(--mint-dark);
     padding-left:12px;
 }
 
@@ -62,20 +197,15 @@ body{
     background:white;
     transition:0.3s;
 }
-
 .member-item:hover{
     transform:translateY(-5px);
 }
-
-/* PHOTO */
 .member-photo{
     width:100%;
     height:380px;
     object-fit:cover;
     transition:0.4s;
 }
-
-/* OVERLAY */
 .member-overlay{
     position:absolute;
     bottom:0;
@@ -90,26 +220,77 @@ body{
     transition:0.4s;
     padding-bottom:25px;
 }
-
 .member-name{
     color:white;
     font-weight:bold;
     font-size:1.2rem;
     letter-spacing:1px;
 }
-
 .member-item:hover .member-overlay{
     opacity:1;
 }
-
 .member-item:hover .member-photo{
     transform:scale(1.05);
 }
-
 </style>
 </head>
 
 <body>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
+    </div>
+    <div class="nav-right">
+        <div class="lang-container">
+            <i class="fas fa-globe"></i>
+            <select id="langSelect">
+                <option value="id">Indonesia</option>
+                <option value="en">English</option>
+                <option value="jp">Japanese</option>
+                <option value="my">Melayu</option>
+            </select>
+        </div>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">
+    </div>
+    <ul id="menuList">
+        <li><a href="#"><i class="fas fa-home"></i> <span>Home</span></a></li>
+        <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>
+        <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>
+        <li>
+            <a href="member.html">
+                <i class="fas fa-users"></i>
+                <span>Member</span>
+            </a>
+        </li>
+        <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>
+        <hr style="opacity:0.1; margin:20px 0;">
+        <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>
+        <li>
+            <a href="#" id="authBtn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span id="authText">Masuk</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- PROFILE DISPLAY -->
+    <div id="profileContainer">
+        <img id="profilePic" src="" alt="Profil">
+        <p id="profileName"></p>
+        <button onclick="editProfile()">Edit Profil</button>
+    </div>
+</div>
 
 <main class="container">
 
@@ -118,36 +299,83 @@ body{
     <!-- 1ST GENERATION -->
     <div class="gen-section">
         <div class="gen-title">1st Generation</div>
-
         <div class="member-grid">
-
             <div class="member-item" onclick="location.href='detail-aira.html'">
                 <img src="images/member1.jpg" class="member-photo">
                 <div class="member-overlay">
                     <div class="member-name">Aira</div>
                 </div>
             </div>
-
             <div class="member-item" onclick="location.href='detail-kana.html'">
                 <img src="images/member2.jpg" class="member-photo">
                 <div class="member-overlay">
                     <div class="member-name">Kana</div>
                 </div>
             </div>
-
-        </div>
-    </div>
-
-    <!-- 2ND GENERATION -->
-    <div class="gen-section">
-        <div class="gen-title">2nd Generation</div>
-
-        <div class="member-grid">
-            <!-- isi nanti -->
+            <div class="member-item" onclick="location.href='detail-luna.html'">
+                <img src="images/member3.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Luna</div>
+                </div>
+            </div>
+            <div class="member-item" onclick="location.href='detail-mira.html'">
+                <img src="images/member4.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Mira</div>
+                </div>
+            </div>
+            <div class="member-item" onclick="location.href='detail-nina.html'">
+                <img src="images/member5.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Nina</div>
+                </div>
+            </div>
+            <div class="member-item" onclick="location.href='detail-rina.html'">
+                <img src="images/member6.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Rina</div>
+                </div>
+            </div>
         </div>
     </div>
 
 </main>
+
+<script>
+function toggleMenu(){
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+}
+
+// LANGUAGE SWITCH
+const dict = {
+    id:{ list:["Berita","Jadwal","Member","Setlist","Fanclub","Masuk"] },
+    en:{ list:["News","Schedule","Member","Setlist","Fanclub","Login"] },
+    jp:{ list:["ニュース","スケジュール","メンバー","セットリスト","ファンクラブ","ログイン"] },
+    my:{ list:["Berita","Jadual","Ahli","Senarai Lagu","Kelab Peminat","Log Masuk"] }
+};
+
+document.getElementById('langSelect').addEventListener('change', function(){
+    const l=this.value;
+    const spans=document.querySelectorAll('#menuList span');
+    dict[l].list.forEach((teks,i)=>{
+        if(spans[i]) spans[i].innerText=teks;
+    });
+});
+
+// EDIT PROFILE FUNCTION
+function editProfile(){
+    const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);
+    if(newName) {
+        document.getElementById('profileName').innerText = newName;
+        alert("Nama berhasil diperbarui!");
+    }
+}
+</script>
+
+<!-- FIREBASE MODULE -->
+<script type="module" src="firebase.js"></script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
