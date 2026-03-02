@@ -3,208 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KLP48 Member Page</title>
+    <title>MKT4X - Member Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- CSS BAGIAN --- */
+        :root {
+            --primary-green: #28a745;
+            --dark-green: #1b5e20;
+            --light-bg: #e8f5e9;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #e8f5e9; 
+            background-color: var(--light-bg);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            width: 100%;
+            height: 60px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img { height: 40px; }
+
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+
+        .lang-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-green);
+        }
+
+        #langSelect {
+            border: 1px solid var(--primary-green);
+            border-radius: 5px;
+            padding: 3px;
+            color: var(--primary-green);
+            font-weight: bold;
+            outline: none;
+        }
+
+        .menu-btn {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px; /* Sembunyi di kanan */
+            width: 280px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            z-index: 1001;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .sidebar.active { right: 0; }
+
+        .sidebar-logo { text-align: center; margin-bottom: 20px; }
+        .sidebar-logo img { height: 50px; }
+
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar ul li { margin: 15px 0; }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+        }
+
+        .sidebar ul li a:hover { color: var(--primary-green); }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .overlay.active { display: block; }
+
+        /* --- MEMBER GRID SECTION --- */
+        .main-content {
+            margin-top: 80px; /* Jarak agar tidak tertutup navbar */
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        header {
-            width: 100%;
-            background-color: #ffffff;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        .title-group { text-align: center; margin-bottom: 40px; }
+        .main-title { color: var(--primary-green); letter-spacing: 2px; margin: 0; }
+        .underline { width: 50px; height: 3px; background: var(--primary-green); margin: 10px auto; }
+        .gen-title { color: var(--dark-green); font-size: 1rem; }
 
-        select {
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 2px solid #28a745;
-            color: #28a745;
-            font-weight: bold;
-            cursor: pointer;
-            outline: none;
-            background: white;
-        }
-
-        .container {
-            max-width: 900px; /* Diperlebar sedikit agar muat 3 foto dengan lega */
-            width: 95%;
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .main-title {
-            color: #28a745;
-            font-size: 22px;
-            letter-spacing: 3px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .underline {
-            width: 50px;
-            height: 3px;
-            background-color: #28a745;
-            margin: 10px auto 30px;
-        }
-
-        .gen-title {
-            color: #1b5e20;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 40px;
-        }
-
-        /* --- GRID MEMBER (Kunci Kerapihan) --- */
         .member-grid {
             display: grid;
-            /* Default Mobile: 2 kolom */
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 30px 20px; /* Jarak antar baris 30px, antar kolom 20px */
-            justify-items: center;
-        }
-
-        /* Responsive Desktop: 3 kolom (Atas 3, Bawah 3) */
-        @media (min-width: 768px) {
-            .member-grid {
-                grid-template-columns: repeat(3, 1fr); 
-                padding: 0 50px;
-            }
-        }
-
-        .member-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
             width: 100%;
-            max-width: 180px; /* Ukuran kotak diperbesar dikit agar lebih jelas */
+            max-width: 900px;
         }
+
+        .member-link { text-decoration: none; color: inherit; text-align: center; }
 
         .img-box {
-            border: 2.5px solid #28a745;
+            border: 2px solid var(--primary-green);
             border-radius: 15px;
             overflow: hidden;
-            background-color: #fff;
-            aspect-ratio: 3 / 4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            aspect-ratio: 3/4;
+            background: #fff;
+            transition: 0.3s;
         }
 
         .member-link:hover .img-box {
-            transform: translateY(-10px); /* Efek melayang saat di-hover */
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
-            border-color: #218838;
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(40,167,69,0.3);
         }
 
-        .img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .member-name { margin-top: 10px; font-weight: bold; color: var(--dark-green); }
+
+        /* Responsive Desktop: 3 Kolom */
+        @media (min-width: 768px) {
+            .member-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        .member-name {
-            margin-top: 15px;
-            color: #1b5e20;
-            font-weight: bold;
-            font-size: 16px;
-            letter-spacing: 0.5px;
+        /* Profile Display Style */
+        #profileContainer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: center;
         }
+        #profilePic { width: 60px; height: 60px; border-radius: 50%; display: none; margin: 0 auto; }
     </style>
 </head>
 <body>
 
-    <header>
-        <select id="langSelector" onchange="changeLanguage()">
-            <option value="en">English</option>
-            <option value="id">Indonesia</option>
-            <option value="ms">Melayu</option>
-            <option value="ja">Japanese</option>
-        </select>
-    </header>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>  
+  
+    <nav class="navbar">  
+        <div class="logo">  
+            <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">  
+        </div>  
+        <div class="nav-right">  
+            <div class="lang-container">  
+                <i class="fas fa-globe"></i>  
+                <select id="langSelect" onchange="changeLanguage()">  
+                    <option value="id">Indonesia</option>  
+                    <option value="en">English</option>  
+                    <option value="jp">Japanese</option>  
+                    <option value="my">Melayu</option>  
+                </select>  
+            </div>  
+            <div class="menu-btn" onclick="toggleMenu()">  
+                <span></span><span></span><span></span>  
+            </div>  
+        </div>  
+    </nav>  
+      
+    <div class="sidebar" id="sidebar">  
+        <div class="sidebar-logo">  
+            <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">  
+        </div>  
+        <ul id="menuList">  
+            <li><a href="#"><i class="fas fa-home"></i> <span>Home</span></a></li>  
+            <li><a href="#"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>  
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>  
+            <li><a href="member.html"><i class="fas fa-users"></i> <span>Member</span></a></li>
+            <li><a href="#"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>  
+            <hr style="opacity:0.1; margin:20px 0;">  
+            <li><a href="#" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>  
+            <li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a></li>  
+        </ul>  
+      
+        <div id="profileContainer">  
+            <img id="profilePic" src="" alt="Profil">  
+            <p id="profileName"></p>  
+            <button onclick="editProfile()">Edit Profil</button>  
+        </div>  
+    </div>
 
-    <div class="container">
-        <h2 class="main-title" id="txt-member">MEMBER</h2>
-        <div class="underline"></div>
-        
-        <h3 class="gen-title" id="txt-gen">KLP48 1st Generation Members</h3>
+    <main class="main-content">
+        <div class="title-group">
+            <h2 class="main-title" id="txt-member">MEMBER</h2>
+            <div class="underline"></div>
+            <h3 class="gen-title" id="txt-gen">KLP48 1st Generation Members</h3>
+        </div>
 
         <div class="member-grid">
-            
             <a href="https://yurina.github.io" class="member-link">
                 <div class="img-box"><img src="yurina.jpg" alt="Yurina"></div>
                 <p class="member-name">Yurina</p>
             </a>
-
             <a href="https://suzuha.github.io" class="member-link">
                 <div class="img-box"><img src="suzuha.jpg" alt="Suzuha"></div>
                 <p class="member-name">Suzuha</p>
             </a>
-
             <a href="https://devi.github.io" class="member-link">
                 <div class="img-box"><img src="devi.jpg" alt="Devi"></div>
                 <p class="member-name">Devi</p>
             </a>
-
             <a href="https://haruka.github.io" class="member-link">
                 <div class="img-box"><img src="haruka.jpg" alt="Haruka"></div>
                 <p class="member-name">Haruka</p>
             </a>
-
             <a href="https://cocoa.github.io" class="member-link">
                 <div class="img-box"><img src="cocoa.jpg" alt="Cocoa"></div>
                 <p class="member-name">Cocoa</p>
             </a>
-
             <a href="https://yishyan.github.io" class="member-link">
                 <div class="img-box"><img src="yishyan.jpg" alt="Yi Shyan"></div>
                 <p class="member-name">Yi Shyan</p>
             </a>
-
         </div>
-    </div>
+    </main>
 
-    <script>
+    <script>  
+        function toggleMenu(){  
+            document.getElementById('sidebar').classList.toggle('active');  
+            document.getElementById('overlay').classList.toggle('active');  
+        }
+
         const translations = {
-            'en': {
-                'member': 'MEMBER',
-                'gen': 'KLP48 1st Generation Members'
-            },
-            'id': {
-                'member': 'ANGGOTA',
-                'gen': 'Anggota Generasi ke-1 KLP48'
-            },
-            'ms': {
-                'member': 'AHLI',
-                'gen': 'Ahli Generasi Pertama KLP48'
-            },
-            'ja': {
-                'member': 'メンバー',
-                'gen': 'KLP48 第1期生メンバー'
-            }
+            'en': { 'member': 'MEMBER', 'gen': 'KLP48 1st Generation Members' },
+            'id': { 'member': 'ANGGOTA', 'gen': 'Anggota Generasi ke-1 KLP48' },
+            'my': { 'member': 'AHLI', 'gen': 'Ahli Generasi Pertama KLP48' },
+            'jp': { 'member': 'メンバー', 'gen': 'KLP48 第1期生メンバー' }
         };
 
         function changeLanguage() {
-            const lang = document.getElementById('langSelector').value;
+            const lang = document.getElementById('langSelect').value;
             document.getElementById('txt-member').innerText = translations[lang].member;
             document.getElementById('txt-gen').innerText = translations[lang].gen;
         }
-    </script>
 
+        function editProfile() {
+            alert("Fitur Edit Profil segera hadir!");
+        }
+    </script>
 </body>
 </html>
