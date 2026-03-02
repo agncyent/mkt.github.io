@@ -8,86 +8,143 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
+
+/* ===== BODY ===== */
 body{
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+    margin:0;
+    background: linear-gradient(to bottom, #e8fdf5, #baf5e3);
+    color:#1f4f46;
 }
 
-/* GRID MEMBER */
+/* ===== CONTAINER ===== */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title{
+    font-size:2.2rem;
+    font-weight:700;
+    margin-bottom:60px;
+    text-align:center;
+}
+
+/* ===== GENERATION SECTION ===== */
+.gen-section{
+    margin-bottom:80px;
+}
+
+.gen-title{
+    font-size:1.5rem;
+    font-weight:600;
+    margin-bottom:30px;
+    border-left:6px solid #1f4f46;
+    padding-left:12px;
+}
+
+/* ===== GRID ===== */
 .member-grid{
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
-    gap:20px;
-    margin-top:20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    gap:40px;
 }
 
-.member-card{
-    background:white;
-    border-radius:20px;
+/* ===== MEMBER CARD ===== */
+.member-item{
+    position:relative;
     overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
-    transition:0.3s;
+    border-radius:25px;
     cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    background:white;
+    transition:0.3s;
 }
 
-.member-card:hover{
+.member-item:hover{
     transform:translateY(-5px);
 }
 
-.member-card img{
+/* PHOTO */
+.member-photo{
     width:100%;
-    height:220px;
+    height:380px;
     object-fit:cover;
+    transition:0.4s;
 }
 
-.member-info{
-    padding:15px;
+/* OVERLAY */
+.member-overlay{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    opacity:0;
+    transition:0.4s;
+    padding-bottom:25px;
 }
 
 .member-name{
+    color:white;
     font-weight:bold;
-    font-size:1rem;
+    font-size:1.2rem;
+    letter-spacing:1px;
 }
 
-.member-gen{
-    font-size:0.8rem;
-    color:#888;
+.member-item:hover .member-overlay{
+    opacity:1;
 }
+
+.member-item:hover .member-photo{
+    transform:scale(1.05);
+}
+
 </style>
-
 </head>
-<body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="logo">MKT4X</div>
-</nav>
+<body>
 
 <main class="container">
 
-    <h2>MEMBER</h2>
+    <div class="page-title">MEMBER</div>
 
-    <div class="member-grid">
+    <!-- 1ST GENERATION -->
+    <div class="gen-section">
+        <div class="gen-title">1st Generation</div>
 
-        <!-- MEMBER 1 -->
-        <div class="member-card">
-            <img src="images/member1.jpg">
-            <div class="member-info">
-                <div class="member-name">Aira</div>
-                <div class="member-gen">1st Generation</div>
+        <div class="member-grid">
+
+            <div class="member-item" onclick="location.href='detail-aira.html'">
+                <img src="images/member1.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Aira</div>
+                </div>
             </div>
-        </div>
 
-        <!-- MEMBER 2 -->
-        <div class="member-card">
-            <img src="images/member2.jpg">
-            <div class="member-info">
-                <div class="member-name">Kana</div>
-                <div class="member-gen">1st Generation</div>
+            <div class="member-item" onclick="location.href='detail-kana.html'">
+                <img src="images/member2.jpg" class="member-photo">
+                <div class="member-overlay">
+                    <div class="member-name">Kana</div>
+                </div>
             </div>
+
         </div>
+    </div>
 
-        <!-- Tambah sendiri nanti -->
+    <!-- 2ND GENERATION -->
+    <div class="gen-section">
+        <div class="gen-title">2nd Generation</div>
 
+        <div class="member-grid">
+            <!-- isi nanti -->
+        </div>
     </div>
 
 </main>
