@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member - MKT4X</title>
 
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+}
+
+/* GRID MEMBER */
+.member-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.member-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.member-card:hover{
+    transform:translateY(-5px);
+}
+
+.member-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.member-info{
+    padding:15px;
+}
+
+.member-name{
+    font-weight:bold;
+    font-size:1rem;
+}
+
+.member-gen{
+    font-size:0.8rem;
+    color:#888;
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">MKT4X</div>
+</nav>
+
+<main class="container">
+
+    <h2>MEMBER</h2>
+
+    <div class="member-grid">
+
+        <!-- MEMBER 1 -->
+        <div class="member-card">
+            <img src="images/member1.jpg">
+            <div class="member-info">
+                <div class="member-name">Aira</div>
+                <div class="member-gen">1st Generation</div>
+            </div>
+        </div>
+
+        <!-- MEMBER 2 -->
+        <div class="member-card">
+            <img src="images/member2.jpg">
+            <div class="member-info">
+                <div class="member-name">Kana</div>
+                <div class="member-gen">1st Generation</div>
+            </div>
+        </div>
+
+        <!-- Tambah sendiri nanti -->
+
+    </div>
+
+</main>
+
+</body>
+</html>
