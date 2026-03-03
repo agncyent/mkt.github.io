@@ -9,14 +9,11 @@
     
     <style>
         :root {  
-            /* Warna Peppermint Baru */  
             --mint-primary: #A8E6CF;    
             --mint-soft: #E8FFF8;    
             --mint-accent: #5CD6C0;    
             --mint-dark: #2F4F4F;    
             --shadow: rgba(92, 214, 192, 0.3);  
-              
-            /* Mapping variabel agar stabil */  
             --primary-green: var(--mint-accent);  
             --dark-green: var(--mint-dark);  
             --light-bg: var(--mint-soft);  
@@ -123,7 +120,6 @@
         }  
         .overlay.active { display: block; }  
   
-        /* PROFILE USER DI SIDEBAR */  
         #profileContainer {  
             margin-top: 20px;  
             padding: 15px;  
@@ -250,13 +246,13 @@
             <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">    
         </div>    
         <ul id="menuList">    
-            <li><a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>    
-            <li><a href="berita.html"><i class="fas fa-newspaper"></i> <span>Berita</span></a></li>    
-            <li><a href="jadwal.html"><i class="fas fa-calendar-alt"></i> <span>Jadwal</span></a></li>    
-            <li><a href="member.html"><i class="fas fa-users"></i> <span>Member</span></a></li>  
-            <li><a href="setlist.html"><i class="fas fa-microphone"></i> <span>Setlist</span></a></li>    
+            <li><a href="index.html"><i class="fas fa-home"></i> <span id="menu-home">Beranda</span></a></li>    
+            <li><a href="berita.html"><i class="fas fa-newspaper"></i> <span id="menu-news">Berita</span></a></li>    
+            <li><a href="jadwal.html"><i class="fas fa-calendar-alt"></i> <span id="menu-schedule">Jadwal</span></a></li>    
+            <li><a href="member.html"><i class="fas fa-users"></i> <span id="menu-member">Anggota</span></a></li>  
+            <li><a href="setlist.html"><i class="fas fa-microphone"></i> <span id="menu-setlist">Setlist</span></a></li>    
             <hr style="opacity:0.1; margin:20px 0;">    
-            <li><a href="fanclub.html" class="reg-link"><i class="fas fa-heart"></i> <span>Fanclub</span></a></li>    
+            <li><a href="fanclub.html" class="reg-link"><i class="fas fa-heart"></i> <span id="menu-fanclub">Fanclub</span></a></li>    
             <li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a></li>    
         </ul>
         
@@ -270,23 +266,23 @@
     <main class="content-main">
         <div class="member-card">
             <div class="member-img">
-                <img src="zyura.jpg" alt="Kiara Member Photo">
+                <img src="https://i.imgur.com/KjU8YTn.png" alt="Kiara Member Photo">
             </div>
             <div class="member-info">
                 <h1 id="txt-member-name">KIARA</h1>
-                <div class="badge-gen" id="txt-gen">MKT4X 1st Generation</div>
+                <div class="badge-gen" id="txt-gen">Anggota Generasi ke-1 MKT4X</div>
 
                 <div class="bio-table">
                     <div class="bio-row">
-                        <span class="bio-label">Birthday</span>
+                        <span class="bio-label" id="lbl-birthday">Tanggal Lahir</span>
                         <span>1 Maret 2002</span>
                     </div>
                     <div class="bio-row">
-                        <span class="bio-label">Hometown</span>
+                        <span class="bio-label" id="lbl-hometown">Asal</span>
                         <span>Surabaya</span>
                     </div>
                     <div class="bio-row">
-                        <span class="bio-label">Blood Type</span>
+                        <span class="bio-label" id="lbl-blood">Gol. Darah</span>
                         <span>B</span>
                     </div>
                 </div>
@@ -307,15 +303,45 @@
         }  
   
         const translations = {  
-            'en': { 'gen': 'MKT4X 1st Generation Members' },  
-            'id': { 'gen': 'Anggota Generasi ke-1 MKT4X' },  
-            'my': { 'gen': 'Ahli Generasi Pertama MKT4X' },  
-            'jp': { 'gen': 'MKT4X 第1期生メンバー' }  
+            'en': { 
+                'gen': 'MKT4X 1st Generation Member',
+                'home': 'Home', 'news': 'News', 'schedule': 'Schedule', 'member': 'Member', 'fanclub': 'Fanclub', 'login': 'Login',
+                'birthday': 'Birthday', 'hometown': 'Hometown', 'blood': 'Blood Type'
+            },  
+            'id': { 
+                'gen': 'Anggota Generasi ke-1 MKT4X',
+                'home': 'Beranda', 'news': 'Berita', 'schedule': 'Jadwal', 'member': 'Anggota', 'fanclub': 'Fanclub', 'login': 'Masuk',
+                'birthday': 'Tanggal Lahir', 'hometown': 'Asal', 'blood': 'Gol. Darah'
+            },  
+            'my': { 
+                'gen': 'Ahli Generasi Pertama MKT4X',
+                'home': 'Laman Utama', 'news': 'Berita', 'schedule': 'Jadual', 'member': 'Ahli', 'fanclub': 'Fanclub', 'login': 'Log Masuk',
+                'birthday': 'Tarikh Lahir', 'hometown': 'Asal', 'blood': 'Kump. Darah'
+            },  
+            'jp': { 
+                'gen': 'MKT4X 第1期生メンバー',
+                'home': 'ホーム', 'news': 'ニュース', 'schedule': 'スケジュール', 'member': 'メンバー', 'fanclub': 'ファンクラブ', 'login': 'ログイン',
+                'birthday': '誕生日', 'hometown': '出身地', 'blood': '血液型'
+            }  
         };  
   
         function changeLanguage() {  
-            const lang = document.getElementById('langSelect').value;  
-            document.getElementById('txt-gen').innerText = translations[lang].gen;  
+            const lang = document.getElementById('langSelect').value;
+            const t = translations[lang];
+
+            // Update Badge & Menu
+            document.getElementById('txt-gen').innerText = t.gen;  
+            document.getElementById('menu-home').innerText = t.home;
+            document.getElementById('menu-news').innerText = t.news;
+            document.getElementById('menu-schedule').innerText = t.schedule;
+            document.getElementById('menu-member').innerText = t.member;
+            document.getElementById('menu-fanclub').innerText = t.fanclub;
+            document.getElementById('authText').innerText = t.login;
+
+            // Update Label Biodata
+            document.getElementById('lbl-birthday').innerText = t.birthday;
+            document.getElementById('lbl-hometown').innerText = t.hometown;
+            document.getElementById('lbl-blood').innerText = t.blood;
         }  
   
         function editProfile(){    
