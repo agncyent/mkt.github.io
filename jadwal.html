@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Calendar - MKT4X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {  
+            --mint-primary: #A8E6CF;    
+            --mint-soft: #E8FFF8;    
+            --mint-accent: #5CD6C0;    
+            --mint-dark: #2F4F4F;    
+            --shadow: rgba(92, 214, 192, 0.3);  
+        }  
+  
+        body { font-family: 'Inter', sans-serif; background-color: var(--mint-soft); margin: 0; padding: 0; color: var(--mint-dark); }  
+
+        /* --- NAVBAR --- */
+        .navbar { width: 100%; height: 60px; background: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; box-shadow: 0 2px 5px var(--shadow); position: fixed; top: 0; z-index: 1000; }
+        .logo img { height: 40px; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        
+        /* --- CALENDAR STYLES --- */
+        .content { margin-top: 80px; padding: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .calendar-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-btns button { background: var(--mint-soft); border: none; color: var(--mint-accent); width: 35px; height: 35px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-bottom: 10px;
+        }
+
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .date-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .date-cell:hover { background: var(--mint-soft); }
+        .date-cell.today { background: var(--mint-primary); color: white; }
+        .date-cell.has-event::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--mint-accent);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        /* --- EVENT INFO AREA --- */
+        .event-info-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .event-info-card h4 { margin: 0 0 15px 0; font-size: 1rem; color: var(--mint-accent); border-bottom: 1px solid var(--mint-soft); padding-bottom: 10px; }
+
+        .event-list { list-style: none; padding: 0; margin: 0; }
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-theater { background: #40c057; } /* Hijau */
+        .dot-event { background: #4dabf7; } /* Biru */
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">    
+        <div class="logo"><img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo"></div>    
+        <div class="nav-right">    
+            <select id="langSelect" style="border:none; font-weight:bold; color:var(--mint-accent);">    
+                <option value="id">ID</option>    
+                <option value="en">EN</option>    
+            </select>    
+        </div>    
+    </nav>    
+
+    <main class="content">
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <h2 id="monthYear">March 2026</h2>
+                <div class="nav-btns">
+                    <button onclick="prevMonth()"><</button>
+                    <button onclick="nextMonth()">></button>
+                </div>
+            </div>
+            <div class="days-grid">
+                <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+            </div>
+            <div class="dates-grid" id="datesGrid">
+                </div>
+        </div>
+
+        <div class="event-info-card">
+            <h4 id="selectedDateText">Jadwal Hari Ini</h4>
+            <div id="eventDisplay">
+                <p style="color:#888; font-size:0.8rem;">Klik tanggal yang memiliki titik untuk melihat detail.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentDate = new Date();
+        // Contoh Data Jadwal (Kamu bisa tambah terus di sini sampai 2030)
+        const events = {
+            "2026-02-23": [{ type: "theater", text: "Pertaruhan Cinta" }],
+            "2026-03-10": [{ type: "theater", text: "Renai Kinshi Jourei" }],
+            "2026-03-12": [{ type: "event", text: "Handshake Festival" }],
+            "2026-03-25": [{ type: "theater", text: "Cara Meminum Ramune" }]
+        };
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('monthYear').innerText = 
+                new Intl.DateTimeFormat('id-ID', { month: 'long', year: 'numeric' }).format(currentDate);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const grid = document.getElementById('datesGrid');
+            grid.innerHTML = "";
+
+            // Empty cells for previous month
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div></div>`;
+            }
+
+            // Actual dates
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const hasEvent = events[dateStr] ? "has-event" : "";
+                const isToday = new Date().toDateString() === new Date(year, month, day).toDateString() ? "today" : "";
+                
+                grid.innerHTML += `<div class="date-cell ${hasEvent} ${isToday}" onclick="showEvent('${dateStr}')">${day}</div>`;
+            }
+        }
+
+        function showEvent(dateStr) {
+            const dateObj = new Date(dateStr);
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('selectedDateText').innerText = dateObj.toLocaleDateString('id-ID', options);
+            
+            const display = document.getElementById('eventDisplay');
+            if (events[dateStr]) {
+                let html = '<ul class="event-list">';
+                events[dateStr].forEach(ev => {
+                    const dotClass = ev.type === 'theater' ? 'dot-theater' : 'dot-event';
+                    html += `<li class="event-item"><span class="dot ${dotClass}"></span> ${ev.text}</li>`;
+                });
+                html += '</ul>';
+                display.innerHTML = html;
+            } else {
+                display.innerHTML = '<p style="color:#888; font-size:0.8rem;">Tidak ada jadwal.</p>';
+            }
+        }
+
+        function prevMonth() { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); }
+        function nextMonth() { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); }
+
+        // Batasi tahun 2026 - 2030 (Logika sederhana)
+        function checkYearLimit() {
+            const year = currentDate.getFullYear();
+            if (year < 2026) currentDate.setFullYear(2026);
+            if (year > 2030) currentDate.setFullYear(2030);
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>
