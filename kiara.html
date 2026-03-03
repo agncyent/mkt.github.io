@@ -197,24 +197,47 @@
         }
         .bio-label { font-weight: 600; color: var(--mint-accent); }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+        /* --- CATCHPHRASE & STATUS AREA --- */
+        .member-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--mint-primary);
         }
-        .social-links a {
-            width: 45px; height: 45px;
+
+        .catchphrase-box {
+            font-style: italic;
+            color: var(--mint-dark);
             background: var(--mint-soft);
-            color: var(--mint-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: 0.3s;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            position: relative;
         }
-        .social-links a:hover { background: var(--mint-accent); color: #fff; transform: translateY(-5px); }
+
+        .catchphrase-box i {
+            color: var(--mint-accent);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .status-box {
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-tag {
+            background: var(--mint-accent);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
 <body>
@@ -287,10 +310,15 @@
                     </div>
                 </div>
 
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                <div class="member-footer">
+                    <div class="catchphrase-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p id="txt-phrase">"Seperti cahaya yang bersinar di langit malam, siap menerangi harimu!"</p>
+                    </div>
+                    <div class="status-box">
+                        <span id="lbl-status">Status:</span>
+                        <span class="status-tag" id="txt-status">Aktif</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -306,22 +334,30 @@
             'en': { 
                 'gen': 'MKT4X 1st Generation Member',
                 'home': 'Home', 'news': 'News', 'schedule': 'Schedule', 'member': 'Member', 'fanclub': 'Fanclub', 'login': 'Login',
-                'birthday': 'Birthday', 'hometown': 'Hometown', 'blood': 'Blood Type'
+                'birthday': 'Birthday', 'hometown': 'Hometown', 'blood': 'Blood Type',
+                'status_lbl': 'Status:', 'status_val': 'Active',
+                'phrase': '"Like a light shining in the night sky, ready to brighten your day!"'
             },  
             'id': { 
                 'gen': 'Anggota Generasi ke-1 MKT4X',
                 'home': 'Beranda', 'news': 'Berita', 'schedule': 'Jadwal', 'member': 'Anggota', 'fanclub': 'Fanclub', 'login': 'Masuk',
-                'birthday': 'Tanggal Lahir', 'hometown': 'Asal', 'blood': 'Gol. Darah'
+                'birthday': 'Tanggal Lahir', 'hometown': 'Asal', 'blood': 'Gol. Darah',
+                'status_lbl': 'Status:', 'status_val': 'Aktif',
+                'phrase': '"Seperti cahaya yang bersinar di langit malam, siap menerangi harimu!"'
             },  
             'my': { 
                 'gen': 'Ahli Generasi Pertama MKT4X',
                 'home': 'Laman Utama', 'news': 'Berita', 'schedule': 'Jadual', 'member': 'Ahli', 'fanclub': 'Fanclub', 'login': 'Log Masuk',
-                'birthday': 'Tarikh Lahir', 'hometown': 'Asal', 'blood': 'Kump. Darah'
+                'birthday': 'Tarikh Lahir', 'hometown': 'Asal', 'blood': 'Kump. Darah',
+                'status_lbl': 'Status:', 'status_val': 'Aktif',
+                'phrase': '"Seperti cahaya yang bersinar di langit malam, sedia menerangi harimu!"'
             },  
             'jp': { 
                 'gen': 'MKT4X 第1期生メンバー',
                 'home': 'ホーム', 'news': 'ニュース', 'schedule': 'スケジュール', 'member': 'メンバー', 'fanclub': 'ファンクラブ', 'login': 'ログイン',
-                'birthday': '誕生日', 'hometown': '出身地', 'blood': '血液型'
+                'birthday': '誕生日', 'hometown': '出身地', 'blood': '血液型',
+                'status_lbl': 'ステータス:', 'status_val': 'アクティブ',
+                'phrase': '"こんにちは！私はスラバヤ出身の元気な子、あなたの一日を明るくする準備ができています！"'
             }  
         };  
   
@@ -329,7 +365,6 @@
             const lang = document.getElementById('langSelect').value;
             const t = translations[lang];
 
-            // Update Badge & Menu
             document.getElementById('txt-gen').innerText = t.gen;  
             document.getElementById('menu-home').innerText = t.home;
             document.getElementById('menu-news').innerText = t.news;
@@ -337,11 +372,14 @@
             document.getElementById('menu-member').innerText = t.member;
             document.getElementById('menu-fanclub').innerText = t.fanclub;
             document.getElementById('authText').innerText = t.login;
-
-            // Update Label Biodata
             document.getElementById('lbl-birthday').innerText = t.birthday;
             document.getElementById('lbl-hometown').innerText = t.hometown;
             document.getElementById('lbl-blood').innerText = t.blood;
+
+            // Update Catchphrase & Status
+            document.getElementById('lbl-status').innerText = t.status_lbl;
+            document.getElementById('txt-status').innerText = t.status_val;
+            document.getElementById('txt-phrase').innerText = t.phrase;
         }  
   
         function editProfile(){    
