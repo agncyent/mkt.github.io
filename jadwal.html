@@ -364,6 +364,14 @@
         function nextMonth() { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); }
 
         renderCalendar();
+    //-Edit Profil      
+        function editProfile(){    
+            const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);    
+            if(newName) {    
+                document.getElementById('profileName').innerText = newName;    
+                alert("Nama berhasil diperbarui!");    
+            }    
+        }    
     </script>  
   
     <script type="module" src="firebase.js"></script>    
