@@ -1,1 +1,399 @@
+ 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melisha Profile - MKT4X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {  
+            --mint-primary: #A8E6CF;    
+            --mint-soft: #E8FFF8;    
+            --mint-accent: #5CD6C0;    
+            --mint-dark: #2F4F4F;    
+            --shadow: rgba(92, 214, 192, 0.3);  
+            --primary-green: var(--mint-accent);  
+            --dark-green: var(--mint-dark);  
+            --light-bg: var(--mint-soft);  
+        }  
+  
+        body {  
+            font-family: 'Inter', sans-serif;  
+            background-color: var(--light-bg);  
+            margin: 0;  
+            padding: 0;  
+            overflow-x: hidden;
+            color: var(--dark-green);
+        }  
+  
+        /* --- NAVBAR --- */  
+        .navbar {  
+            width: 100%;  
+            height: 60px;  
+            background: #fff;  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            padding: 0 20px;  
+            box-sizing: border-box;  
+            box-shadow: 0 2px 5px var(--shadow);  
+            position: fixed;  
+            top: 0;  
+            z-index: 1000;  
+        }  
+  
+        .logo img { height: 40px; }  
+        .nav-right { display: flex; align-items: center; gap: 20px; }  
+  
+        .lang-container {  
+            display: flex;  
+            align-items: center;  
+            gap: 5px;  
+            color: var(--primary-green);  
+        }  
+  
+        #langSelect {  
+            border: 2px solid var(--mint-primary);  
+            border-radius: 5px;  
+            padding: 3px;  
+            color: var(--dark-green);  
+            font-weight: bold;  
+            outline: none;  
+            background: #fff;  
+        }  
+  
+        .menu-btn {  
+            cursor: pointer;  
+            display: flex;  
+            flex-direction: column;  
+            gap: 4px;  
+        }  
+  
+        .menu-btn span {  
+            width: 25px;  
+            height: 3px;  
+            background: var(--primary-green);  
+            border-radius: 2px;  
+        }  
+  
+        /* --- SIDEBAR --- */  
+        .sidebar {  
+            position: fixed;  
+            top: 0;  
+            right: -280px;   
+            width: 280px;  
+            height: 100%;  
+            background: #fff;  
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);  
+            transition: 0.3s;  
+            z-index: 1001;  
+            padding: 20px;  
+            box-sizing: border-box;  
+            overflow-y: auto;  
+        }  
+  
+        .sidebar.active { right: 0; }  
+        .sidebar-logo { text-align: center; margin-bottom: 20px; }  
+        .sidebar-logo img { height: 50px; }  
+        .sidebar ul { list-style: none; padding: 0; }  
+        .sidebar ul li { margin: 15px 0; }  
+        .sidebar ul li a {  
+            text-decoration: none;  
+            color: #333;  
+            font-weight: bold;  
+            display: flex;  
+            align-items: center;  
+            gap: 15px;  
+            transition: 0.2s;  
+        }  
+        .sidebar ul li a:hover { color: var(--primary-green); }  
+  
+        .overlay {  
+            position: fixed;  
+            top: 0; left: 0;  
+            width: 100%; height: 100%;  
+            background: rgba(0,0,0,0.5);  
+            display: none;  
+            z-index: 1000;  
+        }  
+        .overlay.active { display: block; }  
+  
+        #profileContainer {  
+            margin-top: 20px;  
+            padding: 15px;  
+            background: #fff;  
+            border-radius: 10px;  
+            text-align: center;  
+            border: 2px dashed var(--mint-primary);  
+        }  
+        #profilePic {   
+            width: 60px; height: 60px;   
+            border-radius: 50%;   
+            background: #ddd;  
+            margin: 0 auto 10px;  
+            display: block;  
+            object-fit: cover;  
+        }  
+        #profileName { font-weight: bold; margin: 5px 0; color: var(--dark-green); }  
+        #profileContainer button {  
+            background: var(--mint-accent);  
+            color: white;  
+            border: none;  
+            padding: 5px 12px;  
+            border-radius: 4px;  
+            cursor: pointer;  
+            font-size: 0.8rem;  
+            font-weight: bold;  
+        }
 
+        /* --- MEMBER CONTENT SECTION --- */
+        .content-main {
+            margin-top: 80px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .member-card {
+            background: #fff;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .member-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #eee;
+        }
+
+        .member-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .member-info { padding: 30px; text-align: center; }
+        .member-info h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        
+        .badge-gen {
+            display: inline-block;
+            background: var(--mint-primary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin: 10px 0 25px;
+        }
+
+        .bio-table { text-align: left; }
+        .bio-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--mint-soft);
+        }
+        .bio-label { font-weight: 600; color: var(--mint-accent); }
+
+        /* --- CATCHPHRASE & STATUS AREA --- */
+        .member-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--mint-primary);
+        }
+
+        .catchphrase-box {
+            font-style: italic;
+            color: var(--mint-dark);
+            background: var(--mint-soft);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .catchphrase-box i {
+            color: var(--mint-accent);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .status-box {
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-tag {
+            background: var(--mint-accent);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>    
+    
+    <nav class="navbar">    
+        <div class="logo">    
+            <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">    
+        </div>    
+        <div class="nav-right">    
+            <div class="lang-container">    
+                <i class="fas fa-globe"></i>    
+                <select id="langSelect" onchange="changeLanguage()">    
+                    <option value="id">Indonesia</option>    
+                    <option value="en">English</option>    
+                    <option value="jp">Japanese</option>    
+                    <option value="my">Melayu</option>    
+                </select>    
+            </div>    
+            <div class="menu-btn" onclick="toggleMenu()">    
+                <span></span><span></span><span></span>    
+            </div>    
+        </div>    
+    </nav>    
+        
+    <div class="sidebar" id="sidebar">    
+        <div class="sidebar-logo">    
+            <img src="https://i.imgur.com/yq2JRbl.png" alt="MKT4X Logo">    
+        </div>    
+        <ul id="menuList">    
+            <li><a href="index.html"><i class="fas fa-home"></i> <span id="menu-home">Beranda</span></a></li>    
+            <li><a href="berita.html"><i class="fas fa-newspaper"></i> <span id="menu-news">Berita</span></a></li>    
+            <li><a href="jadwal.html"><i class="fas fa-calendar-alt"></i> <span id="menu-schedule">Jadwal</span></a></li>    
+            <li><a href="member.html"><i class="fas fa-users"></i> <span id="menu-member">Anggota</span></a></li>  
+            <li><a href="setlist.html"><i class="fas fa-microphone"></i> <span id="menu-setlist">Setlist</span></a></li>    
+            <hr style="opacity:0.1; margin:20px 0;">    
+            <li><a href="fanclub.html" class="reg-link"><i class="fas fa-heart"></i> <span id="menu-fanclub">Fanclub</span></a></li>    
+            <li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a></li>    
+        </ul>
+        
+        <div id="profileContainer">  
+            <img id="profilePic" src="https://via.placeholder.com/60" alt="Profil">  
+            <p id="profileName">User MKT4X</p>  
+            <button onclick="editProfile()">Edit Profil</button>  
+        </div>  
+    </div>
+
+    <main class="content-main">
+        <div class="member-card">
+            <div class="member-img">
+                <img src="https://i.imgur.com/LgfDdI7.png" alt="Melisha Member Photo">
+            </div>
+            <div class="member-info">
+                <h1 id="txt-member-name">MELISHA</h1>
+                <div class="badge-gen" id="txt-gen">Anggota Generasi ke-1 MKT4X</div>
+
+                <div class="bio-table">
+                    <div class="bio-row">
+                        <span class="bio-label" id="lbl-birthday">Tanggal Lahir</span>
+                        <span>9 Agustus 2002</span>
+                    </div>
+                    <div class="bio-row">
+                        <span class="bio-label" id="lbl-hometown">Asal</span>
+                        <span>Jakarta</span>
+                    </div>
+                    <div class="bio-row">
+                        <span class="bio-label" id="lbl-blood">Gol. Darah</span>
+                        <span>AB</span>
+                    </div>
+                </div>
+
+                <div class="member-footer">
+                    <div class="catchphrase-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p id="txt-phrase">"Manis, ceria, dan penuh cinta! Siap membagikan kebahagiaan untuk semuanya!"</p>
+                    </div>
+                    <div class="status-box">
+                        <span id="lbl-status">Status:</span>
+                        <span class="status-tag" id="txt-status">Aktif</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>    
+        function toggleMenu(){    
+            document.getElementById('sidebar').classList.toggle('active');    
+            document.getElementById('overlay').classList.toggle('active');    
+        }  
+  
+        const translations = {  
+            'en': { 
+                'gen': 'MKT4X 1st Generation Member',
+                'home': 'Home', 'news': 'News', 'schedule': 'Schedule', 'member': 'Member', 'fanclub': 'Fanclub', 'login': 'Login',
+                'birthday': 'Birthday', 'hometown': 'Hometown', 'blood': 'Blood Type',
+                'status_lbl': 'Status:', 'status_val': 'Active',
+                'phrase': '"Sweet, cheerful, and full of love! Ready to share happiness with everyone!"'
+            },  
+            'id': { 
+                'gen': 'Anggota Generasi ke-1 MKT4X',
+                'home': 'Beranda', 'news': 'Berita', 'schedule': 'Jadwal', 'member': 'Anggota', 'fanclub': 'Fanclub', 'login': 'Masuk',
+                'birthday': 'Tanggal Lahir', 'hometown': 'Asal', 'blood': 'Gol. Darah',
+                'status_lbl': 'Status:', 'status_val': 'Aktif',
+                'phrase': '"Manis, ceria, dan penuh cinta! Siap membagikan kebahagiaan untuk semuanya!"'
+            },  
+            'my': { 
+                'gen': 'Ahli Generasi Pertama MKT4X',
+                'home': 'Laman Utama', 'news': 'Berita', 'schedule': 'Jadual', 'member': 'Ahli', 'fanclub': 'Fanclub', 'login': 'Log Masuk',
+                'birthday': 'Tarikh Lahir', 'hometown': 'Asal', 'blood': 'Kump. Darah',
+                'status_lbl': 'Status:', 'status_val': 'Aktif',
+                'phrase': '"Manis, ceria, dan penuh cinta! Sedia berkongsi kebahagiaan untuk semua!"'
+            },  
+            'jp': { 
+                'gen': 'MKT4X 第1期生メンバー',
+                'home': 'ホーム', 'news': 'ニュース', 'schedule': 'スケジュール', 'member': 'メンバー', 'fanclub': 'ファンクラブ', 'login': 'ログイン',
+                'birthday': '誕生日', 'hometown': '出身地', 'blood': '血液型',
+                'status_lbl': 'ステータス:', 'status_val': 'アクティブ',
+                'phrase': '"甘くて明るくて、愛がいっぱい！みんなに幸せを届けます！"'
+            }  
+        };  
+  
+        function changeLanguage() {  
+            const lang = document.getElementById('langSelect').value;
+            const t = translations[lang];
+
+            document.getElementById('txt-gen').innerText = t.gen;  
+            document.getElementById('menu-home').innerText = t.home;
+            document.getElementById('menu-news').innerText = t.news;
+            document.getElementById('menu-schedule').innerText = t.schedule;
+            document.getElementById('menu-member').innerText = t.member;
+            document.getElementById('menu-fanclub').innerText = t.fanclub;
+            document.getElementById('authText').innerText = t.login;
+            document.getElementById('lbl-birthday').innerText = t.birthday;
+            document.getElementById('lbl-hometown').innerText = t.hometown;
+            document.getElementById('lbl-blood').innerText = t.blood;
+
+            // Update Catchphrase & Status
+            document.getElementById('lbl-status').innerText = t.status_lbl;
+            document.getElementById('txt-status').innerText = t.status_val;
+            document.getElementById('txt-phrase').innerText = t.phrase;
+        }  
+  
+        function editProfile(){    
+            const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);    
+            if(newName) {    
+                document.getElementById('profileName').innerText = newName;    
+                alert("Nama berhasil diperbarui!");    
+            }    
+        }    
+    </script>  
+  
+    <script type="module" src="firebase.js"></script>    
+    <script type="module" src="auth.js"></script>    
+  
+</body>  
+</html>
