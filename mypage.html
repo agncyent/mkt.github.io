@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKT4X • Premium Fanclub</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #d0f0c0;
+            background-image: linear-gradient(145deg, #c8e6c9 0%, #e8f5e9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .premium-container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 40px;
+            padding: 45px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #c5e1a5;
+        }
+
+        /* Logo MKT4X */
+        .mkt4x-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .mkt4x-logo h2 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2e7d32;
+            letter-spacing: 3px;
+            display: inline-block;
+            border-bottom: 3px solid #a5d6a7;
+            padding-bottom: 8px;
+        }
+
+        .premium-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .premium-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .premium-header h1 {
+            font-size: 28px;
+            color: #1b5e20;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .premium-header p {
+            color: #388e3c;
+            font-size: 14px;
+        }
+
+        .gen-badge {
+            display: inline-block;
+            background-color: #2e7d32;
+            color: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 12px;
+            border: 1px solid #a5d6a7;
+        }
+
+        .form-step {
+            display: block;
+        }
+
+        .form-step.hidden {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #1b5e20;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid #c8e6c9;
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.2s;
+            background-color: #f9fff9;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #66bb6a;
+            outline: none;
+            background-color: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .oshi-title {
+            text-align: center;
+            margin: 20px 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+
+        .oshi-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0 20px;
+        }
+
+        .oshi-card {
+            background-color: #f5fff5;
+            border: 1.5px solid #c8e6c9;
+            border-radius: 20px;
+            padding: 18px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .oshi-card:hover {
+            border-color: #66bb6a;
+            background-color: #e8f5e9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(46, 125, 50, 0.1);
+        }
+
+        .oshi-card.selected {
+            border-color: #2e7d32;
+            background-color: #e8f5e9;
+            border-width: 2px;
+        }
+
+        .oshi-avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #a5d6a7;
+            background-color: #f0f0f0;
+        }
+
+        .oshi-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .oshi-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 5px;
+        }
+
+        .oshi-gen {
+            font-size: 12px;
+            background-color: #c8e6c9;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: #1b5e20;
+            font-weight: 600;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+            border: 1px solid #a5d6a7;
+        }
+
+        .btn-primary:hover {
+            background-color: #1b5e20;
+        }
+
+        .btn-primary:disabled {
+            background-color: #81c784;
+            cursor: not-allowed;
+        }
+
+        .btn-outline {
+            background-color: white;
+            border: 2px solid #2e7d32;
+            color: #1b5e20;
+        }
+
+        .btn-outline:hover {
+            background-color: #e8f5e9;
+        }
+
+        .otp-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .otp-input {
+            width: 55px;
+            height: 65px;
+            border: 1.5px solid #c8e6c9;
+            border-radius: 16px;
+            font-size: 28px;
+            text-align: center;
+            font-weight: 600;
+            background-color: #f9fff9;
+        }
+
+        .otp-input:focus {
+            border-color: #66bb6a;
+            outline: none;
+            background-color: white;
+        }
+
+        .countdown {
+            text-align: center;
+            color: #1b5e20;
+            font-size: 15px;
+            margin: 20px 0;
+        }
+
+        .countdown span {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 70px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .success-message h2 {
+            font-size: 28px;
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #1b5e20;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: 800;
+            margin: 20px 0;
+            font-size: 18px;
+            border: 1px solid #ffb347;
+        }
+
+        .info-card {
+            background-color: #f1f8e9;
+            border-radius: 24px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            border: 1px solid #c5e1a5;
+        }
+
+        .info-card p {
+            margin: 12px 0;
+            font-size: 16px;
+            color: #1b5e20;
+            border-bottom: 1px dashed #c5e1a5;
+            padding-bottom: 8px;
+        }
+
+        .info-card p strong {
+            width: 100px;
+            display: inline-block;
+            color: #2e7d32;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #1b5e20;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #ef9a9a;
+            display: none;
+        }
+
+        .mkt4x-watermark {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #81c784;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 550px) {
+            .premium-container {
+                padding: 35px 25px;
+            }
+            .oshi-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .mkt4x-logo h2 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="premium-container">
+        <!-- Logo MKT4X -->
+        <div class="mkt4x-logo">
+            <h2>MKT4X</h2>
+        </div>
+
+        <div class="premium-header">
+            <div class="premium-icon">🎀</div>
+            <h1>Premium Fanclub</h1>
+            <p>Generasi 1 • MKT4X Entertainment</p>
+            <div class="gen-badge">GENERASI 1</div>
+        </div>
+
+        <!-- Alert Message -->
+        <div id="alertMessage" class="error-message"></div>
+
+        <!-- Step 1: Form Data Diri -->
+        <div id="step1" class="form-step">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Contoh: kiara_fans" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" id="tanggalLahir">
+                </div>
+                <div class="form-group">
+                    <label>Kota</label>
+                    <input type="text" id="kota" placeholder="Contoh: Jakarta">
+                </div>
+            </div>
+
+            <!-- Oshi Selection -->
+            <div class="oshi-title">✧ Pilih Oshi-mu ✧</div>
+            <div class="oshi-container" id="oshiContainer"></div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Contoh: fans@email.com">
+            </div>
+
+            <button class="btn btn-primary" onclick="kirimOTP()" id="btnKirim">
+                Kirim Kode OTP
+            </button>
+            <p style="text-align: center; color: #558b2f; font-size: 12px;">Kode akan dikirim ke email kamu</p>
+        </div>
+
+        <!-- Step 2: Verifikasi OTP -->
+        <div id="step2" class="form-step hidden">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: #1b5e20;">Masukkan kode 6 digit yang sudah dikirim ke</p>
+                <p id="emailTujuan" style="font-weight: 700; color: #2e7d32; font-size: 18px;"></p>
+            </div>
+
+            <div class="otp-inputs">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 0)">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 1)">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 2)">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 3)">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 4)">
+                <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, 5)">
+            </div>
+
+            <div class="countdown">
+                <span id="countdown">05:00</span> tersisa
+            </div>
+
+            <button class="btn btn-primary" onclick="verifikasiOTP()" id="btnVerif">Verifikasi</button>
+            <button class="btn btn-outline" onclick="kirimUlangOTP()">Kirim Ulang</button>
+            <button class="btn btn-outline" onclick="kembaliKeForm()">Kembali</button>
+        </div>
+
+        <!-- Step 3: Sukses -->
+        <div id="step3" class="form-step hidden">
+            <div class="success-message">
+                <div class="success-icon">✨</div>
+                <h2>Selamat Datang!</h2>
+                <p style="color: #388e3c;">Kamu sekarang adalah member premium</p>
+                
+                <div class="premium-badge">MKT4X PREMIUM</div>
+                
+                <div class="info-card" id="resultCard">
+                    <p><strong>Username:</strong> <span id="resultUsername"></span></p>
+                    <p><strong>Nama:</strong> <span id="resultNama"></span></p>
+                    <p><strong>Oshi:</strong> <span id="resultOshi"></span></p>
+                    <p><strong>Generasi:</strong> GENERASI 1</p>
+                    <p><strong>Kota:</strong> <span id="resultKota"></span></p>
+                    <p><strong>Email:</strong> <span id="resultEmail"></span></p>
+                </div>
+
+                <button class="btn btn-primary" onclick="masukPremium()">Masuk ke Area Premium</button>
+            </div>
+        </div>
+
+        <div class="login-link">
+            Sudah punya akun? <a href="#">Login di sini</a>
+        </div>
+
+        <div class="mkt4x-watermark">
+            MKT4X ENTERTAINMENT • SINCE 2026
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // 🔥 FIREBASE INITIALIZATION
+        // ===========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxGpiLpavIUaF2_kxVfNQHOutiMWh5sgY",
+            authDomain: "mkt4x-premium.firebaseapp.com",
+            projectId: "mkt4x-premium",
+            storageBucket: "mkt4x-premium.firebasestorage.app",
+            messagingSenderId: "69904308557",
+            appId: "1:69904308557:web:730331fc6d040cdf183f04",
+            measurementId: "G-NS47G5QWEY"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        console.log('✅ Firebase connected!');
+        console.log('Project:', firebaseConfig.projectId);
+
+        // ===========================================
+        // DATA IDOL GENERASI 1 MKT4X
+        // ===========================================
+        const idolList = [
+            { id: 'kiara', nama: 'Kiara', img: 'https://i.imgur.com/placeholder1.jpg' },
+            { id: 'agnes', nama: 'Agnes', img: 'https://i.imgur.com/placeholder2.jpg' },
+            { id: 'thea', nama: 'Thea', img: 'https://i.imgur.com/placeholder3.jpg' },
+            { id: 'khen', nama: 'Khen', img: 'https://i.imgur.com/placeholder4.jpg' },
+            { id: 'chalista', nama: 'Chalista', img: 'https://i.imgur.com/placeholder5.jpg' },
+            { id: 'melisha', nama: 'Melisha', img: 'https://i.imgur.com/placeholder6.jpg' }
+        ];
+
+        // Render Oshi Options
+        function renderOshiOptions() {
+            const container = document.getElementById('oshiContainer');
+            container.innerHTML = '';
+
+            idolList.forEach((idol) => {
+                const card = document.createElement('div');
+                card.className = 'oshi-card';
+                card.setAttribute('data-idol', idol.id);
+                card.onclick = () => pilihOshi(idol.id);
+                
+                card.innerHTML = `
+                    <div class="oshi-avatar">
+                        <img src="${idol.img}" alt="${idol.nama}" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#c8e6c9;color:#2e7d32;font-size:30px;\'>${idol.nama.charAt(0)}</div>'">
+                    </div>
+                    <div class="oshi-name">${idol.nama}</div>
+                    <div class="oshi-gen">GENERASI 1</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function pilihOshi(idolId) {
+            document.querySelectorAll('.oshi-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-idol="${idolId}"]`).classList.add('selected');
+        }
+
+        // ===========================================
+        // STATE & FUNGSI OTP
+        // ===========================================
+        let currentOTP = '';
+        let userData = {};
+        let countdownInterval;
+        let timeLeft = 300;
+
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function showAlert(message, type = 'error') {
+            const alertEl = document.getElementById('alertMessage');
+            alertEl.textContent = message;
+            alertEl.style.backgroundColor = type === 'error' ? '#ffebee' : '#e8f5e9';
+            alertEl.style.color = type === 'error' ? '#c62828' : '#2e7d32';
+            alertEl.style.display = 'block';
+            
+            setTimeout(() => {
+                alertEl.style.display = 'none';
+            }, 5000);
+        }
+
+        async function kirimOTP() {
+            const username = document.getElementById('username').value;
+            const nama = document.getElementById('nama').value;
+            const tanggalLahir = document.getElementById('tanggalLahir').value;
+            const kota = document.getElementById('kota').value;
+            const email = document.getElementById('email').value;
+            const selectedOshi = document.querySelector('.oshi-card.selected');
+
+            if (!username || !nama || !tanggalLahir || !kota || !email || !selectedOshi) {
+                showAlert('Harap isi semua data dan pilih oshi!');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                showAlert('Email tidak valid!');
+                return;
+            }
+
+            // Cek apakah email sudah terdaftar
+            try {
+                const methods = await auth.fetchSignInMethodsForEmail(email);
+                if (methods.length > 0) {
+                    showAlert('Email sudah terdaftar! Gunakan email lain.');
+                    return;
+                }
+            } catch (error) {
+                console.log('Cek email error:', error);
+            }
+
+            // Simpan data user
+            userData = {
+                username: username,
+                nama: nama,
+                tanggalLahir: tanggalLahir,
+                kota: kota,
+                email: email,
+                oshi: selectedOshi.getAttribute('data-idol'),
+                password: 'MKT4X' + Math.random().toString(36).slice(-8)
+            };
+
+            currentOTP = generateOTP();
+
+            // Simulasi kirim email (nanti bisa ganti pake EmailJS)
+            console.log('📧 Data user:', userData);
+            console.log('🔐 Kode OTP:', currentOTP);
+            console.log('🔑 Password:', userData.password);
+            
+            showAlert(`Kode OTP: ${currentOTP} (Cek console)`, 'success');
+
+            // Tampilkan step 2
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('emailTujuan').textContent = email;
+
+            startCountdown();
+            document.querySelector('.otp-input').focus();
+        }
+
+        function moveToNext(input, index) {
+            if (input.value.length === 1 && index < 5) {
+                document.querySelectorAll('.otp-input')[index + 1].focus();
+            }
+
+            const inputs = document.querySelectorAll('.otp-input');
+            let otp = '';
+            inputs.forEach(inp => otp += inp.value);
+            
+            if (otp.length === 6) {
+                verifikasiOTP();
+            }
+        }
+
+        async function verifikasiOTP() {
+            const inputs = document.querySelectorAll('.otp-input');
+            let inputOTP = '';
+            inputs.forEach(inp => inputOTP += inp.value);
+
+            if (inputOTP === currentOTP) {
+                clearInterval(countdownInterval);
+                
+                // Tampilkan loading
+                const btn = document.getElementById('btnVerif');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="loading-spinner"></span> Mendaftarkan...';
+                
+                try {
+                    // 🔥 Daftar ke Firebase Authentication
+                    const userCredential = await auth.createUserWithEmailAndPassword(
+                        userData.email, 
+                        userData.password
+                    );
+                    
+                    const user = userCredential.user;
+                    
+                    // Update profile
+                    await user.updateProfile({
+                        displayName: userData.username
+                    });
+                    
+                    // 🔥 Simpan ke Firestore
+                    await db.collection('premium_members').doc(user.uid).set({
+                        uid: user.uid,
+                        username: userData.username,
+                        nama: userData.nama,
+                        email: userData.email,
+                        oshi: userData.oshi,
+                        kota: userData.kota,
+                        tanggalLahir: userData.tanggalLahir,
+                        isPremium: true,
+                        registeredAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        premiumUntil: new Date(Date.now() + 30*24*60*60*1000)
+                    });
+                    
+                    // Tampilkan step 3
+                    document.getElementById('step2').classList.add('hidden');
+                    document.getElementById('step3').classList.remove('hidden');
+                    
+                    // Tampilkan data user
+                    document.getElementById('resultUsername').textContent = userData.username;
+                    document.getElementById('resultNama').textContent = userData.nama;
+                    document.getElementById('resultKota').textContent = userData.kota;
+                    document.getElementById('resultEmail').textContent = userData.email;
+                    
+                    const idol = idolList.find(i => i.id === userData.oshi);
+                    document.getElementById('resultOshi').textContent = idol ? idol.nama : '-';
+                    
+                    // Simpan session
+                    localStorage.setItem('mkt4x_user', JSON.stringify({
+                        uid: user.uid,
+                        email: userData.email,
+                        username: userData.username
+                    }));
+                    
+                } catch (error) {
+                    console.error('Firebase error:', error);
+                    
+                    let message = 'Gagal mendaftar. ';
+                    if (error.code === 'auth/email-already-in-use') {
+                        message = 'Email sudah terdaftar!';
+                    } else if (error.code === 'auth/weak-password') {
+                        message = 'Password terlalu lemah!';
+                    } else {
+                        message += error.message;
+                    }
+                    
+                    showAlert(message);
+                    kembaliKeForm();
+                }
+                
+                btn.disabled = false;
+                btn.innerHTML = 'Verifikasi';
+                
+            } else {
+                showAlert('Kode OTP salah!');
+                inputs.forEach(inp => inp.value = '');
+                inputs[0].focus();
+            }
+        }
+
+        function kirimUlangOTP() {
+            timeLeft = 300;
+            currentOTP = generateOTP();
+            console.log('🔐 Kode OTP baru:', currentOTP);
+            showAlert(`Kode baru: ${currentOTP}`, 'success');
+            startCountdown();
+            
+            document.querySelectorAll('.otp-input').forEach(inp => inp.value = '');
+            document.querySelector('.otp-input').focus();
+        }
+
+        function kembaliKeForm() {
+            clearInterval(countdownInterval);
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.querySelectorAll('.otp-input').forEach(inp => inp.value = '');
+        }
+
+        function startCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            clearInterval(countdownInterval);
+            
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownEl.textContent = '00:00';
+                    showAlert('Kode OTP expired!');
+                    kembaliKeForm();
+                } else {
+                    const menit = Math.floor(timeLeft / 60);
+                    const detik = timeLeft % 60;
+                    countdownEl.textContent = `${menit.toString().padStart(2, '0')}:${detik.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function masukPremium() {
+            window.location.href = 'dashboard.html'; // Ganti nanti
+        }
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            renderOshiOptions();
+            
+            // Cek session
+            const savedUser = localStorage.getItem('mkt4x_user');
+            if (savedUser) {
+                console.log('User sudah login:', JSON.parse(savedUser));
+            }
+        });
+    </script>
+</body>
+</html>
