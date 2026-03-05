@@ -278,11 +278,15 @@ function verifyOTP(){
     const input = document.getElementById('inputOTP').value;    
     const correct = document.getElementById('generatedOTP').innerText;    
     
-if(inputOTP === generatedOTP){
-    clearInterval(otpTimer);
-    alert("Selamat! Kamu sekarang Member PREMIUM MKT4X.");
-    setPremiumUser(); // <-- ini update badge & localStorage
-}
+    if(input === correct){    
+        clearInterval(otpTimer);    
+        alert("Selamat! Kamu sekarang Member PREMIUM MKT4X.");    
+        window.location.href = "index.html";    
+    } else {    
+        alert("Kode salah! Cek lagi pelan-pelan.");    
+    }    
+}    
+
 function editProfile(){      
     const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);      
     if(newName) {      
@@ -290,8 +294,8 @@ function editProfile(){
         alert("Nama berhasil diperbarui!");      
     }      
 }      
-</script>
-  <script type="module" src="firebase.js"></script>      
-  <script type="module" src="auth.js"></script>      
+</script> 
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
 </body>    
 </html>
