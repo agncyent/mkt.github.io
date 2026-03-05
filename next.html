@@ -140,12 +140,15 @@
         <li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i> <span id="authText">Masuk</span></a></li>    
     </ul>    
 
-    <div id="profileContainer">    
-        <img src="https://via.placeholder.com/60" id="profilePic" alt="Profile">    
-        <div id="profileName">Farhan Maulana1845</div>    
-        <button onclick="editProfile()">Edit Profil</button>    
-    </div>  
-</div>    
+<div id="profileContainer">
+    <img id="profilePic" src="" alt="Profil">
+    <p id="profileName">
+        <span id="userName"></span>
+        <span id="premiumBadge" style="display:none; color:#5CD6C0;">✔ Verified</span>
+    </p>
+    <p id="accountType"></p>
+    <button onclick="editProfile()">Edit Profil</button>
+</div>
     
 <main class="container">    
     <div class="fc-card">    
@@ -296,6 +299,7 @@ function editProfile(){
 }      
 </script>
   <script type="module" src="firebase.js"></script>      
-  <script type="module" src="auth.js"></script>      
+  <script type="module" src="auth.js"></script> 
+  <script src="premium.js"></script>
 </body>    
 </html>
