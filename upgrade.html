@@ -278,16 +278,11 @@ function verifyOTP(){
     const input = document.getElementById('inputOTP').value;    
     const correct = document.getElementById('generatedOTP').innerText;    
     
-if(input === correct){
+if(inputOTP === generatedOTP){
     clearInterval(otpTimer);
     alert("Selamat! Kamu sekarang Member PREMIUM MKT4X.");
-
-    // langsung update badge & nama
-    if(typeof setPremiumUser === "function"){
-        setPremiumUser();
-    }
-}   
-
+    setPremiumUser(); // <-- ini update badge & localStorage
+}
 function editProfile(){      
     const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);      
     if(newName) {      
