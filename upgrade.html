@@ -278,14 +278,15 @@ function verifyOTP(){
     const input = document.getElementById('inputOTP').value;    
     const correct = document.getElementById('generatedOTP').innerText;    
     
-    if(input === correct){    
-        clearInterval(otpTimer);    
-        alert("Selamat! Kamu sekarang Member PREMIUM MKT4X.");    
-        window.location.href = "index.html";    
-    } else {    
-        alert("Kode salah! Cek lagi pelan-pelan.");    
-    }    
-}    
+if(input === correct){
+    clearInterval(otpTimer);
+    alert("Selamat! Kamu sekarang Member PREMIUM MKT4X.");
+
+    // langsung update badge & nama
+    if(typeof setPremiumUser === "function"){
+        setPremiumUser();
+    }
+}   
 
 function editProfile(){      
     const newName = prompt("Masukkan nama baru:", document.getElementById('profileName').innerText);      
