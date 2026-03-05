@@ -6,105 +6,54 @@
 <title>Premium Fanclub | MKT4X</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-:root{
---mint-primary:#A8E6CF;
---mint-soft:#E8FFF8;
---mint-accent:#5CD6C0;
---mint-dark:#2F4F4F;
---white:#ffffff;
---shadow:rgba(92,214,192,0.3);
---premium-green:#2E7D32;
-}
-
-*{box-sizing:border-box;}
 
 body{
 margin:0;
-background:linear-gradient(180deg,#E8FFF8 0%,#ffffff 100%);
-color:var(--mint-dark);
-font-family:'Inter',sans-serif;
-overflow-x:hidden;
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,#e8fff8,#ffffff);
 }
 
 /* NAVBAR */
+
 .navbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 5%;
-background:var(--white);
-box-shadow:0 5px 20px var(--shadow);
-position:sticky;
-top:0;
-z-index:1000;
-height:70px;
-}
-
-.logo img{height:32px;}
-
-.nav-right{
-display:flex;
-align-items:center;
-gap:20px;
-}
-
-.lang-container{
-display:flex;
-align-items:center;
-gap:5px;
-cursor:pointer;
-color:var(--mint-accent);
-}
-
-select{
-background:transparent;
-border:none;
-font-weight:600;
-cursor:pointer;
+padding:15px;
+background:white;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
 }
 
 .menu-btn{
 cursor:pointer;
-display:flex;
-flex-direction:column;
-gap:4px;
-z-index:10001;
 }
 
 .menu-btn span{
-width:22px;
+display:block;
+width:20px;
 height:2px;
-background:var(--mint-dark);
+background:#333;
+margin:4px 0;
 }
 
 /* SIDEBAR */
+
 .sidebar{
 position:fixed;
+right:-260px;
 top:0;
-right:-280px;
-width:280px;
-height:100vh;
-background:var(--white);
-border-left:2px solid var(--mint-primary);
+width:260px;
+height:100%;
+background:white;
+padding:30px;
 transition:0.3s;
-z-index:9999;
-padding:40px 25px;
-box-shadow:-10px 0 30px var(--shadow);
+box-shadow:-10px 0 30px rgba(0,0,0,0.1);
 }
 
-.sidebar.active{right:0;}
-
-.sidebar-logo{
-display:flex;
-justify-content:center;
-margin-bottom:35px;
-}
-
-.sidebar-logo img{
-width:140px;
+.sidebar.active{
+right:0;
 }
 
 .sidebar ul{
@@ -112,99 +61,95 @@ list-style:none;
 padding:0;
 }
 
-.sidebar ul li{
-margin-bottom:20px;
+.sidebar li{
+margin:15px 0;
 }
 
-.sidebar ul li a{
-color:var(--mint-dark);
+.sidebar a{
 text-decoration:none;
-display:flex;
-gap:15px;
-}
-
-.reg-link{
-color:var(--mint-accent) !important;
-font-weight:bold;
+color:#333;
 }
 
 /* PROFILE */
+
 #profileContainer{
-margin-top:20px;
+margin-top:25px;
 padding:15px;
-background:#fff;
 border-radius:10px;
+border:2px dashed #a8e6cf;
 text-align:center;
-border:2px dashed var(--mint-primary);
 }
 
 #profilePic{
 width:60px;
 height:60px;
 border-radius:50%;
-background:#ddd;
-margin:auto;
-display:block;
 object-fit:cover;
 }
 
 #profileName{
 font-weight:bold;
 margin:8px 0;
-color:var(--mint-dark);
 }
 
 #profileContainer button{
-background:var(--mint-accent);
-color:white;
+background:#5cd6c0;
 border:none;
+color:white;
 padding:6px 14px;
 border-radius:6px;
 cursor:pointer;
-font-size:0.8rem;
-font-weight:bold;
 }
 
-/* CONTAINER */
+/* CARD */
+
 .container{
-padding:25px 5%;
 display:flex;
 justify-content:center;
+padding:30px 10px;
 }
 
-.fc-card{
-background:#fff;
-max-width:480px;
+.card{
+background:white;
+border-radius:25px;
+padding:30px;
 width:100%;
-border-radius:40px;
-padding:35px 25px;
-border:2px solid var(--mint-primary);
-box-shadow:0 10px 30px var(--shadow);
+max-width:450px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.card h2{
 text-align:center;
 }
+
+/* FORM */
+
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+button.submit{
+width:100%;
+padding:12px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:20px;
+margin-top:15px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
 <nav class="navbar">
-<div class="logo">
-<img src="https://i.imgur.com/yq2JRbl.png">
-</div>
 
-<div class="nav-right">
-
-<div class="lang-container">
-<i class="fas fa-globe"></i>
-<select id="langSelect" onchange="translatePage()">
-<option value="id">Indonesia</option>
-<option value="en">English</option>
-<option value="jp">Japanese</option>
-<option value="my">Melayu</option>
-</select>
-</div>
+<div>MKT4X</div>
 
 <div class="menu-btn" onclick="toggleMenu()">
 <span></span>
@@ -212,30 +157,25 @@ text-align:center;
 <span></span>
 </div>
 
-</div>
 </nav>
 
 <!-- SIDEBAR -->
+
 <div class="sidebar" id="sidebar">
 
-<div class="sidebar-logo">
-<img src="https://i.imgur.com/yq2JRbl.png">
-</div>
+<ul>
 
-<ul id="menuList">
-<li><a href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
-<li><a href="berita.html"><i class="fas fa-newspaper"></i><span>Berita</span></a></li>
-<li><a href="jadwal.html"><i class="fas fa-calendar-alt"></i><span>Jadwal</span></a></li>
-<li><a href="member.html"><i class="fas fa-users"></i><span>Member</span></a></li>
-<li><a href="setlist.html"><i class="fas fa-microphone"></i><span>Setlist</span></a></li>
+<li><a href="#">Home</a></li>
+<li><a href="#">Berita</a></li>
+<li><a href="#">Jadwal</a></li>
+<li><a href="#">Member</a></li>
+<li><a href="#">Setlist</a></li>
+<li><a href="#">Fanclub</a></li>
 
-<hr style="opacity:0.1;margin:20px 0;">
-
-<li><a href="fanclub.html" class="reg-link"><i class="fas fa-heart"></i><span>Fanclub</span></a></li>
-<li><a href="#" id="authBtn"><i class="fas fa-sign-in-alt"></i><span id="authText">Masuk</span></a></li>
 </ul>
 
-<!-- PROFILE (INI YANG TADI BELUM ADA) -->
+<!-- PROFILE TAMBAHAN -->
+
 <div id="profileContainer">
 <img id="profilePic" src="https://i.imgur.com/yq2JRbl.png">
 <p id="profileName">Username</p>
@@ -244,38 +184,65 @@ text-align:center;
 
 </div>
 
-<main class="container">
+<!-- FANCLUB FORM -->
 
-<div class="fc-card">
+<div class="container">
+
+<div class="card">
+
 <h2>MKT4X</h2>
-<p>Premium Fanclub</p>
+<p style="text-align:center;">Premium Fanclub</p>
+
+<label>Username</label>
+<input type="text" placeholder="Contoh: kiara_fans">
+
+<label>Nama Lengkap</label>
+<input type="text" placeholder="Sesuai KTP/ID">
+
+<label>Tanggal Lahir</label>
+<input type="date">
+
+<label>Kota</label>
+<input type="text" placeholder="Kota domisili">
+
+<label>Email</label>
+<input type="email" placeholder="fans@email.com">
+
+<h3 style="text-align:center;">✨ Pilih Oshi-mu ✨</h3>
+
+<select>
+<option>Kiara</option>
+<option>Agnes</option>
+<option>Thea</option>
+<option>Khen</option>
+<option>Chalista</option>
+<option>Melisha</option>
+</select>
+
+<button class="submit">Dapatkan Kode OTP</button>
+
 </div>
 
-</main>
+</div>
 
 <script>
 
 function toggleMenu(){
-document.getElementById('sidebar').classList.toggle('active');
-document.getElementById('overlay').classList.toggle('active');
+document.getElementById("sidebar").classList.toggle("active");
 }
 
 function editProfile(){
-const newName = prompt(
-"Masukkan nama baru:",
-document.getElementById('profileName').innerText
-);
 
-if(newName){
-document.getElementById('profileName').innerText = newName;
-alert("Nama berhasil diperbarui!");
+let nama = prompt("Masukkan nama baru:");
+
+if(nama){
+document.getElementById("profileName").innerText = nama;
 }
+
 }
 
 </script>
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="auth.js"></script>
-
+    <script type="module" src="firebase.js"></script>  
+    <script type="module" src="auth.js"></script>  
 </body>
 </html>
